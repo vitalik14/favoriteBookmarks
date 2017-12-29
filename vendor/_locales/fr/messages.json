@@ -1,0 +1,53 @@
+{
+  "extName": {
+    "message": "Onglets Verticaux & Signets"
+  },
+  "extDescription": {
+    "message": "Vertical regroupement des onglets dans une fenêtre, et la manipulation des."
+  },
+  "deleteCopy": {
+    "message": "Supprimer Les Doublons"
+  },
+  "settings": {
+      "message": "Paramètres"
+  },
+  "open": {
+    "message": "ouverte:"
+  },
+  "xShowOnlyOneLine": {
+    "message": "Afficher une seule ligne."
+  },
+  "xShowUrl": {
+    "message": "Afficher l'url."
+  },
+  "xTabs": {
+    "message": "Onglets"
+  },
+  "xTopSites": {
+    "message": "Top sites"
+  },
+  "xBookmarks": {
+    "message": "Signets"
+  },
+  "xSearch": {
+    "message": "chercher"
+  },
+  "xSort": {
+    "message": "Tri:"
+  },
+  "xFound": {
+    "message": "Trouvé"
+  },
+  "xDate": {
+    "message": "date"
+  },
+  "xUrl": {
+    "message": "url"
+  },
+  "xTitle": {
+    "message": "Le nom de"
+  },
+  "xOpenAll": {
+    "message": "Ouvrez tout "
+  }
+}

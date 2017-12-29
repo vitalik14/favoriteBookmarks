@@ -1,0 +1,53 @@
+{
+  "extName": {
+    "message": "Vertical Tabs & Bookmarks"
+  },
+  "extDescription": {
+    "message": "Vertical grouping of tabs into a popup, and manipulating."
+  },
+  "deleteCopy": {
+    "message": "Remove Duplicates"
+  },
+  "settings": {
+      "message": "Settings"
+  },
+  "open": {
+    "message": "open:"
+  },
+  "xShowOnlyOneLine": {
+    "message": "Show only one line."
+  },
+  "xShowUrl": {
+    "message": "Show url when hover."
+  },
+  "xTabs": {
+    "message": "Tabs"
+  },
+  "xTopSites": {
+    "message": "Top sites"
+  },
+  "xBookmarks": {
+    "message": "Bookmarks"
+  },
+  "xSearch": {
+    "message": "Search"
+  },
+  "xSort": {
+    "message": "Sorting:"
+  },
+  "xFound": {
+    "message": "Found"
+  },
+  "xDate": {
+    "message": "date"
+  },
+  "xUrl": {
+    "message": "url"
+  },
+  "xTitle": {
+    "message": "title"
+  },
+  "xOpenAll": {
+    "message": "Open all "
+  }
+}

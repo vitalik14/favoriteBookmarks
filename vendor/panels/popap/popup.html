@@ -1,0 +1,94 @@
+<!doctype html>
+<html>
+	<head>
+		<title>Vertical Tabs</title>
+		<link rel="stylesheet" href="css/popap.css">
+	</head>
+	<body>
+	<div id="panel">
+		<div class="tab1 active xTabs p_tabs">Tabs</div>
+		<div class="tab2 xBookmarks p_bookmarks">Bookmarks</div>
+		<div class="tab3 xTopSites p_topsites">Top sites</div>
+	</div>
+	<div class="tabs">
+		<div class="tab1 active t_tabs">
+			<div id="tabs_wrap_tabs">
+				<div class="search-block">
+					<div class="wrap-search">
+						<input id="search_t" maxlength="50" class="search" required type="text" placeholder="&#128270;" />
+						<div id="remove-text-search_t" class="remove-text-search">x</div>
+						<div id="addTags_t" class="addTags">+</div>
+					</div>
+					<ul id="tags_t" class="tags"></ul>
+				</div>
+					<ul id="tabs-items" class="tabs-items">
+					</ul>
+				<div id="options" class="options">
+					<div class="settings">
+						<div class="settings-btn">Settings</div>
+						<div class="settings-options">
+							<div>
+								<label for="showUrl" class="xShowUrl">Show url</label>
+								<input type="checkbox" id="showUrl"></input>
+							</div>
+							<div>
+								<label for="showOneLine" class="xShowOnlyOneLine">Show only 1 line</label>
+								<input type="checkbox" id="showOneLine"></input>
+							</div>
+						</div>
+					</div>
+					<div class="statistic">
+						<div class="open-tabs">
+							<div class="img-tabs"></div>
+							<span id="openTabs">0</span>
+						</div>
+					</div>
+					<div class="activity">
+						<button id="deleteCopy">Remove Duplicates</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="tab2 t_bookmarks">
+            <div id="tabs_wrap_bookmarks">
+                <div class="search-block">
+                    <div class="wrap-search">
+						<input id="search_b" maxlength="50" class="search" required type="text" placeholder="&#128270;" />
+						<div id="remove-text-search_b" class="remove-text-search">x</div>
+                        <div id="addTags_b" class="addTags">+</div>
+                    </div>
+                    <ul id="tags_b"  class="tags"></ul>
+                </div>
+                <ul id="results_b" class="results"></ul>
+                <div id="options" class="options">
+                    <div class="settings">
+                        <div class="settings-btn xSort">Sort:</div>
+                        <select id="selectSort_b">
+                            <option value="dateAdded" class="xDate">Date</option>
+                            <option value="url"class="xUrl">Url</option>
+                            <option value="title"class="xTitle">Title</option>
+                        </select>
+                    </div>
+					<div class="openAll">
+						<button id="openBookmarks">
+							<span class="xOpenAll">Open All </span> 
+							(<span id="findBookmarks">0</span>)
+						</button>
+					</div>
+                </div>
+            </div>
+        </div>
+		<div class="tab3 t_topsites">
+			<div id="tabs_wrap_topsites"></div>
+		</div>
+	</div>
+	<script src="js/classes/Core.js"></script>
+	<script src="js/classes/DragDrop.js"></script>
+	<script src="js/classes/Tags.js"></script>
+	<script src="js/translate.js"></script>
+	<script src="js/popup.js"></script>
+	<script src="js/tabs.js"></script>
+	<script src="js/tops.js"></script>
+	<script src="js/bookmarks.js"></script>
+	</body>
+</html>

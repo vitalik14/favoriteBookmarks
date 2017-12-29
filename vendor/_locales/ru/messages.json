@@ -1,0 +1,53 @@
+{
+  "extName": {
+    "message": "Вертикальные вкладки & Закладки"
+  },
+  "extDescription": {
+    "message": "Вертикальная группировка вкладок, и манипуляции ими."
+  },
+  "deleteCopy": {
+    "message": "Удалить дубликаты"
+  },
+  "settings": {
+		"message": "Настройки"
+  },
+  "open": {
+    "message": "открыто:"
+  },
+   "xShowOnlyOneLine": {
+    "message": "Показать только одну линию."
+  },
+  "xShowUrl": {
+    "message": "Показать url при наведении."
+  },
+  "xTabs": {
+    "message": "Вкладки"
+  },
+  "xTopSites": {
+    "message": "Частые сайты"
+  },
+  "xBookmarks": {
+    "message": "Закладки"
+  },
+  "xSearch": {
+    "message": "Поиск"
+  },
+  "xSort": {
+    "message": "Сортировка:"
+  },
+  "xFound": {
+    "message": "Найдено"
+  },
+  "xDate": {
+    "message": "по дате"
+  },
+  "xUrl": {
+    "message": "по адресу"
+  },
+  "xTitle": {
+    "message": "по названию"
+  },
+  "xOpenAll": {
+    "message": "Открыть все "
+  }
+}

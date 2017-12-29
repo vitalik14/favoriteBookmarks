@@ -1,0 +1,53 @@
+{
+  "extName": {
+    "message": "垂直的标签 & 书签"
+  },
+  "extDescription": {
+    "message": "垂直组的标签，以及操纵。"
+  },
+  "deleteCopy": {
+    "message": "删除重复的"
+  },
+  "settings": {
+      "message": "设置"
+  },
+  "open": {
+    "message": "打开:"
+  },
+  "xShowOnlyOneLine": {
+    "message": "只显示一行."
+  },
+  "xShowUrl": {
+    "message": "悬停时显示网址."
+  },
+  "xTabs": {
+    "message": "标签"
+  },
+  "xTopSites": {
+    "message": "顶级网站"
+  },
+  "xBookmarks": {
+    "message": "书签"
+  },
+  "xSearch": {
+    "message": "搜索"
+  },
+  "xSort": {
+    "message": "排序:"
+  },
+  "xFound": {
+    "message": "发现"
+  },
+  "xDate": {
+    "message": "日期"
+  },
+  "xUrl": {
+    "message": "url"
+  },
+  "xTitle": {
+    "message": "标题"
+  },
+  "xOpenAll": {
+    "message": "全部開放 "
+  }
+}

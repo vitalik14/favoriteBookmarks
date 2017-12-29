@@ -1,0 +1,53 @@
+{
+  "extName": {
+    "message": "Vertikale Tabs & Lesezeichen"
+  },
+  "extDescription": {
+    "message": "Vertikale Gruppierung von Tabs in einem pop-up und Manipulation."
+  },
+  "deleteCopy": {
+    "message": "Duplikate Entfernen"
+  },
+  "settings": {
+    "message": "Optionen"
+  },
+  "open": {
+    "message": "offen:"
+  },
+  "xShowOnlyOneLine": {
+    "message": "Zeigen nur eine Zeile."
+  },
+  "xShowUrl": {
+    "message": "Anzeigen der url, wenn schwebte."
+  },
+  "xTabs": {
+    "message": "Tabs"
+  },
+  "xTopSites": {
+    "message": "Top sites"
+  },
+  "xBookmarks": {
+    "message": "Lesezeichen"
+  },
+  "xSearch": {
+    "message": "Suche"
+  },
+  "xSort": {
+    "message": "Sortieren:"
+  },
+  "xFound": {
+    "message": "Gefunden"
+  },
+  "xDate": {
+    "message": "datum"
+  },
+  "xUrl": {
+    "message": "url"
+  },
+  "xTitle": {
+    "message": "Titel"
+  },
+  "xOpenAll": {
+    "message": "Alle öffnen "
+  }
+}
