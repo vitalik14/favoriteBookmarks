@@ -1,0 +1,28 @@
+{
+  "name": "favoritebookmarks",
+  "version": "1.0.0",
+  "description": "'favorite bookmarks'",
+  "main": "gulpfile.js",
+  "dependencies": {
+    "amdefine": "^1.0.1",
+    "ansi-cyan": "^0.1.1",
+    "ansi-red": "^0.1.1",
+    "camelcase": "^1.2.1",
+    "convert-source-map": "^1.5.1",
+    "css-parse": "^1.7.0",
+    "decamelize": "^1.2.0",
+    "fs.realpath": "^1.0.0",
+    "gulp": "^3.9.1",
+    "gulp-concat": "^2.6.1",
+    "gulp-csso": "^3.0.0",
+    "gulp-debug": "^3.1.0",
+    "gulp-stylus": "^2.7.0",
+    "npm": "^5.6.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "scorpion",
+  "license": "ISC"
+}
