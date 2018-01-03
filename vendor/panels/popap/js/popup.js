@@ -10,7 +10,12 @@ var app = {
 	data: [],
 	emptyImg: 'img/empty.png',
 	short: 'short',
-	sortDefault: 'dateAdded'
+	sortDefault: 'dateAdded',
+	current: {
+		tabs: false,
+		bookmarks: false,
+		tops: false
+	}
 };
 
 events._ = {
@@ -31,26 +36,7 @@ function faviconValidate(str) {
 	}
 }
 
-T.query('#panel div').forEach(
-	function(el) {
-		el.addEventListener('click', function() {
-			T.query('#panel > div').forEach(function(el) {
-				el.classList.remove('active');
-			});
 
-			el.classList.add('active');
-
-			T.query('.tabs > div').forEach(function(el) {
-				el.classList.remove('active');
-			});
-
-			localStorage['tabs'] = (el.classList.item(0)).split('tab')[1];
-			document.querySelector('.tabs .' + el.classList.item(0)).classList.add('active');
-		});
-	}
-);
-
-document.querySelector('#panel div:nth-child(' + localStorage['tabs'] + ')').click();
 
 // chrome.bookmarks.onCreated.addListener(function(el) {
 // 	console.log('onCreated');

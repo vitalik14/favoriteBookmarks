@@ -38,7 +38,7 @@ T.id('showOneLine').addEventListener('click', () => {
 var modules = {
     getAll: function(event) {
         chrome.windows.getAll({
-            populate: true
+            populate: true,
         }, function(windowList) {
             app.data = [];
             events.dispatchEvent(Eve('getAll', {
@@ -53,17 +53,7 @@ var modules = {
             for (let i = 0; i < list.length; i++) {
                 let tabs = list[i].tabs;
                 for (let n = 0, length = tabs.length; n < length; n++) {
-                    let tab = tabs[n];
-                    let obj = {
-                        id: tab.id,
-                        index: tab.index,
-                        title: tab.title,
-                        url: tab.url,
-                        favicon: tab.favIconUrl,
-                        audible: tab.audible,
-                        active: tab.active
-                    };
-                    app.data.push(obj);
+                    app.data.push(tabs[n]);
                 }
             }
             var removeTabsId = [];
@@ -89,16 +79,15 @@ var modules = {
         }
         events.addEventListener('getAll', getAll);
         modules.getAll();
-    },
-    deleteCopy: function() {
-        modules.saveFrames('deleteCopy');
     }
 };
+
 T.id('deleteCopy').addEventListener('click', function() {
-    modules.deleteCopy();
+    modules.saveFrames('deleteCopy');
 });
 
 function listingList(word) {
+    console.time("answer time");
     var str;
     var type = typeof word === 'object';
     if (type) {
@@ -142,12 +131,12 @@ function listingList(word) {
         let url = '';
         let classActive = '';
         let audible = '';
-        let favicon = faviconValidate(item.favicon);
+        let favicon = faviconValidate(item.favIconUrl);
         if (item.active) classActive = "active";
         if (localStorage['showUrl'] === 'on') url = item.url;
         if (item.audible) audible = '<div class="audio"></div>';
 
-        var template = `
+        li += `
         <li title="${url}" draggable="true" data-id="${item.id}" data-index="${item.index}" class="${classActive}">
             <div class="btn">
                 <div class="del">x</div>
@@ -160,8 +149,6 @@ function listingList(word) {
                 ${audible}
             </div>
         </li>`;
-        li += template;
-        
     }
     el.insertAdjacentHTML('afterBegin', li);
     var arrTabs = T.query('.tab'),
@@ -187,9 +174,12 @@ function listingList(word) {
         type: 'tabs',
         container: 'tabs-items'
     });
+    console.timeEnd("answer time");
 }
 
-modules.saveFrames();
+function initTabs() {
+    modules.saveFrames();
+}
 
 if (!tags_tabs) {
     var tags_tabs = new Tags({

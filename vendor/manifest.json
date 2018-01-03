@@ -8,8 +8,7 @@
         "128": "img/vt.png"
     },
     "background": {
-        "page": "background.html",
-        "persistent": true
+        "scripts": ["background/index.js"]
     },
     "permissions": [
         "tabs",

@@ -27,7 +27,8 @@ function removeTextBookmarks(el, sort, interval) {
 }
 
 function searchBookmarks(el, data) {
-    console.log('searchBookmarks');
+    //console.log('searchBookmarks');
+    console.time("time");
     if (!data) { // event in input
         var data = {
             sort: T.storage('sortBookmarks'),
@@ -103,10 +104,15 @@ function searchBookmarks(el, data) {
         });
         
     }, data.interval || 300);
+    console.timeEnd("time");
 }
 
 search.value = localStorage['lastSearch'];
-searchBookmarks(localStorage['lastSearch'], {sort: localStorage['sortBookmarks'], interval:0});
+
+function initBookmarks() {
+    searchBookmarks(localStorage['lastSearch'], {sort: localStorage['sortBookmarks'], interval:0});  
+}
+
 selectSort.value = localStorage['sortBookmarks'];
 selectSort.addEventListener('change', function(el) {
     localStorage['sortBookmarks'] = this.value;
