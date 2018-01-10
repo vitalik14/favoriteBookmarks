@@ -28,26 +28,24 @@
 .t_bookmarks .search {
     border: 1px solid $color9;
 }
-.addTags {
-    position: absolute;
-    z-index: 2;
-    width: 30px;
-    height: 27px;
-    text-align: center;
-    right: 5px;
-    top: 5px;
-    line-height: 1.4;
-    background: $color1;
-    font-size: 18px;
-    font-weight: bold;
-    color: $color_white;
-    cursor: pointer;
-    user-select: none;
-    border-radius: 0 3px 3px 0;
-}
-.addTags:active { 
-    opacity: 0.7;
-}
+.addTags
+    position absolute
+    z-index 2
+    width 30px
+    height 27px
+    text-align center
+    right 5px
+    top 5px
+    line-height 1.4
+    background $color1
+    font-size 18px
+    font-weight bold
+    color $color_white
+    cursor pointer
+    user-select none
+    border-radius 0 3px 3px 0
+    &:active
+        opacity 0.7
 
 .t_bookmarks #addTags_b {
     background: $color9;
@@ -72,7 +70,7 @@
     user-select: none;
 }
 
-.tags {
+.tags
     margin: 5px 0;
     width: 400px;
     display: flex;
@@ -85,43 +83,37 @@
     overflow-y: auto;
     width: 100%;
     padding: 0 4px;
-}
+    .tag
+        display inline-block
+        background $color7
+        border-radius 4px
+        margin 3px 2px
+        box-shadow 1px 1px 2px $color11
+        border-width 2px
+        border-style solid
+        color #000
+        user-select none
+        &:active
+            opacity 0.7
+        .tag-del
+            color $red
+            width 14px
+            padding 0 0px 2px 0px
+            display inline-block
+            text-align center
+            vertical-align top
+            cursor pointer
 
-.tag {
-    display: inline-block;
-    background: $color7;
-    border-radius: 4px;
-    margin: 3px 2px;
-    box-shadow: 1px 1px 2px $color11;
-    border-width: 2px;
-    border-style: solid;
-    color: #000;
-    user-select: none;
-}
-.tags .tag:active { 
-    opacity: 0.7;
-}
-.tags .tag .tag-del {
-    color: $red;
-    width: 14px;
-    padding: 0 0px 2px 0px;
-    display: inline-block;
-    text-align: center;
-    vertical-align: top;
-    cursor: pointer;
-}
-
-.tags .tag .tagName {
-    padding: 2px 7px 6px 0px;
-    line-height: 0.8;
-    display: inline-block;
-    vertical-align: middle;
-    max-width: 150px;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    cursor: pointer;
-}
+        .tagName
+            padding 2px 7px 6px 0px
+            line-height 0.8
+            display inline-block
+            vertical-align middle
+            max-width 150px
+            overflow hidden
+            text-overflow ellipsis
+            white-space nowrap
+            cursor pointer
 
 .results, #resultsRemoves {
     max-height: 380px;
@@ -186,32 +178,27 @@
     cursor: default;
 }
 
-.results .deleteBookmarks {
-    width: 15px;
-    height: 15px;
-    line-height: 1;
-    text-align: center;
-    color: $color10;
-    border-radius: 50%;
-    box-shadow: 0 0 0px #F33;
-    display: inline-block;
-    vertical-align: top;
-    font-size: 13px;
-    font-weight: bold;
-    cursor: pointer;
-    transition: all 0.1s;
-    font-family: Arial;
-    margin-top: 5px;
-    margin-left: 2px;
-}
-
-.results .deleteBookmarks:hover {
-    box-shadow: 0 0 5px $red;
-}
-
-.results .deleteBookmarks:hover + a {
-    color: $red;
-}
+.results .deleteBookmarks
+    width 15px
+    height 15px
+    line-height 1
+    text-align center
+    color $color10
+    border-radius 50%
+    box-shadow 0 0 0px #F33
+    display inline-block
+    vertical-align top
+    font-size 13px
+    font-weight bold
+    cursor pointer
+    transition all 0.1s
+    font-family Arial
+    margin-top 5px
+    margin-left 2px
+    &:hover
+        box-shadow 0 0 5px $red
+        +a
+            color $red
 
 .results>li .popap .data, #resultsRemoves>div .popap .data {
     color: $color_white;
@@ -219,27 +206,22 @@
     font-family: -webkit-body;
 }
 
-.openAll {
-    width: 100%;
-}
+.openAll
+    width 100%
 
-#openBookmarks {
-    display: block;
-    background: $color9;
-    border: 2px solid $color_white;
-    box-shadow: 0 0 1px $color10;
-    border-radius: 10px;
-    color: $color_white;
-    padding: 5px 10px;
-    cursor: pointer;
-    float: right;
-    user-select: none;
-}
+#openBookmarks
+    display block
+    background $color9
+    border 2px solid $color_white
+    box-shadow 0 0 1px $color10
+    border-radius 10px
+    color $color_white
+    padding 5px 10px
+    cursor pointer
+    float right
+    user-select none
+    &:hover
+        box-shadow: inset 0 0 1px $color_white
 
-#openBookmarks:hover {
-    box-shadow: inset 0 0 1px $color_white;
-}
-
-#findBookmarks {
-    color: $color_white;
-}
+#findBookmarks
+    color $color_white

@@ -4,7 +4,6 @@
 //chrome://theme/IDR_EXTENSIONS_FAVICON@2x
 
 function getTopSites () {
-
     chrome.topSites.get(function(el) {
         let list = T.id('tabs_wrap_topsites');
         for (let i in el) {

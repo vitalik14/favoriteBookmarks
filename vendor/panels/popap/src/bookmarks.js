@@ -16,7 +16,7 @@ btnOpenFindBookmarks.addEventListener('click', openFindBookmarks);
 
 function openFindBookmarks(el) {
     T.query('#results_b > li > a').forEach(function(e) {
-         chrome.tabs.create({url: e.getAttribute('href')}, ()=>{});
+         chrome.tabs.create({url: e.getAttribute('href')}, function(){});
      });
 }
 
@@ -63,7 +63,6 @@ function searchBookmarks(el, data) {
             tree.sort(compare);
             findBookmarks.innerHTML = tree.length;
             for (let i = 0, length = tree.length; i < length; i++) {
-                // if (i > 60) break;
                 let item = tree[i];
                 if (item.url === undefined) continue;
                 
@@ -140,4 +139,4 @@ if (!tags_bookmarks) {
           colorActive: 'rgba(77, 192, 177, 0.4)',
           funcSearch: searchBookmarks
      });  
-  }
+}

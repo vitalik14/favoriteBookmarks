@@ -16,15 +16,21 @@
     "fs.realpath": "^1.0.0",
     "gulp": "^3.9.1",
     "gulp-clean": "^0.3.2",
+    "gulp-complexity": "^0.3.2",
     "gulp-concat": "^2.6.1",
     "gulp-csso": "^3.0.0",
     "gulp-debug": "^3.1.0",
+    "gulp-eslint": "^4.0.0",
+    "gulp-htmlmin": "^4.0.0",
     "gulp-imagemin": "^4.1.0",
     "gulp-series": "^1.0.2",
     "gulp-stylus": "^2.7.0",
-    "npm": "^5.6.0"
+    "npm": "^5.6.0",
+    "pump": "^2.0.0"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "gulp-uglify": "^3.0.0"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },

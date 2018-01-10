@@ -112,16 +112,9 @@ html, body {
         border-left: 1px solid $color11;
         border-right: 1px solid $color11;
 
-.tabs > div {
-    display: none;
-}
-
-.tabs > div.active {
+.tabs > div.active, #search_t:valid + div, #search_b:valid + div {
     display: block;
 }
-#search_t:valid + div, #search_b:valid + div { 
-    display: block;
-}
-#search_t:invalid + div, #search_b:invalid + div {
+.tabs > div, #search_t:invalid + div, #search_b:invalid + div {
     display: none;
 }

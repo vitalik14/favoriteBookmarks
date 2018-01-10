@@ -1,21 +1,5 @@
 @import "vars.styl"
 
-.tabs-items
-    float left
-    max-height 387px
-    overflow-x hidden
-    overflow-y scroll
-    width 100%
-    box-shadow 0px -1px 4px $color1
-    border-bottom 1px solid $color8
-    margin-top 2px
-
-    >li
-        box-shadow 2px 1px 3px #D3D3D3
-        display block
-        border-radius 4px
-        padding 2px 0
-        border-bottom 1px solid $color8
 
 /* hovers */
 .t_tabs .tabs-items li:hover {
@@ -32,138 +16,201 @@
     transition: all 0.2s;
 }
 
-.tabs-items .btn {
-    width: 20px;
-    height: 20px;
-    padding-top: 5px;
-    text-align: center;
-    display: inline-block;
-    vertical-align: top;
-    float: left
-}
+.tabs-items
+    float left
+    max-height 387px
+    overflow-x hidden
+    overflow-y scroll
+    width 100%
+    box-shadow 0px -1px 4px $color1
+    border-bottom 1px solid $color8
+    margin-top 2px
+    .btn
+        width: 20px;
+        height: 20px;
+        padding-top: 5px;
+        text-align: center;
+        display: inline-block;
+        vertical-align: top;
+        float: left
+        .del
+            width: 16px;
+            height: 15px;
+            line-height: 1;
+            text-align: center;
+            color: $color10;
+            border-radius: 50%;
+            box-shadow: 0 0 0px #F33;
+            display: inline-block;
+            vertical-align: top;
+            font-size: 13px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.1s;
+            font-family: Arial
+            &:hover
+                box-shadow: 0 0 5px $red
 
-.tabs-items .btn .del {
-    width: 16px;
-    height: 15px;
-    line-height: 1;
-    text-align: center;
-    color: $color10;
-    border-radius: 50%;
-    box-shadow: 0 0 0px #F33;
-    display: inline-block;
-    vertical-align: top;
-    font-size: 13px;
-    font-weight: bold;
-    cursor: pointer;
-    transition: all 0.1s;
-    font-family: Arial
-}
+        &:hover+.tab span
+            color $red
+            transition all 0.2s
 
-.tabs-items .btn .del:hover {
-    box-shadow: 0 0 5px $red
-}
+    .tab
+        display inline-block
+        padding 3px 7px
+        width calc(100% - 74px)
+        cursor pointer
+        span
+            font-size 13px
+            border-radius 5px
+            line-height 1
+            vertical-align middle
+            color $color10
+            transition all 0.2s
+        img
+            display inline-block
+            transition all 0.2s
+            vertical-align middle
+            margin-right 5px
+            width 16px
+        .info
+            padding-top 5px
+            width 35px
+            height 20px
+            vertical-align top
+            display inline-block
+            .audio
+                background url(../img/audio.png) no-repeat
+                width 10px
+                height 20px
+                background-size contain
+                background-position 0 2px
+                float left
+    >li
+        box-shadow 2px 1px 3px #D3D3D3
+        display block
+        border-radius 4px
+        padding 2px 0
+        border-bottom 1px solid $color8
+        .tab.short
+            overflow hidden
+            text-overflow ellipsis
+            white-space nowrap
 
-.tabs-items .btn:hover+.tab span {
-    color: $red;
-    transition: all 0.2s
-}
 
-.tabs-items .tab {
-    display: inline-block;
-    padding: 3px 7px;
-    width: calc(100% - 74px);
-    cursor: pointer
-}
+.options
+    clear both
+    padding 3px 8px 3px 8px
+    display flex
+    justify-content flex-start
+    align-content center
+    align-items center
+    width calc(100% - 16px)
+    background $color7
+    border-top 1px solid $color_white
+    .activity
+        display inline-block
+        width 100%
+        #deleteCopy
+            display none
+            background $color1
+            border 2px solid $color_white
+            box-shadow 0 0 1px $color10
+            border-radius 10px
+            color $color_white
+            padding 5px 10px
+            cursor pointer
+            float right
+            user-select none
+            &:hover
+                box-shadow inset 0 0 1px $color_white
+        button
+            cursor pointer
 
-.tabs-items .tab span {
-    font-size: 13px;
-    border-radius: 5px;
-    line-height: 1;
-    vertical-align: middle;
-    color: $color10;
-    transition: all 0.2s
-}
+    #openTabs
+        font-weight bold
+        font-size 12px
+        color $color1
+        padding 10px 5px 5px 5px
+        vertical-align middle
+    .settings
+        float left
+        margin 3px 6px 3px 0
+        display inline-block
+        display flex
+        position relative
+        cursor pointer
+        .settings-btn
+            line-height 1.4
+            font-size 14px
+            padding 2px 5px
+            border-radius 5px
+            position relative
+            z-index 3
+            border 1px solid $color1
+            color $color1
+            margin-left 1px
+        .settings-options
+            top -71px
+            background $color1
+            display none
+            position absolute
+            width 225px
+            height 50px
+            padding 10px
+            border-radius 5px 5px 5px 0
+            border 1px solid #DDD
+            z-index 2
+            >div
+                float left
+                width 100%
+                padding 3px 0
+                label
+                    line-height 1
+                    font-size 13px
+                    color $color_white
+                    user-select none
 
-.tabs-items .tab img {
-    display: inline-block;
-    transition: all 0.2s;
-    vertical-align: middle;
-    margin-right: 5px;
-    width: 16px
-}
+                input
+                    line-height 1
+                    margin 3px 5px 3px 4px
+                    float left
 
-.tabs-items .info {
-    padding-top: 5px;
-    width: 35px;
-    height: 20px;
-    vertical-align: top;
-    display: inline-block
-}
+                input[type='checkbox']
+                    -webkit-font-smoothing antialiased
+                    text-rendering optimizeSpeed
+                    width 15px
+                    height 15px
+                    margin 2px
+                    margin-right 5px
+                    display block
+                    float left
+                    position relative
+                    cursor pointer
+                input[type='checkbox']:after
+                    content ""
+                    vertical-align middle
+                    text-align center
+                    line-height 16px
+                    position absolute
+                    cursor pointer
+                    height 15px
+                    width 15px
+                    left 0px
+                    top 0px
+                    font-size 12px
+                    background $color_white
+                    box-shadow 0 0 2px $color7
+                    border-radius 3px
+                input[type='checkbox']:checked:after
+                    background $color_white
+                    content '\2714'
+                    color #000
 
-.tabs-items .info .audio {
-    background: url(../img/audio.png) no-repeat;
-    width: 10px;
-    height: 20px;
-    background-size: contain;
-    background-position: 0 2px;
-    float: left
-}
 
-.tabs-items li .tab.short {
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap
-}
 
-.options {
-    clear: both;
-    padding: 3px 8px 3px 8px;
-    display: flex;
-    justify-content: flex-start;
-    align-content: center;
-    align-items: center;
-    width: calc(100% - 16px);
-    background: $color7;
-    border-top: 1px solid $color_white;
-}
 
-.options .activity {
-    display: inline-block;
-    width: 100%;
-}
 
-.t_tabs .statistic .open-tabs {
-    min-width: 50px;
-}
-
-.options .activity #deleteCopy {
-    display: none;
-    background: $color1;
-    border: 2px solid $color_white;
-    box-shadow: 0 0 1px $color10;
-    border-radius: 10px;
-    color: $color_white;
-    padding: 5px 10px;
-    cursor: pointer;
-    float: right;
-    user-select: none;
-}
-
-.options .activity #deleteCopy:hover {
-    box-shadow: inset 0 0 1px $color_white;
-}
-
-.options .activity button {
-    cursor: pointer
-}
-
-.options #openTabs {
-    font-weight: bold;
-    font-size: 12px;
-    color: $color1;
-    padding: 10px 5px 5px 5px;
-    vertical-align: middle;
-}
 
 .img-tabs {
     width: 20px;
@@ -173,44 +220,8 @@
     float: left;
 }
 
-.options .settings {
-    float: left;
-    margin: 3px 6px 3px 0;
-    display: inline-block;
-    display: flex;
-    position: relative;
-}
-
-.t_tabs .options .settings {
-    cursor: pointer;
-}
-
-.options .settings-btn {
-    line-height: 1.4;
-    font-size: 14px;
-    padding: 2px 5px;
-    border-radius: 5px;
-    position: relative;
-    z-index: 3
-}
-
-.t_tabs .options .settings-btn {
-    border: 1px solid $color1;
-    color: $color1;
-    margin-left: 1px;
-}
-
-.options .settings-options {
-    top: -71px;
-    background: $color1;
-    display: none;
-    position: absolute;
-    width: 225px;
-    height: 50px;
-    padding: 10px;
-    border-radius: 5px 5px 5px 0;
-    border: 1px solid #DDD;
-    z-index: 2
+.t_tabs .statistic .open-tabs {
+    min-width: 50px;
 }
 
 .t_tabs .options .settings:hover .settings-options {
@@ -224,61 +235,6 @@
     color: $color_white;
     border-radius: 0 0 5px 5px;
     box-shadow: 2px 2px 3px rgba(150, 150, 150, 0.5);
-}
-
-.options .settings-options>div {
-    float: left;
-    width: 100%;
-    padding: 3px 0
-}
-
-.options .settings-options>div label {
-    line-height: 1;
-    font-size: 13px;
-    color: $color_white;
-    user-select: none;
-}
-
-.options .settings-options>div input {
-    line-height: 1;
-    margin: 3px 5px 3px 4px;
-    float: left
-}
-
-.options .settings-options>div input[type='checkbox'] {
-    -webkit-font-smoothing: antialiased;
-    text-rendering: optimizeSpeed;
-    width: 15px;
-    height: 15px;
-    margin: 2px;
-    margin-right: 5px;
-    display: block;
-    float: left;
-    position: relative;
-    cursor: pointer
-}
-
-.options .settings-options>div input[type='checkbox']:after {
-    content: "";
-    vertical-align: middle;
-    text-align: center;
-    line-height: 16px;
-    position: absolute;
-    cursor: pointer;
-    height: 15px;
-    width: 15px;
-    left: 0px;
-    top: 0px;
-    font-size: 12px;
-    background: $color_white;
-    box-shadow: 0 0 2px $color7;
-    border-radius: 3px
-}
-
-.options .settings-options>div input[type='checkbox']:checked:after {
-    background: $color_white;
-    content: '\2714';
-    color: #000
 }
 
 #help {

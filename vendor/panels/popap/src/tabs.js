@@ -8,9 +8,9 @@
  search_t.value = localStorage['lastSearchTabs'];
 
  search_t.addEventListener('input', listingList);
- removeTextSearch_t.addEventListener('click', removeTextBookmarks);
+ removeTextSearch_t.addEventListener('click', removeTextTabs);
 
-function removeTextBookmarks() {
+function removeTextTabs() {
     search_t.value = '';
     listingList('');
     tags_tabs.activaTag();
