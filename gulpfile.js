@@ -8,7 +8,8 @@ var gulp = require('gulp'),
     imagemin = require('gulp-imagemin'),
     csso = require('gulp-csso'),
     htmlmin = require('gulp-htmlmin'),
-    concat = require('gulp-concat');
+    concat = require('gulp-concat'),
+    uglify = require('gulp-uglify');
 
     // uglify = require('gulp-uglify');
     // gutil = require('gulp-util');
@@ -83,4 +84,4 @@ gulp.task('cleanstylus', ['deljs'], function() {
 });
 
 gulp.task('default', ['cleanstylus']);
- //gulp.watch('vendor/**/*.*', ['build']);
+gulp.watch('vendor/**/*.*', ['cleanstylus']);

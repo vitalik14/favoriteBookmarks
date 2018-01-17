@@ -1,7 +1,7 @@
 class DragDrop {
     constructor (obj) {
         let self = this;
-        let type;       
+        let type;
         for (let p in obj) this[p] = obj[p];
 
         this.elements.forEach(function(elem) {
@@ -18,28 +18,24 @@ class DragDrop {
                     chrome.tabs.move(+element.getAttribute('data-id'), {
                         index: +buf.getAttribute('data-index')
                     }, function() {
-                        app.data = [];
                         modules.saveFrames();
                     });
                     e.target.style.background = '#FFF';
                 } else if (self.type === 'tags') {
 
-                    let bufIndex = self.getNodeItem(e).getAttribute('data-index');
+                    let bufIndex = buf.getAttribute('data-index');
                     let elementIndex = element.getAttribute('data-index');
 
-                    if (bufIndex > elementIndex) {
-                        T.id(self.container).insertBefore(element, buf.nextSibling);
-                    } else {
-                        T.id(self.container).insertBefore(element, buf);
-                    }
-                    self.getNodeItem(e).setAttribute('data-index', String(elementIndex));
+                    T.id(self.container).insertBefore(element, bufIndex > elementIndex?buf.nextSibling:buf);
+                  
+                    buf.setAttribute('data-index', String(elementIndex));
                     element.setAttribute('data-index', String(bufIndex));
 
                 }
                 return false;
             });
             
-            elem.addEventListener('dragend', ()=>{});
+           // elem.addEventListener('dragend', ()=>{});
             elem.addEventListener('dragenter', function(e) {
                 e.preventDefault();
                 return true;

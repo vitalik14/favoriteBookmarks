@@ -103,7 +103,6 @@ function searchBookmarks(el, data) {
         });
         
     }, data.interval || 300);
-    console.timeEnd("time");
 }
 
 search.value = localStorage['lastSearch'];

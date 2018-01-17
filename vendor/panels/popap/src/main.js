@@ -1,18 +1,15 @@
-T.query('#panel div').forEach(
+T.query('#panel > div').forEach(
 	function(el) {
-		el.addEventListener('click', function() {
-			T.query('#panel > div').forEach(function(el) {
-				el.classList.remove('active');
+		el.addEventListener('click', function(elm) {
+			var list = this.classList;
+			T.query('#panel > div, .tabs > div', ).forEach(function(e) {
+				e.classList.remove('active');
 			});
-
-			el.classList.add('active');
-
-			T.query('.tabs > div').forEach(function(el) {
-				el.classList.remove('active');
-			});
-
-			localStorage['tabs'] = (el.classList.item(0)).split('tab')[1];
-			switch (el.classList.item(2)) {
+			
+			list.add('active');
+			
+			localStorage['tabs'] = (list.item(0)).split('tab')[1];
+			switch (list.item(2)) {
                 case 'p_tabs': 
                     if (!app.current.tabs) {
                         app.current.tabs = true;
@@ -32,9 +29,10 @@ T.query('#panel div').forEach(
                     }
 					break;
 			}
-			document.querySelector('.tabs .' + el.classList.item(0)).classList.add('active');
+			document.querySelector('.tabs .' + list.item(0)).classList.add('active');
 		});
 	}
+	
 );
 
-document.querySelector('#panel div:nth-child(' + localStorage['tabs'] + ')').click();
+document.querySelector('#panel > div:nth-child(' + localStorage['tabs'] + ')').click();

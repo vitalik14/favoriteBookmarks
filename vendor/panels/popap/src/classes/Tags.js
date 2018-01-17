@@ -1,11 +1,8 @@
 class Tags {
     constructor (obj) {
         for (let p in obj) this[p] = obj[p];
-        
-        if (localStorage[this.alias] === '{}') {
-            localStorage[this.alias] = '[]';
-        }
-        localStorage[this.alias] = localStorage[this.alias] || '{}';
+
+        localStorage[this.alias] = localStorage[this.alias] || '[]';
 
         this.showAllTags();
         this._addEvents();
@@ -20,7 +17,7 @@ class Tags {
         return JSON.parse(localStorage[this.alias]);
     } 
     addTag(tag) {
-        let tags = JSON.parse(localStorage[this.alias]);
+        let tags = this.getTags();
         if (!tags.includes) {
             tags = [];
         }
@@ -32,7 +29,7 @@ class Tags {
          return false;
     }
     delTag(tag) {
-        let tags = JSON.parse(localStorage[this.alias]);
+        let tags = this.getTags();
 
         if (!!~tags.indexOf(tag)) {
             tags.splice(tags.indexOf(tag), 1);
@@ -52,8 +49,11 @@ class Tags {
             var arrLi = [];
             div.setAttribute('class', 'tag');
             div.setAttribute('draggable', 'true');
+
+            //console.time("answer time");
             div.setAttribute('data-id', T.b64EncodeUnicode(tag));
-           
+           // console.timeEnd("answer time");
+
             div.setAttribute('data-index', i);
             div.innerHTML = `<span class="tag-del">x</span><span class="tagName">${tag}</span>`;
             tagsElement.appendChild(div);
@@ -113,13 +113,11 @@ class Tags {
     activaTag() {
         let self = this;
         let search = T.id(self.search).value;
-
-        T.query('#' + self.container + ' .tag').forEach(function(el) {
-            if (el.children[1].innerHTML === search) {
-                el.style.borderColor = self.colorActive;
-            } else {
-                el.style.borderColor = self.colors.colorDefault;
-            }
+        let tags = '#' + self.container + ' .tag';
+        T.query(tags).forEach(function(el) {
+            el.style.borderColor = el.children[1].innerHTML === search
+                ?self.colorActive
+                :self.colors.colorDefault
         });
     }
 }

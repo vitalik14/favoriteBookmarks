@@ -1,11 +1,9 @@
 /**
  * Created by vitalik on 06.11.2016.
  */
- localStorage['lastSearchTabs'] = localStorage['lastSearchTabs'] || '' ;
-
  var search_t = T.id('search_t');
  var removeTextSearch_t = T.id('remove-text-search_t');
- search_t.value = localStorage['lastSearchTabs'];
+ search_t.value = localStorage['lastSearchTabs'] = localStorage['lastSearchTabs'] || '' ;
 
  search_t.addEventListener('input', listingList);
  removeTextSearch_t.addEventListener('click', removeTextTabs);
@@ -16,9 +14,6 @@ function removeTextTabs() {
     tags_tabs.activaTag();
 }
 
-T.id('showUrl').checked = localStorage['showUrl'] == 'on';
-T.id('showOneLine').checked = localStorage['showOneLine'] == 'on';
-
 function togleLocalStorage(alias) {
     if (localStorage[alias] == 'on') {
         localStorage[alias] = 'off';
@@ -28,6 +23,8 @@ function togleLocalStorage(alias) {
     listingList(localStorage['lastSearchTabs']);
 }
 
+T.id('showUrl').checked = localStorage['showUrl'] == 'on';
+T.id('showOneLine').checked = localStorage['showOneLine'] == 'on';
 T.id('showUrl').addEventListener('click', () => {
     togleLocalStorage('showUrl');
 });
@@ -36,49 +33,39 @@ T.id('showOneLine').addEventListener('click', () => {
 });
 
 var modules = {
-    getAll: function(event) {
+    saveFrames: function(type) {
         chrome.windows.getAll({
             populate: true,
-        }, function(windowList) {
-            app.data = [];
-            events.dispatchEvent(Eve('getAll', {
-                windowList
-            }));
-        });
-    },
-    saveFrames: function(type) {
-        function getAll(event) {
-            events.removeEventListener('getAll', getAll);
-            let list = event.detail.windowList;
-            for (let i = 0; i < list.length; i++) {
-                let tabs = list[i].tabs;
-                for (let n = 0, length = tabs.length; n < length; n++) {
-                    app.data.push(tabs[n]);
+        }, function(event) {
+                app.data = [];
+                let list = event;
+                for (let i = 0; i < list.length; i++) {
+                    let tabs = list[i].tabs;
+                    for (let n = 0, length = tabs.length; n < length; n++) {
+                        app.data.push(tabs[n]);
+                    }
                 }
-            }
-            var removeTabsId = [];
-            for (let i = 0; i < app.data.length; i++) {
-                for (let n = app.data.length - 1; n > i; n--) {
-                    if (app.data[i].url === app.data[n].url) {
-                        T.id('deleteCopy').style.display = 'block';
-                        if (type === 'deleteCopy') {
-                            removeTabsId.push(app.data[n].id);
-                            app.data.splice(n, 1);
+                var removeTabsId = [];
+                for (let i = 0, length = app.data.length; i < length; i++) {
+                    for (let n = app.data.length - 1; n > i; n--) {
+                        if (app.data[i].url === app.data[n].url) {
+                            T.id('deleteCopy').style.display = 'block';
+                            if (type === 'deleteCopy') {
+                                removeTabsId.push(app.data[n].id);
+                                app.data.splice(n, 1);
+                            }
                         }
                     }
                 }
-            }
-            if (type == 'deleteCopy') {
-                chrome.tabs.remove(removeTabsId, function(e) {
-                    T.id('deleteCopy').style.display = 'none';
+                if (type == 'deleteCopy') {
+                    chrome.tabs.remove(removeTabsId, function(e) {
+                        T.id('deleteCopy').style.display = 'none';
+                        listingList(localStorage['lastSearchTabs']);
+                    });
+                } else {
                     listingList(localStorage['lastSearchTabs']);
-                });
-            } else {
-                listingList(localStorage['lastSearchTabs']);
-            }
-        }
-        events.addEventListener('getAll', getAll);
-        modules.getAll();
+                }
+        });
     }
 };
 
@@ -87,7 +74,7 @@ T.id('deleteCopy').addEventListener('click', function() {
 });
 
 function listingList(word) {
-    console.time("answer time");
+    //console.time("answer time");
     var str;
     var type = typeof word === 'object';
     if (type) {
@@ -107,14 +94,17 @@ function listingList(word) {
             word = str;
         }
         let itog = [], item;
+        console.time('for');
         for (let n = 0, length = listing.length; n < length; n++) { 
             item = listing[n];
-            if (!!~((item.title).toLocaleLowerCase()).indexOf(word.toLocaleLowerCase()) || 
-                !!~((item.url).toLocaleLowerCase()).indexOf(word.toLocaleLowerCase())
+            let cacheWord = word.toLocaleLowerCase();
+            if (!!~((item.title).toLocaleLowerCase()).indexOf(cacheWord) || 
+                !!~((item.url).toLocaleLowerCase()).indexOf(cacheWord)
             ) {
                 itog.push(item);
             }
         }
+        console.timeEnd('for');
         listing = itog;
     }
 
@@ -174,7 +164,7 @@ function listingList(word) {
         type: 'tabs',
         container: 'tabs-items'
     });
-    console.timeEnd("answer time");
+    // console.timeEnd("answer time");
 }
 
 function initTabs() {
