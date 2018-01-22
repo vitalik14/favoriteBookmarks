@@ -27,8 +27,6 @@ function removeTextBookmarks(el, sort, interval) {
 }
 
 function searchBookmarks(el, data) {
-    //console.log('searchBookmarks');
-    console.time("time");
     if (!data) { // event in input
         var data = {
             sort: T.storage('sortBookmarks'),
@@ -99,7 +97,6 @@ function searchBookmarks(el, data) {
                 listBookmarks.appendChild(div);
             }
             showHideBtnOpenBookmarks();
-            // console.timeEnd(); 
         });
         
     }, data.interval || 300);

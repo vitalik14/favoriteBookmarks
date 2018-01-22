@@ -94,7 +94,6 @@ function listingList(word) {
             word = str;
         }
         let itog = [], item;
-        console.time('for');
         for (let n = 0, length = listing.length; n < length; n++) { 
             item = listing[n];
             let cacheWord = word.toLocaleLowerCase();
@@ -104,7 +103,6 @@ function listingList(word) {
                 itog.push(item);
             }
         }
-        console.timeEnd('for');
         listing = itog;
     }
 
@@ -164,7 +162,6 @@ function listingList(word) {
         type: 'tabs',
         container: 'tabs-items'
     });
-    // console.timeEnd("answer time");
 }
 
 function initTabs() {

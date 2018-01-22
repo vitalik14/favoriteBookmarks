@@ -2,7 +2,7 @@ T.query('#panel > div').forEach(
 	function(el) {
 		el.addEventListener('click', function(elm) {
 			var list = this.classList;
-			T.query('#panel > div, .tabs > div', ).forEach(function(e) {
+			T.query('#panel > div, .tabs > div').forEach(function(e) {
 				e.classList.remove('active');
 			});
 			
