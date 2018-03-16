@@ -18,11 +18,10 @@ localStorage['lastSearch'] = localStorage['lastSearch'] || '';
 localStorage['vt_tags'] = localStorage['vt_tags'] || '[]';
 localStorage['sortBookmarks'] = localStorage['sortBookmarks'] || app.sortDefault;
 
-
 function faviconValidate(str) {
-	if (!str || !!~str.indexOf('chrome://theme/IDR_EXTENSIONS_FAVICON@2x')) {
-		return app.emptyImg;
-	} else {
-		return str;
-	}
+	 if (str) {
+	 	return str;
+	 } else {
+	 	return app.emptyImg;
+	 }
 }

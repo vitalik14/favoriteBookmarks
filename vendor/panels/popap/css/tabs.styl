@@ -2,19 +2,18 @@
 
 
 /* hovers */
-.t_tabs .tabs-items li:hover {
-    background-color: rgba(72, 136, 243, 0.1);
-    transition: all 0.1s
-}
+.t_tabs .tabs-items 
+    li:hover
+        background-color rgba(72, 136, 243, 0.1)
+        transition all 0.1s
+    li.active
+        background-color rgba(72, 136, 243, 0.3)
 
-.t_tabs .tabs-items li.active {
-    background-color: rgba(72, 136, 243, 0.3);
-}
 
-.t_bookmarks .results > li:hover {
+.t_bookmarks .results > li:hover
     background-color: rgba(75, 192, 177, 0.1);
     transition: all 0.2s;
-}
+
 
 .tabs-items
     float left
@@ -207,9 +206,11 @@
                     content '\2714'
                     color #000
 
-
-
-
+.t_bookmarks .options .settings 
+    .settings-btn
+        cursor default
+        border none
+        color $color4
 
 
 .img-tabs {
@@ -220,22 +221,19 @@
     float: left;
 }
 
-.t_tabs .statistic .open-tabs {
-    min-width: 50px;
-}
-
-.t_tabs .options .settings:hover .settings-options {
-    display: block;
-    box-shadow: 6px -3px 8px rgba(150, 150, 150, 0.5);
-}
-
-.t_tabs .options .settings:hover .settings-btn {
-    border-top: 1px solid $color1;
-    background: $color1;
-    color: $color_white;
-    border-radius: 0 0 5px 5px;
-    box-shadow: 2px 2px 3px rgba(150, 150, 150, 0.5);
-}
+.t_tabs 
+    .statistic .open-tabs
+        min-width 50px
+    .options .settings:hover
+        .settings-options
+            display block
+            box-shadow 6px -3px 8px rgba(150, 150, 150, 0.5)
+        .settings-btn
+            border-top 1px solid $color1
+            background $color1
+            color $color_white
+            border-radius 0 0 5px 5px
+            box-shadow 2px 2px 3px rgba(150, 150, 150, 0.5)
 
 #help {
     clear: both;

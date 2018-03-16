@@ -40,10 +40,7 @@ var modules = {
                 app.data = [];
                 let list = event;
                 for (let i = 0; i < list.length; i++) {
-                    let tabs = list[i].tabs;
-                    for (let n = 0, length = tabs.length; n < length; n++) {
-                        app.data.push(tabs[n]);
-                    }
+                  app.data = app.data.concat(list[i].tabs);
                 }
                 var removeTabsId = [];
                 for (let i = 0, length = app.data.length; i < length; i++) {
@@ -112,7 +109,7 @@ function listingList(word) {
     if (localStorage['showOneLine'] === 'on') {
         short = app.short;
     }
-    
+
     for (let i = 0, length = listing.length; i < length; i++) {
         
         let item = listing[i];
@@ -138,6 +135,7 @@ function listingList(word) {
             </div>
         </li>`;
     }
+
     el.insertAdjacentHTML('afterBegin', li);
     var arrTabs = T.query('.tab'),
         arrDels = T.query('.del'),
@@ -168,13 +166,11 @@ function initTabs() {
     modules.saveFrames();
 }
 
-if (!tags_tabs) {
-    var tags_tabs = new Tags({
-          search: 'search_t',
-          alias: 'tabs_tags',
-          container: 'tags_t',
-          elAdd: 'addTags_t',
-          colorActive: 'rgba(160, 193, 248, 0.4)',
-          funcSearch: listingList
-     });  
-  }
+const tags_tabs = new Tags({
+    search: 'search_t',
+    alias: 'tabs_tags',
+    container: 'tags_t',
+    elAdd: 'addTags_t',
+    colorActive: 'rgba(160, 193, 248, 0.4)',
+    funcSearch: listingList
+});

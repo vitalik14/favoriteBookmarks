@@ -20,18 +20,16 @@ ul, li {
     list-style: none
 }
 
-.settings-btn {
-    user-select: none
-}
+html, body
+    max-width 420px
+    min-width 420px
+    width 420px
+    margin auto
+    overflow hidden
+    background $color_white
 
-html, body {
-    max-width: 420px;
-    min-width: 420px;
-    width: 420px;
-    margin: auto;
-    overflow: hidden;
-    background: $color_white
-}
+.settings-btn
+    user-select none
 
 #panel
     width 100%
@@ -40,7 +38,7 @@ html, body {
     overflow hidden
     display flex
     justify-content space-around
-    div
+    >div
         width 100%
         padding 5px 0
         text-align center
@@ -48,48 +46,11 @@ html, body {
         line-height 1.7
         font-size 14px
         user-select none
+    >div.active
+        cursor default
+        color $color_white
+        font-weight bold
 
-.p_tabs {
-    background: -webkit-linear-gradient($color1, $color_white);
-}
-
-.p_bookmarks {
-    background: -webkit-linear-gradient($color2, $color_white);
-}
-
-.p_topsites {
-    background: -webkit-linear-gradient($color3, $color_white);
-}
-
-.t_tabs {
-    border-top: 4px solid $color1;
-    border: 3px solid $color1;
-    box-shadow: inset 0 0 7px $color1;
-    border-radius: 0 0 2px 2px;
-}
-
-.t_bookmarks {
-    border-top: 4px solid $color2;
-    border: 3px solid $color2;
-    box-shadow: inset 0 0 7px $color2;
-    border-radius: 0 0 2px 2px;
-}
-
-.t_topsites {
-    border-top: 4px solid $color3;
-    border: 3px solid $color3;
-    box-shadow: inset 0 0 7px $color3;
-    border-radius: 0 0 2px 2px;
-}
-
-#panel>div.active {
-    background: $color1;
-    cursor: default;
-    color: $color_white;
-    font-weight: bold;
-}
-
-#panel
     >div.active.p_tabs
         background: -webkit-linear-gradient($color_white, $color1);
 
@@ -111,6 +72,34 @@ html, body {
     >div:first-child+div
         border-left: 1px solid $color11;
         border-right: 1px solid $color11;
+
+
+.p_tabs {
+    background: -webkit-linear-gradient($color1, $color_white);
+}
+
+.p_bookmarks {
+    background: -webkit-linear-gradient($color2, $color_white);
+}
+
+.p_topsites {
+    background: -webkit-linear-gradient($color3, $color_white);
+}
+
+tabs(col)
+    border-top 4px solid col
+    border 3px solid col
+    box-shadow inset 0 0 7px col
+    border-radius 0 0 2px 2px
+
+.t_tabs
+    tabs($color1);
+
+.t_bookmarks
+    tabs($color2);
+
+.t_topsites
+    tabs($color3);
 
 .tabs > div.active, #search_t:valid + div, #search_b:valid + div {
     display: block;

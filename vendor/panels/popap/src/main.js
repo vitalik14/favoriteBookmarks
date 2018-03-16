@@ -2,13 +2,14 @@ T.query('#panel > div').forEach(
 	function(el) {
 		el.addEventListener('click', function(elm) {
 			var list = this.classList;
+			var item0 = list.item(0);
 			T.query('#panel > div, .tabs > div').forEach(function(e) {
 				e.classList.remove('active');
 			});
 			
 			list.add('active');
 			
-			localStorage['tabs'] = (list.item(0)).split('tab')[1];
+			localStorage['tabs'] = (item0).split('tab')[1];
 			switch (list.item(2)) {
                 case 'p_tabs': 
                     if (!app.current.tabs) {
@@ -29,7 +30,7 @@ T.query('#panel > div').forEach(
                     }
 					break;
 			}
-			document.querySelector('.tabs .' + list.item(0)).classList.add('active');
+			document.querySelector('.tabs .' + item0).classList.add('active');
 		});
 	}
 	

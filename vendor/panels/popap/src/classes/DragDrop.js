@@ -32,7 +32,7 @@ class DragDrop {
                     element.setAttribute('data-index', String(bufIndex));
 
                 }
-                return false;
+                return false;mail260218
             });
             
            // elem.addEventListener('dragend', ()=>{});
