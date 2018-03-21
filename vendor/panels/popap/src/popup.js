@@ -7,21 +7,26 @@ var app = {
 	current: {
 		tabs: false,
 		bookmarks: false,
-		tops: false
+		// tops: false,
+		history: false
 	}
 };
 
 localStorage['showUrl'] = localStorage['showUrl'] || 'on';
 localStorage['showOneLine'] = localStorage['showOneLine'] || 'on';
 localStorage['tabs'] = localStorage['tabs'] || '1';
-localStorage['lastSearch'] = localStorage['lastSearch'] || '';
-localStorage['vt_tags'] = localStorage['vt_tags'] || '[]';
+
+localStorage['lastSearchTabs'] = localStorage['lastSearchTabs'] || '' ;
+localStorage['lastSearchBookmarks'] = localStorage['lastSearchBookmarks'] || '';
+localStorage['lastSearchHystory'] = localStorage['lastSearchHystory'] || '';
+
+localStorage['tabs_tags'] = localStorage['tabs_tags'] || '[]';
+localStorage['bookmark_tags'] = localStorage['bookmark_tags'] || localStorage['vt_tags'] || '[]';
+localStorage['history_tags'] = localStorage['history_tags'] || localStorage['vt_tags_h'] || '[]';
+
 localStorage['sortBookmarks'] = localStorage['sortBookmarks'] || app.sortDefault;
+localStorage['sortHistory'] = localStorage['sortHistory'] || app.sortDefault;
 
 function faviconValidate(str) {
-	 if (str) {
-	 	return str;
-	 } else {
-	 	return app.emptyImg;
-	 }
+	return str || app.emptyImg;
 }

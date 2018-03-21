@@ -17,7 +17,8 @@
         "https://*/*",
         "<all_urls>",
         "topSites",
-        "bookmarks"
+        "bookmarks",
+        "history"
     ],
     "browser_action": {
         "default_title": "__MSG_extName__",

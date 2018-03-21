@@ -57,7 +57,7 @@ html, body
     >div.active.p_bookmarks
         background: -webkit-linear-gradient($color_white, $color2);
 
-    >div.active.p_topsites
+    >div.active.p_history
         background: -webkit-linear-gradient($color_white, $color3);
 
     >.p_tabs:not(.active):hover
@@ -66,7 +66,7 @@ html, body
     >.p_bookmarks:not(.active):hover
         background: -webkit-linear-gradient($color2, $color_white);
 
-    >.p_topsites:not(.active):hover
+    >.p_history:not(.active):hover
         background: -webkit-linear-gradient($color3, $color_white);
 
     >div:first-child+div
@@ -82,7 +82,7 @@ html, body
     background: -webkit-linear-gradient($color2, $color_white);
 }
 
-.p_topsites {
+.p_history {
     background: -webkit-linear-gradient($color3, $color_white);
 }
 
@@ -98,12 +98,12 @@ tabs(col)
 .t_bookmarks
     tabs($color2);
 
-.t_topsites
+.t_history
     tabs($color3);
 
-.tabs > div.active, #search_t:valid + div, #search_b:valid + div {
+.tabs > div.active, #search_t:valid + div, #search_b:valid + div, #search_h:valid + div {
     display: block;
 }
-.tabs > div, #search_t:invalid + div, #search_b:invalid + div {
+.tabs > div, #search_t:invalid + div, #search_b:invalid + div, #search_h:invalid + div{
     display: none;
 }

@@ -1,0 +1,73 @@
+@import "vars.styl"
+
+#tabs_wrap_history {
+    width: 100%;
+    display: flex;
+    justify-content: flex-start;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+.t_history .search {
+    border: 1px solid $color9;
+}
+.addTags
+    position absolute
+    z-index 2
+    width 30px
+    height 27px
+    text-align center
+    right 5px
+    top 5px
+    line-height 1.4
+    background $color1
+    font-size 18px
+    font-weight bold
+    color $color_white
+    cursor pointer
+    user-select none
+    border-radius 0 3px 3px 0
+    &:active
+        opacity 0.7
+
+.t_history #addTags_h {
+    background: $color9;
+}
+
+.results .deleteHistory
+    width 15px
+    height 15px
+    line-height 1
+    text-align center
+    color $color10
+    border-radius 50%
+    box-shadow 0 0 0px #F33
+    display inline-block
+    vertical-align top
+    font-size 13px
+    font-weight bold
+    cursor pointer
+    transition all 0.1s
+    font-family Arial
+    margin-top 5px
+    margin-left 2px
+    &:hover
+        box-shadow 0 0 5px $red
+        +a
+            color $red
+
+#openHistory
+    display block
+    background $color9
+    border 2px solid $color_white
+    box-shadow 0 0 1px $color10
+    border-radius 10px
+    color $color_white
+    padding 5px 10px
+    cursor pointer
+    float right
+    user-select none
+    &:hover
+        box-shadow: inset 0 0 1px $color_white
+
+#findHistory
+    color $color_white

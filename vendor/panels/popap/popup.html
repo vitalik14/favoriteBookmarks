@@ -8,7 +8,8 @@
 	<div id="panel">
 		<div class="tab1 active xTabs p_tabs">Tabs</div>
 		<div class="tab2 xBookmarks p_bookmarks">Bookmarks</div>
-		<div class="tab3 xTopSites p_topsites">Top sites</div>
+		<!-- <div class="tab3 xTopSites p_topsites">Top sites</div> -->
+		<div class="tab3 xHistory p_history">History</div>
 	</div>
 	<div class="tabs">
 		<div class="tab1 active t_tabs">
@@ -50,38 +51,69 @@
 			</div>
 		</div>
 		<div class="tab2 t_bookmarks">
-            <div id="tabs_wrap_bookmarks">
-                <div class="search-block">
-                    <div class="wrap-search">
+			<div id="tabs_wrap_bookmarks">
+				<div class="search-block">
+					<div class="wrap-search">
 						<input id="search_b" maxlength="50" class="search" required type="text" placeholder="&#128270;" />
 						<div id="remove-text-search_b" class="remove-text-search">x</div>
-                        <div id="addTags_b" class="addTags">+</div>
-                    </div>
-                    <ul id="tags_b"  class="tags"></ul>
-                </div>
-                <ul id="results_b" class="results"></ul>
-                <div id="options" class="options">
-                    <div class="settings">
-                        <div class="settings-btn xSort">Sort:</div>
-                        <select id="selectSort_b">
-                            <option value="dateAdded" class="xDate">Date</option>
-                            <option value="url"class="xUrl">Url</option>
-                            <option value="title"class="xTitle">Title</option>
-                        </select>
-                    </div>
+						<div id="addTags_b" class="addTags">+</div>
+					</div>
+					<ul id="tags_b"  class="tags"></ul>
+				</div>
+				<ul id="results_b" class="results"></ul>
+				<div id="options" class="options">
+					<div class="settings">
+						<div class="settings-btn xSort">Sort:</div>
+						<select id="selectSort_b">
+							<option value="dateAdded" class="xDate">Date</option>
+							<option value="url"class="xUrl">Url</option>
+							<option value="title"class="xTitle">Title</option>
+						</select>
+					</div>
 					<div class="openAll">
 						<button id="openBookmarks">
 							<span class="xOpenAll">Open All </span> 
 							(<span id="findBookmarks">0</span>)
 						</button>
 					</div>
-                </div>
-            </div>
-        </div>
-		<div class="tab3 t_topsites">
-			<div id="tabs_wrap_topsites"></div>
+				</div>
+			</div>
 		</div>
+		<div class="tab3 t_history">
+			<div id="tabs_wrap_history">
+				<div class="search-block">
+					<div class="wrap-search">
+						<input id="search_h" maxlength="50" class="search" required type="text" placeholder="&#128270;" />
+						<div id="remove-text-search_h" class="remove-text-search">x</div>
+						<div id="addTags_h" class="addTags">+</div>
+					</div>
+					<ul id="tags_h"  class="tags"></ul>
+				</div>
+				<ul id="results_h" class="results"></ul>
+				<div id="options" class="options">
+					<div class="settings">
+						<div class="settings-btn xSort">Sort:</div>
+						<select id="selectSort_h">
+							<option value="dateAdded" class="xDate">Date</option>
+							<option value="url"class="xUrl">Url</option>
+							<option value="title"class="xTitle">Title</option>
+						</select>
+					</div>
+					<div><input type="date" id="dateHistory" value="1976-01-08"></div>
+					<div class="openAll">
+						<button id="openHistory">
+							<span class="xOpenAll">Open All </span> 
+							(<span id="findHistory">0</span>)
+						</button>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!-- <div class="tab3 t_topsites">
+			<div id="tabs_wrap_topsites"></div>
+		</div> -->
 	</div>
-	<script src="js/all.js"></script>
+	<script async src="js/all.js"></script>
 	</body>
 </html>

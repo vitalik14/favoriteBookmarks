@@ -13,6 +13,7 @@ var timeout;
 search.addEventListener('input', searchBookmarks);
 removeTextSearch.addEventListener('click', removeTextBookmarks);
 btnOpenFindBookmarks.addEventListener('click', openFindBookmarks);
+search.value = localStorage['lastSearchBookmarks'];
 
 function openFindBookmarks(el) {
 	T.query('#results_b > li > a').forEach(function(e) {
@@ -33,11 +34,11 @@ function searchBookmarks(el, data) {
 			interval: 0
 		};
 	}
-	var str;
+	let str;
 	if (typeof el == 'object') {
-		str = localStorage['lastSearch'] = el.target.value;
+		str = localStorage['lastSearchBookmarks'] = el.target.value;
 	} else {
-		str = localStorage['lastSearch'] = el;
+		str = localStorage['lastSearchBookmarks'] = el;
 	}
 	findBookmarks.innerHTML = '0';
 	listBookmarks.innerHTML = '';
@@ -47,10 +48,9 @@ function searchBookmarks(el, data) {
 	if (str.length < 2) return false;
 
 	clearInterval(timeout);
-	timeout = setTimeout(function() {
+	timeout = setTimeout(() => {
 		chrome.bookmarks.search(str, function(tree) {
 			data.sort = data.sort || localStorage['sortBookmarks'];
-
 			function compare(a, b) {
 				if (a[data.sort] > b[data.sort])
 					return -1;
@@ -62,6 +62,8 @@ function searchBookmarks(el, data) {
 			findBookmarks.innerHTML = tree.length;
 			for (let i = 0, length = tree.length; i < length; i++) {
 				let item = tree[i];
+				let title = (item.title && T.escapeHtml(item.title)) || item.url.split('/')[2];
+
 				if (item.url === undefined) continue;
 				
 				let div = document.createElement('li');
@@ -70,7 +72,7 @@ function searchBookmarks(el, data) {
 				try {
 					div.innerHTML = `
 					<div class="deleteBookmarks">x</div>
-					<a style="background-image:url(chrome://favicon/${item.url})" href=${item.url} title="${item.url}">${item.title || 'no title'}</a>
+					<a style="background-image:url(chrome://favicon/${item.url})" href=${item.url} title="${item.url}">${title}</a>
 					<div class="info">
 						<div class="bookmarks_info">&#9733;</div>
 						<div class="popap" title="${dateAdded}">
@@ -82,14 +84,12 @@ function searchBookmarks(el, data) {
 				}
 
 				div.children[1].addEventListener('click', function() {
-					chrome.tabs.create({ url: this.getAttribute('href') }, ()=>{});
+					chrome.tabs.create({ url: this.getAttribute('href') }, null);
 				});
 				try {
 					div.children[0].addEventListener('click', function() {
-						var current = this.parentNode;
-						chrome.bookmarks.remove(current.getAttribute('data-id'), function() {
-							current.remove();
-						});
+						let current = this.parentNode;
+						chrome.bookmarks.remove(current.getAttribute('data-id'), () => current.remove());
 					});
 				} catch (e) {
 
@@ -98,70 +98,17 @@ function searchBookmarks(el, data) {
 			}
 			showHideBtnOpenBookmarks();
 		});
-		chrome.bookmarks.search(str, function(tree) {
-			data.sort = data.sort || localStorage['sortBookmarks'];
-
-			function compare(a, b) {
-				if (a[data.sort] > b[data.sort])
-					return -1;
-				if (a[data.sort] < b[data.sort])
-					return 1;
-				return 0;
-			}
-			tree.sort(compare);
-			findBookmarks.innerHTML = tree.length;
-			for (let i = 0, length = tree.length; i < length; i++) {
-				let item = tree[i];
-				if (item.url === undefined) continue;
-				
-				let div = document.createElement('li');
-				div.setAttribute('data-id', item.id);
-				let dateAdded = (new Date(item.dateAdded)).toLocaleString();
-				try {
-					div.innerHTML = `
-					<div class="deleteBookmarks">x</div>
-					<a style="background-image:url(chrome://favicon/${item.url})" href=${item.url} title="${item.url}">${item.title || 'no title'}</a>
-					<div class="info">
-						<div class="bookmarks_info">&#9733;</div>
-						<div class="popap" title="${dateAdded}">
-							<div class="data">${dateAdded}</div>
-						</div>
-					</div>`;
-				} catch(e) {
-					console.log(e +  'error !!');
-				}
-
-				div.children[1].addEventListener('click', function() {
-					chrome.tabs.create({ url: this.getAttribute('href') }, ()=>{});
-				});
-				try {
-					div.children[0].addEventListener('click', function() {
-						var current = this.parentNode;
-						chrome.bookmarks.remove(current.getAttribute('data-id'), function() {
-							current.remove();
-						});
-					});
-				} catch (e) {
-
-				}
-				listBookmarks.appendChild(div);
-			}
-			showHideBtnOpenBookmarks();
-		});
-	   
 	}, data.interval || 250);
 }
 
-search.value = localStorage['lastSearch'];
-
 function initBookmarks() {
-	searchBookmarks(localStorage['lastSearch'], {sort: localStorage['sortBookmarks'], interval:0});  
+	searchBookmarks(localStorage['lastSearchBookmarks'], {sort: localStorage['sortBookmarks'], interval:0});  
 }
 
 selectSort.value = localStorage['sortBookmarks'];
 selectSort.addEventListener('change', function(el) {
 	localStorage['sortBookmarks'] = this.value;
-	searchBookmarks(localStorage['lastSearch'], {sort: this.value, interval: 0});
+	searchBookmarks(localStorage['lastSearchBookmarks'], {sort: this.value, interval: 0});
 });
 
 function showHideBtnOpenBookmarks(hide) {
@@ -176,10 +123,9 @@ function showHideBtnOpenBookmarks(hide) {
 
 showHideBtnOpenBookmarks();
 
-
 const tags_bookmarks = new Tags({
 	search: 'search_b',
-	alias: 'vt_tags',
+	alias: 'bookmark_tags',
 	container: 'tags_b',
 	elAdd: 'addTags_b',
 	colorActive: 'rgba(77, 192, 177, 0.4)',

@@ -39,21 +39,19 @@ class Tags {
 		return tags;
 	}
 	showAllTags() {
-		var self = this;
-		var tagsElement = T.id(this.container);
-		var tags = this.getTags();
+		let self = this;
+		let tagsElement = T.id(self.container);
+		let tags = self.getTags();
 		tagsElement.innerHTML = '';
 		for (let i = 0, length = tags.length; i < length; i++) {
 			let div = document.createElement('li');
 			let tag = tags[i];
-			var arrLi = [];
 			div.setAttribute('class', 'tag');
 			div.setAttribute('draggable', 'true');
-
 			div.setAttribute('data-id', T.b64EncodeUnicode(tag));
-
 			div.setAttribute('data-index', i);
 			div.innerHTML = `<span class="tag-del">x</span><span class="tagName">${tag}</span>`;
+			
 			tagsElement.appendChild(div);
 
 			let deleteTag = div.children[0];
@@ -78,13 +76,8 @@ class Tags {
 				self.funcSearch(this.innerHTML, {sort: null, interval: 0});
 			});
 			
-			searchTag.addEventListener('mouseover', function() {
-				this.parentNode.style.background = self.colorActive;
-			});
-			searchTag.addEventListener('mouseout', function() {
-				this.parentNode.style.background = self.colors.colorDefault;
-			});
-			arrLi.push(div);
+			searchTag.addEventListener('mouseover', (el) =>	el.target.parentNode.style.background = self.colorActive);
+			searchTag.addEventListener('mouseout', (el) =>	el.target.parentNode.style.background = self.colors.colorDefault);
 		}
 
 		new DragDrop({
@@ -94,28 +87,22 @@ class Tags {
 		});
 	}
 	_addEvents() {
-		let self = this;
-		T.id(this.elAdd).addEventListener('click', function(el) {
-			let value = T.id(self.search).value;
+		T.id(this.elAdd).addEventListener('click', (el) => {
+			let value = T.id(this.search).value;
 			if (!!value) {
-				self.addTag(value);
-				self.showAllTags();
-				self.activaTag();
+				this.addTag(value);
+				this.showAllTags();
+				this.activaTag();
 			}
 		});
-		T.id(self.search).addEventListener('input', function() {
-		   self.activaTag();
-		});
-		self.activaTag();
+		T.id(this.search).addEventListener('input', () => this.activaTag());
+		this.activaTag();
 	}
 	activaTag() {
-		let self = this;
-		let search = T.id(self.search).value;
-		let tags = '#' + self.container + ' .tag';
-		T.query(tags).forEach(function(el) {
-			el.style.borderColor = el.children[1].innerHTML === search
-				?self.colorActive
-				:self.colors.colorDefault
+		T.query('#' + this.container + ' .tag').forEach((el) => {
+			el.style.borderColor = el.children[1].innerHTML === T.id(this.search).value
+				?this.colorActive
+				:this.colors.colorDefault
 		});
 	}
 }

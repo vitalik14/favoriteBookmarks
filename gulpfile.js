@@ -47,7 +47,7 @@ gulp.task('minify', ['stylus'], function(file) {
 // 	return gulp.src('vendor/**/*.js')
 // 		.pipe(complexity());
 // });
-// gulp.task('compress',['minify'], function (cb) {
+// gulp.task('compress',['minify'], function (cb) q{
 //     pump([
 //           gulp.src('vendor/**/*.js'),
 //           uglify(),
@@ -67,6 +67,7 @@ gulp.task('scripts', ['minify'], function() {
             'public/panels/popap/src/tops.js',
             'public/panels/popap/src/tabs.js',
             'public/panels/popap/src/bookmarks.js',
+            'public/panels/popap/src/history.js',
             'public/panels/popap/src/main.js'
         ])
       .pipe(concat('all.js'))
