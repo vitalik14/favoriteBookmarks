@@ -25,7 +25,7 @@ localStorage['bookmark_tags'] = localStorage['bookmark_tags'] || localStorage['v
 localStorage['history_tags'] = localStorage['history_tags'] || localStorage['vt_tags_h'] || '[]';
 
 localStorage['sortBookmarks'] = localStorage['sortBookmarks'] || app.sortDefault;
-localStorage['sortHistory'] = localStorage['sortHistory'] || app.sortDefault;
+//localStorage['sortHistory'] = localStorage['sortHistory'] || app.sortDefault;
 
 function faviconValidate(str) {
 	return str || app.emptyImg;

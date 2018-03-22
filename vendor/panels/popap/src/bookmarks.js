@@ -1,7 +1,7 @@
 /**
  * Created by vitalik on 06.11.2016.
  */
-var search = T.id('search_b');
+var search_bookmarks = T.id('search_bookmarks');
 var removeTextSearch = T.id('remove-text-search_b');
 var listBookmarks = T.id('results_b');
 var findBookmarks = T.id('findBookmarks');
@@ -9,11 +9,10 @@ var selectSort = T.id('selectSort_b');
 var btnOpenFindBookmarks = T.id('openBookmarks');
 
 var timeout;
-
-search.addEventListener('input', searchBookmarks);
+search_bookmarks.addEventListener('input', searchBookmarks);
 removeTextSearch.addEventListener('click', removeTextBookmarks);
 btnOpenFindBookmarks.addEventListener('click', openFindBookmarks);
-search.value = localStorage['lastSearchBookmarks'];
+search_bookmarks.value = localStorage['lastSearchBookmarks'];
 
 function openFindBookmarks(el) {
 	T.query('#results_b > li > a').forEach(function(e) {
@@ -22,8 +21,8 @@ function openFindBookmarks(el) {
 }
 
 function removeTextBookmarks(el, sort, interval) {
-	search.value = '';
-	searchBookmarks('', {sort: search.value, interval: 0});
+	search_bookmarks.value = '';
+	searchBookmarks('', {sort: search_bookmarks.value, interval: 0});
 	tags_bookmarks.activaTag();
 }
 
@@ -48,6 +47,7 @@ function searchBookmarks(el, data) {
 	if (str.length < 2) return false;
 
 	clearInterval(timeout);
+	T.id('loader-bookmarks').classList.add('active');
 	timeout = setTimeout(() => {
 		chrome.bookmarks.search(str, function(tree) {
 			data.sort = data.sort || localStorage['sortBookmarks'];
@@ -96,6 +96,7 @@ function searchBookmarks(el, data) {
 				}
 				listBookmarks.appendChild(div);
 			}
+			T.id('loader-bookmarks').classList.remove('active');
 			showHideBtnOpenBookmarks();
 		});
 	}, data.interval || 250);
@@ -124,7 +125,7 @@ function showHideBtnOpenBookmarks(hide) {
 showHideBtnOpenBookmarks();
 
 const tags_bookmarks = new Tags({
-	search: 'search_b',
+	search: 'search_bookmarks',
 	alias: 'bookmark_tags',
 	container: 'tags_b',
 	elAdd: 'addTags_b',

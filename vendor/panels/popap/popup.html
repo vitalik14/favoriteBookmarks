@@ -16,7 +16,7 @@
 			<div id="tabs_wrap_tabs">
 				<div class="search-block">
 					<div class="wrap-search">
-						<input id="search_t" maxlength="50" class="search" required type="text" placeholder="&#128270;" />
+						<input id="search_tabs" maxlength="50" class="search" required type="text" placeholder="&#128270;" />
 						<div id="remove-text-search_t" class="remove-text-search">x</div>
 						<div id="addTags_t" class="addTags">+</div>
 					</div>
@@ -54,8 +54,11 @@
 			<div id="tabs_wrap_bookmarks">
 				<div class="search-block">
 					<div class="wrap-search">
-						<input id="search_b" maxlength="50" class="search" required type="text" placeholder="&#128270;" />
+						<input id="search_bookmarks" maxlength="50" class="search" required type="text" placeholder="&#128270;" />
 						<div id="remove-text-search_b" class="remove-text-search">x</div>
+						<div id="loader-bookmarks" class="cssload-container">
+							<div class="cssload-speeding-wheel"></div>
+						</div>
 						<div id="addTags_b" class="addTags">+</div>
 					</div>
 					<ul id="tags_b"  class="tags"></ul>
@@ -83,29 +86,32 @@
 			<div id="tabs_wrap_history">
 				<div class="search-block">
 					<div class="wrap-search">
-						<input id="search_h" maxlength="50" class="search" required type="text" placeholder="&#128270;" />
+						<input id="search_history" maxlength="50" class="search" required type="text" placeholder="&#128270;" />
 						<div id="remove-text-search_h" class="remove-text-search">x</div>
+						<div id="loader-history" class="cssload-container">
+							<div class="cssload-speeding-wheel"></div>
+						</div>
 						<div id="addTags_h" class="addTags">+</div>
 					</div>
 					<ul id="tags_h"  class="tags"></ul>
 				</div>
 				<ul id="results_h" class="results"></ul>
 				<div id="options" class="options">
-					<div class="settings">
+					<!-- <div class="settings">
 						<div class="settings-btn xSort">Sort:</div>
 						<select id="selectSort_h">
 							<option value="dateAdded" class="xDate">Date</option>
 							<option value="url"class="xUrl">Url</option>
 							<option value="title"class="xTitle">Title</option>
 						</select>
-					</div>
+					</div> -->
 					<div><input type="date" id="dateHistory" value="1976-01-08"></div>
-					<div class="openAll">
+					<!-- <div class="openAll">
 						<button id="openHistory">
 							<span class="xOpenAll">Open All </span> 
 							(<span id="findHistory">0</span>)
 						</button>
-					</div>
+					</div> -->
 				</div>
 			</div>
 		</div>

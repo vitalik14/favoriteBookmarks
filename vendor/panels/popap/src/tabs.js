@@ -1,15 +1,15 @@
 /**
  * Created by vitalik on 06.11.2016.
  */
- var search_t = T.id('search_t');
+ var search_tabs = T.id('search_tabs');
  var removeTextSearch_t = T.id('remove-text-search_t');
- search_t.value = localStorage['lastSearchTabs'];
+ search_tabs.value = localStorage['lastSearchTabs'];
 
- search_t.addEventListener('input', listingList);
+ search_tabs.addEventListener('input', listingList);
  removeTextSearch_t.addEventListener('click', removeTextTabs);
 
 function removeTextTabs() {
-	search_t.value = '';
+	search_tabs.value = '';
 	listingList('');
 	tags_tabs.activaTag();
 }
@@ -74,7 +74,7 @@ function listingList(word) {
 	} else {
 		str = localStorage['lastSearchTabs'] = word;
 	}
-
+	
 	var el = T.queryOne('.tabs-items'),
 		li = '',
 		listing;
@@ -160,7 +160,7 @@ function initTabs() {
 }
 
 const tags_tabs = new Tags({
-	search: 'search_t',
+	search: 'search_tabs',
 	alias: 'tabs_tags',
 	container: 'tags_t',
 	elAdd: 'addTags_t',

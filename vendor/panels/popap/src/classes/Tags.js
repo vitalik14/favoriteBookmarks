@@ -95,6 +95,7 @@ class Tags {
 				this.activaTag();
 			}
 		});
+
 		T.id(this.search).addEventListener('input', () => this.activaTag());
 		this.activaTag();
 	}

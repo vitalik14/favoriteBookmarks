@@ -46,6 +46,7 @@ html, body
         line-height 1.7
         font-size 14px
         user-select none
+        position relative
     >div.active
         cursor default
         color $color_white
@@ -101,9 +102,66 @@ tabs(col)
 .t_history
     tabs($color3);
 
-.tabs > div.active, #search_t:valid + div, #search_b:valid + div, #search_h:valid + div {
-    display: block;
+.tabs > div.active, #search_tabs:valid + div, #search_bookmarks:valid + div, #search_history:valid + div
+    display block
+
+.tabs > div, #search_tabs:invalid + div, #search_bookmarks:invalid + div, #search_history:invalid + div
+    display none
+
+.cssload-container {
+	width: 17px;
+	height: 17px;
+	text-align: center;
+	top:8px;
+	right:47px;
+	position: absolute;
+	z-index: 11;
 }
-.tabs > div, #search_t:invalid + div, #search_b:invalid + div, #search_h:invalid + div{
-    display: none;
+
+.cssload-speeding-wheel {
+	width: 17px;
+	height: 17px;
+	margin: 0  0;
+	border: 3px solid rgb(75, 192, 177);
+	border-radius: 50%;
+	border-left-color: transparent;
+	border-right-color: transparent;
+	animation: cssload-spin 575ms infinite linear;
+		-o-animation: cssload-spin 575ms infinite linear;
+		-ms-animation: cssload-spin 575ms infinite linear;
+		-webkit-animation: cssload-spin 575ms infinite linear;
+		-moz-animation: cssload-spin 575ms infinite linear;
+}
+
+
+
+@keyframes cssload-spin {
+	100%{ transform: rotate(360deg); transform: rotate(360deg); }
+}
+
+@-o-keyframes cssload-spin {
+	100%{ -o-transform: rotate(360deg); transform: rotate(360deg); }
+}
+
+@-ms-keyframes cssload-spin {
+	100%{ -ms-transform: rotate(360deg); transform: rotate(360deg); }
+}
+
+@-webkit-keyframes cssload-spin {
+	100%{ -webkit-transform: rotate(360deg); transform: rotate(360deg); }
+}
+
+@-moz-keyframes cssload-spin {
+	100%{ -moz-transform: rotate(360deg); transform: rotate(360deg); }
+}
+
+#loader-history, #loader-bookmarks {
+    opacity: 0;
+    transition: all 0.5s;
+    z-index: 9;
+}
+#loader-history.active, #loader-bookmarks.active {
+    opacity: 1;
+    transition: all 0.5s;
+    z-index: 11;
 }
