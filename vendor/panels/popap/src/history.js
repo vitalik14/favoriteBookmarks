@@ -9,10 +9,25 @@ var findHistory = T.id('findHistory');
 //var btnOpenFindHistory = T.id('openHistory');
 var dateHistory = T.id('dateHistory');
 
-var timeout;
+var timeoutHistory;
 
-search_history.addEventListener('input', searchHistory);
+var timeoutInputHistory = 0;
+search_history.addEventListener('input', (el) => {
+	clearTimeout(timeoutInputHistory);
+	timeoutInputHistory = setTimeout(() => {
+		searchHistory(el);
+	}, 800);
+});
+
 removeTextSearchHistory.addEventListener('click', removeTextHistory);
+
+// function searchInInput() {
+// 	clearTimeout(timeInterval);
+// 	timeInterval = setTimeout((el) => {
+// 		searchHistory(el);
+// 	}, 2000);
+// }
+
 //btnOpenFindHistory.addEventListener('click', openFindHistory);
 
 // function openFindHistory(el) {
@@ -38,20 +53,21 @@ function searchHistory(el, data) {
 	if (typeof el == 'object') {
 		str = localStorage['lastSearchHystory'] = el.target.value;
 	} else {
-		str = localStorage['lastSearchHystory'] = el;
+		str = localStorage['lastSearchHystory'] = el || '';
 	}
 	//findHistory.innerHTML = '0';
 	listHistory.innerHTML = '';
 
 	//showHideBtnOpenHistory(true);
 
-	if (str.length < 2) return false;
+	//if (str.length < 2) return false;
 
-	clearInterval(timeout);
-	timeout = setTimeout(() => {
+	clearInterval(timeoutHistory);
+	timeoutHistory = setTimeout(() => {
 		//console.log(search_history.value);
 		T.id('loader-history').classList.add('active');
-		chrome.history.search({text: search_history.value, maxResults: 1000, startTime: 1000}, function(tree) {
+		//chrome.history.search({text: search_history.value, maxResults: 1000, startTime: 1000}, function(tree) {
+		chrome.history.search({text: search_history.value, maxResults: 1000, startTime: 1000, endTime: (new Date().getTime())}, function(tree) {
 			T.id('loader-history').classList.remove('active');
 			// data.sort = data.sort || localStorage['sortHistory'];
 			// function compare(a, b) {
@@ -63,30 +79,63 @@ function searchHistory(el, data) {
 			// }
 			// tree.sort(compare);
 			//findHistory.innerHTML = tree.length;
-			var day = false;
 
+			console.log(tree);
+
+			function compare(a, b) {
+				if (a['lastVisitTime'] > b['lastVisitTime'])
+					return -1;
+				if (a['lastVisitTime'] < b['lastVisitTime'])
+					return 1;
+				return 0;
+			}
+			tree.sort(compare);
+
+			var day = false;
+			//var div;
 			for (let i = 0, length = tree.length; i < length; i++) {
 				let item = tree[i];
 
 				let _date = new Date(item.lastVisitTime);
-				if (!day) {
-					let [_day, _month, _year] = [_date.getDate(), _date.getMonth(), _date.getFullYear()]
+				
+				// if (!day) {
+
+
+				// 	day = _date.getDate();
+
+
+				// }
+
+				if (!day || day !== _date.getDate()) {
+					var li = document.createElement('li');
+					var ul = document.createElement('ul');
+					var titleDate = document.createElement('div');
+					li.appendChild(titleDate);
+					li.appendChild(ul);
+					
+					titleDate.innerHTML = _date.toDateString();
+					titleDate.setAttribute('class', 'date-title');
+					day = _date.getDate();
+					listHistory.appendChild(li);
+					titleDate.addEventListener('click', function(el) {
+						if (this.classList.contains('active')) {
+							this.classList.remove('active');
+						} else {
+							this.classList.add('active');
+						}
+					});
 				}
-
+				
+				// console.log(new Date(item.lastVisitTime));
 				let lastVisitTime = (new Date(item.lastVisitTime)).toLocaleString();
-				console.log(new Date(item.lastVisitTime));
-
-
-
-				let title = (item.title && T.escapeHtml(item.title)) || item.url.split('/')[2];
+				let title = (item.title && T.escapeHtml(item.title)) || new URL(item.url).host;
 
 				if (item.url === undefined) continue;
 				
-				let div = document.createElement('li');
-				div.setAttribute('data-id', item.id);
-
+				let divItem = document.createElement('li');
+			//	divItem.setAttribute('data-id', item.id);
 				try {
-					div.innerHTML = `
+					divItem.innerHTML = `
 					<div class="deleteHistory">x</div>
 					<a style="background-image:url(chrome://favicon/${item.url})" href=${item.url} title="${item.url}">${title}</a>
 					<div class="info">
@@ -99,23 +148,37 @@ function searchHistory(el, data) {
 					console.log(e +  'error !!');
 				}
 
-				div.children[1].addEventListener('click', function() {
+				divItem.children[1].addEventListener('click', function() {
 					chrome.tabs.create({ url: this.getAttribute('href') }, null);
 				});
 				try {
-					div.children[0].addEventListener('click', function() {
+					divItem.children[0].addEventListener('click', function(el) {
 						let current = this.parentNode;
-						chrome.bookmarks.remove(current.getAttribute('data-id'), () => current.remove());
+						console.log(el);
+						debugger;
+						chrome.history.deleteUrl({url: el.target.nextElementSibling.getAttribute('href')}, function(el) {
+							console.log(el);
+							console.log(this);
+							location.reload();
+							debugger;
+							//current.remove();
+							//searchHistory();
+						});
 					});
-				} catch (e) {
-
-				}
-				listHistory.appendChild(div);
+				} catch (e) {}
+				ul.appendChild(divItem);
 			}
+			
 			//showHideBtnOpenHistory();
 		});
 	}, (data && data.interval) || 250);
 }
+
+chrome.history.onVisitRemoved.addListener(function(el) {
+	location.reload();
+	debugger;
+});
+
 
 search_history.value = localStorage['lastSearchHystory'];
 
@@ -140,11 +203,11 @@ function initHistory() {
 // 	}
 // }
 
-dateHistory.valueAsNumber = new Date();
+// dateHistory.valueAsNumber = new Date();
 
-dateHistory.addEventListener('change', function(e) {
-	console.log(e.target.defaultValue);
-})
+// dateHistory.addEventListener('change', function(e) {
+// 	console.log(e.target.defaultValue);
+// })
 
 //showHideBtnOpenHistory();
 

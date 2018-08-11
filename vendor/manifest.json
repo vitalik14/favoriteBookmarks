@@ -18,7 +18,8 @@
         "<all_urls>",
         "topSites",
         "bookmarks",
-        "history"
+        "history",
+        "chrome://favicon/"
     ],
     "browser_action": {
         "default_title": "__MSG_extName__",

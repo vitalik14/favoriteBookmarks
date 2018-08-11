@@ -1,112 +1,112 @@
 @import "vars.styl"
 
 ::-webkit-scrollbar {
-    width: 12px;
+	width: 12px;
 }
 
 ::-webkit-scrollbar-track {
-    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
-    border-radius: 10px;
+	-webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+	border-radius: 10px;
 }
 
 ::-webkit-scrollbar-thumb {
-    border-radius: 10px;
-    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.5);
+	border-radius: 10px;
+	-webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.5);
 }
 
 ul, li {
-    margin: 0;
-    padding: 0;
-    list-style: none
+	margin: 0;
+	padding: 0;
+	list-style: none
 }
 
 html, body
-    max-width 420px
-    min-width 420px
-    width 420px
-    margin auto
-    overflow hidden
-    background $color_white
+	max-width 420px
+	min-width 420px
+	width 420px
+	margin auto
+	overflow hidden
+	background $color_white
 
 .settings-btn
-    user-select none
+	user-select none
 
 #panel
-    width 100%
-    height 32px
-    border-radius 3px 3px 0 0
-    overflow hidden
-    display flex
-    justify-content space-around
-    >div
-        width 100%
-        padding 5px 0
-        text-align center
-        cursor pointer
-        line-height 1.7
-        font-size 14px
-        user-select none
-        position relative
-    >div.active
-        cursor default
-        color $color_white
-        font-weight bold
+	width 100%
+	height 32px
+	border-radius 3px 3px 0 0
+	overflow hidden
+	display flex
+	justify-content space-around
+	>div
+		width 100%
+		padding 5px 0
+		text-align center
+		cursor pointer
+		line-height 1.7
+		font-size 14px
+		user-select none
+		position relative
+	>div.active
+		cursor default
+		color $color_white
+		font-weight bold
 
-    >div.active.p_tabs
-        background: -webkit-linear-gradient($color_white, $color1);
+	>div.active.p_tabs
+		background: -webkit-linear-gradient($color_white, $color1);
 
-    >div.active.p_bookmarks
-        background: -webkit-linear-gradient($color_white, $color2);
+	>div.active.p_bookmarks
+		background: -webkit-linear-gradient($color_white, $color2);
 
-    >div.active.p_history
-        background: -webkit-linear-gradient($color_white, $color3);
+	>div.active.p_history
+		background: -webkit-linear-gradient($color_white, $color3);
 
-    >.p_tabs:not(.active):hover
-        background: -webkit-linear-gradient($color1, $color_white);
+	>.p_tabs:not(.active):hover
+		background: -webkit-linear-gradient($color1, $color_white);
 
-    >.p_bookmarks:not(.active):hover
-        background: -webkit-linear-gradient($color2, $color_white);
+	>.p_bookmarks:not(.active):hover
+		background: -webkit-linear-gradient($color2, $color_white);
 
-    >.p_history:not(.active):hover
-        background: -webkit-linear-gradient($color3, $color_white);
+	>.p_history:not(.active):hover
+		background: -webkit-linear-gradient($color3, $color_white);
 
-    >div:first-child+div
-        border-left: 1px solid $color11;
-        border-right: 1px solid $color11;
+	>div:first-child+div
+		border-left: 1px solid $color11;
+		border-right: 1px solid $color11;
 
 
 .p_tabs {
-    background: -webkit-linear-gradient($color1, $color_white);
+	background: -webkit-linear-gradient($color1, $color_white);
 }
 
 .p_bookmarks {
-    background: -webkit-linear-gradient($color2, $color_white);
+	background: -webkit-linear-gradient($color2, $color_white);
 }
 
 .p_history {
-    background: -webkit-linear-gradient($color3, $color_white);
+	background: -webkit-linear-gradient($color3, $color_white);
 }
 
 tabs(col)
-    border-top 4px solid col
-    border 3px solid col
-    box-shadow inset 0 0 7px col
-    border-radius 0 0 2px 2px
+	border-top 4px solid col
+	border 3px solid col
+	box-shadow inset 0 0 7px col
+	border-radius 0 0 2px 2px
 
 .t_tabs
-    tabs($color1);
+	tabs($color1);
 
 .t_bookmarks
-    tabs($color2);
+	tabs($color2);
 
 .t_history
-    tabs($color3);
+	tabs($color3);
 
 .tabs > div.active, #search_tabs:valid + div, #search_bookmarks:valid + div, #search_history:valid + div
-    display block
+	display block
 
 .tabs > div, #search_tabs:invalid + div, #search_bookmarks:invalid + div, #search_history:invalid + div
-    display none
+	display none
 
 .cssload-container {
 	width: 17px;
@@ -127,10 +127,10 @@ tabs(col)
 	border-left-color: transparent;
 	border-right-color: transparent;
 	animation: cssload-spin 575ms infinite linear;
-		-o-animation: cssload-spin 575ms infinite linear;
-		-ms-animation: cssload-spin 575ms infinite linear;
-		-webkit-animation: cssload-spin 575ms infinite linear;
-		-moz-animation: cssload-spin 575ms infinite linear;
+	-o-animation: cssload-spin 575ms infinite linear;
+	-ms-animation: cssload-spin 575ms infinite linear;
+	-webkit-animation: cssload-spin 575ms infinite linear;
+	-moz-animation: cssload-spin 575ms infinite linear;
 }
 
 
@@ -156,12 +156,12 @@ tabs(col)
 }
 
 #loader-history, #loader-bookmarks {
-    opacity: 0;
-    transition: all 0.5s;
-    z-index: 9;
+	opacity: 0;
+	transition: all 0.5s;
+	z-index: 9;
 }
 #loader-history.active, #loader-bookmarks.active {
-    opacity: 1;
-    transition: all 0.5s;
-    z-index: 11;
+	opacity: 1;
+	transition: all 0.5s;
+	z-index: 11;
 }

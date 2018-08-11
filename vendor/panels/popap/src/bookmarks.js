@@ -2,15 +2,21 @@
  * Created by vitalik on 06.11.2016.
  */
 var search_bookmarks = T.id('search_bookmarks');
-var removeTextSearch = T.id('remove-text-search_b');
+var removeTextSearchBookmarks = T.id('remove-text-search_b');
 var listBookmarks = T.id('results_b');
 var findBookmarks = T.id('findBookmarks');
 var selectSort = T.id('selectSort_b');
 var btnOpenFindBookmarks = T.id('openBookmarks');
 
-var timeout;
-search_bookmarks.addEventListener('input', searchBookmarks);
-removeTextSearch.addEventListener('click', removeTextBookmarks);
+var timeoutBookmarks;
+var timeoutInputBookmarks = 0;
+search_bookmarks.addEventListener('input', (el) => {
+	clearTimeout(timeoutInputBookmarks);
+	timeoutInputBookmarks = setTimeout(() => {
+		searchBookmarks(el);
+	}, 800);
+});
+removeTextSearchBookmarks.addEventListener('click', removeTextBookmarks);
 btnOpenFindBookmarks.addEventListener('click', openFindBookmarks);
 search_bookmarks.value = localStorage['lastSearchBookmarks'];
 
@@ -46,9 +52,9 @@ function searchBookmarks(el, data) {
 
 	if (str.length < 2) return false;
 
-	clearInterval(timeout);
+	clearInterval(timeoutBookmarks);
 	T.id('loader-bookmarks').classList.add('active');
-	timeout = setTimeout(() => {
+	timeoutBookmarks = setTimeout(() => {
 		chrome.bookmarks.search(str, function(tree) {
 			data.sort = data.sort || localStorage['sortBookmarks'];
 			function compare(a, b) {

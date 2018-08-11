@@ -1,73 +1,189 @@
 @import "vars.styl"
 
 #tabs_wrap_history {
-    width: 100%;
-    display: flex;
-    justify-content: flex-start;
-    flex-direction: row;
-    flex-wrap: wrap;
+	width: 100%;
+	display: flex;
+	justify-content: flex-start;
+	flex-direction: row;
+	flex-wrap: wrap;
 }
 .t_history .search {
-    border: 1px solid $color9;
+	border: 1px solid $color9;
 }
 .addTags
-    position absolute
-    z-index 2
-    width 30px
-    height 27px
-    text-align center
-    right 5px
-    top 5px
-    line-height 1.4
-    background $color1
-    font-size 18px
-    font-weight bold
-    color $color_white
-    cursor pointer
-    user-select none
-    border-radius 0 3px 3px 0
-    &:active
-        opacity 0.7
+	position absolute
+	z-index 2
+	width 30px
+	height 27px
+	text-align center
+	right 5px
+	top 5px
+	line-height 1.4
+	background $color1
+	font-size 18px
+	font-weight bold
+	color $color_white
+	cursor pointer
+	user-select none
+	border-radius 0 3px 3px 0
+	&:active
+		opacity 0.7
 
 .t_history #addTags_h {
-    background: $color9;
+	background: $color9;
 }
 
 .results .deleteHistory
-    width 15px
-    height 15px
-    line-height 1
-    text-align center
-    color $color10
-    border-radius 50%
-    box-shadow 0 0 0px #F33
-    display inline-block
-    vertical-align top
-    font-size 13px
-    font-weight bold
-    cursor pointer
-    transition all 0.1s
-    font-family Arial
-    margin-top 5px
-    margin-left 2px
-    &:hover
-        box-shadow 0 0 5px $red
-        +a
-            color $red
+	width 15px
+	height 15px
+	line-height 1
+	text-align center
+	color $color10
+	border-radius 50%
+	box-shadow 0 0 0px #F33
+	display inline-block
+	vertical-align top
+	font-size 13px
+	font-weight bold
+	cursor pointer
+	transition all 0.1s
+	font-family Arial
+	margin-top 5px
+	margin-left 2px
+	&:hover
+		box-shadow 0 0 5px $red
+		+a
+			color $red
 
 #openHistory
-    display block
-    background $color9
-    border 2px solid $color_white
-    box-shadow 0 0 1px $color10
-    border-radius 10px
-    color $color_white
-    padding 5px 10px
-    cursor pointer
-    float right
-    user-select none
-    &:hover
-        box-shadow: inset 0 0 1px $color_white
+	display block
+	background $color9
+	border 2px solid $color_white
+	box-shadow 0 0 1px $color10
+	border-radius 10px
+	color $color_white
+	padding 5px 10px
+	cursor pointer
+	float right
+	user-select none
+	&:hover
+		box-shadow: inset 0 0 1px $color_white
 
 #findHistory
-    color $color_white
+	color $color_white
+
+.history-options {
+	display: flex;
+}
+
+.btn-all-show-hide {
+		display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 22px;
+	height: 22px;
+	background: #4bc0b1;
+	border-radius: 5px;
+	box-shadow: 1px 1px 5px #eee;
+	color: #FFF;
+	text-align: center;
+	cursor: pointer;
+}
+
+.results.history {
+	max-height: 380px;
+	overflow-x: hidden;
+	overflow-y: auto;
+	width: calc(100% - 2px);
+	border-bottom: 1px solid $color8;
+	box-shadow: 0px -1px 4px $color3;
+	padding-left: 2px;
+	margin-top: 2px;
+}
+
+.results.history > li {
+	border-bottom: 1px solid #DDD;
+	position: relative;
+	margin:2px 0;
+}
+
+.results.history > li ul li:nth-child(even) {
+	background-color: $color6;
+}
+
+body {
+  counter-reset: section;
+}
+.results.history > li .date-title {
+	cursor: pointer;
+	font-size: 14px;
+	color: #333;
+	background: #faf6f6;
+	padding: 4px 4px 4px 10px;
+	border-radius: 7px 7px 0 0;
+	font-weight: bold;
+	text-align: left;
+	font-family: "Segoe UI", Tahoma, sans-serif;
+}
+ .results.history > li ul li:before {
+	counter-increment: section;
+	content: counter(section);
+	position: absolute;
+	right: 13px;
+}
+.results.history > li .date-title + ul {
+	display: none;
+	margin: 10px;
+	border-left: 1px solid #f3894a;
+}
+.results.history > li .date-title.active + ul {
+	display: block;
+}
+.results.history > li > ul {
+	display: block;
+	padding: 4px 0 4px 10px;
+	width: calc(100% - 10px);
+}
+.results.history > li > ul li {
+	position: relative;
+}
+.results.history > li > ul li a {
+	display: inline-block;
+	color: $color10;
+	font-size: 13px;
+	text-decoration: none;
+	padding: 4px 0 4px 30px;
+	background-size: 16px;
+	background-repeat: no-repeat;
+	background-position: 5px 5px;
+	width: calc(100% - 90px);
+}
+
+.results.history > li .info {
+	display: inline-block;
+	font-size: 12px;
+	color: $color9;
+	border-radius: 3px;
+	width: 32px;
+	text-align: center;
+	cursor: pointer;
+}
+.results.history > li .info:hover .popap {
+	display: flex;
+}
+.results.history > li .popap {
+	width: 128px;
+	position: absolute;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	bottom: 0px;
+	right: 0;
+	z-index: 10;
+	background: $color9;
+	padding: 3px;
+	border-radius: 3px;
+	display: none;
+	height: 16px;
+	cursor: default;
+}

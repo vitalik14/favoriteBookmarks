@@ -23,6 +23,7 @@
     "gulp-eslint": "^4.0.0",
     "gulp-htmlmin": "^4.0.0",
     "gulp-imagemin": "^4.1.0",
+    "gulp-path": "^4.0.0",
     "gulp-series": "^1.0.2",
     "gulp-stylus": "^2.7.0",
     "npm": "^5.6.0",
