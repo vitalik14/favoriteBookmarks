@@ -1,3 +1,4 @@
+import T from "./classes/CoreCore";
 T.query('#panel > div').forEach(
 	function(el) {
 		el.addEventListener('click', function(elm) {

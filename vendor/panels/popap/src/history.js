@@ -36,7 +36,7 @@ removeTextSearchHistory.addEventListener('click', removeTextHistory);
 // 	 });
 // }
 
-function removeTextHistory(el, sort, interval) {
+function removeTextHistory(el, sort, interval) { console.log(432423);
 	search_history.value = '';
 	searchHistory('', {sort: search_history.value, interval: 0});
 	tags_history.activaTag();
@@ -156,6 +156,7 @@ function searchHistory(el, data) {
 						let current = this.parentNode;
 						console.log(el);
 						debugger;
+						console.log(4234232);
 						chrome.history.deleteUrl({url: el.target.nextElementSibling.getAttribute('href')}, function(el) {
 							console.log(el);
 							console.log(this);
