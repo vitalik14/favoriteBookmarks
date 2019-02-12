@@ -1,7 +1,6 @@
 /**
  * Created by vitalik on 06.11.2016.
  */
-
 class T {
 	constructor (obj) {}
 	static addClass(cl, el) {
