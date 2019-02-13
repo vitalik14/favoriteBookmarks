@@ -1,0 +1,14 @@
+{
+	"rules": {
+		"indent": ["error", "tab"],
+		"no-tabs": "off",
+		"quotes": "off",
+		"dot-notation": [
+			"error",
+			{
+				"allowPattern": "^[a-z]+(_[a-z]+)+$"
+			}
+		],
+		"max-len": [1, 80, 4]
+	}
+}

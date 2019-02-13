@@ -1,6 +1,9 @@
 /**
  * Created by vitalik on 21.03.2018.
  */
+import T from "./classes/Core";
+import Tags from "./classes/Tags";
+
 var search_history = T.id("search_history");
 var removeTextSearchHistory = T.id("remove-text-search_h");
 var listHistory = T.id("results_h");
@@ -193,7 +196,7 @@ chrome.history.onVisitRemoved.addListener(function(el) {
 
 search_history.value = localStorage["lastSearchHystory"];
 
-function initHistory() {
+export function initHistory() {
 	//searchHistory(localStorage['lastSearchHystory'], {sort: localStorage['sortHistory'], interval:0});
 	searchHistory(localStorage["lastSearchHystory"]);
 }

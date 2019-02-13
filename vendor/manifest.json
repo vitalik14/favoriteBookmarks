@@ -1,29 +1,29 @@
 {
-    "manifest_version": 2,
-    "name": "__MSG_extName__",
-    "version": "1.3.0",
-    "description": "__MSG_extDescription__",
-    "default_locale": "en",
-    "icons": {
-        "128": "img/vt.png"
-    },
-    "background": {
-        "scripts": ["background/index.js"]
-    },
-    "permissions": [
-        "tabs",
-        "background",
-        "http://*/*",
-        "https://*/*",
-        "<all_urls>",
-        "topSites",
-        "bookmarks",
-        "history",
-        "chrome://favicon/"
-    ],
-    "browser_action": {
-        "default_title": "__MSG_extName__",
-        "default_icon": "img/vt.png",
-        "default_popup": "panels/popap/popup.html"
-    }
+	"manifest_version": 2,
+	"name": "__MSG_extName__",
+	"version": "1.3.0",
+	"description": "__MSG_extDescription__",
+	"default_locale": "en",
+	"icons": {
+		"128": "img/vt.png"
+	},
+	"background": {
+		"scripts": ["background/index.js"]
+	},
+	"permissions": [
+		"tabs",
+		"background",
+		"http://*/*",
+		"https://*/*",
+		"<all_urls>",
+		"topSites",
+		"bookmarks",
+		"history",
+		"chrome://favicon/"
+	],
+	"browser_action": {
+		"default_title": "__MSG_extName__",
+		"default_icon": "img/vt.png",
+		"default_popup": "popup.html"
+	}
 }

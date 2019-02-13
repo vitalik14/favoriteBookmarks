@@ -1,0 +1,131 @@
+<!doctype html>
+<html>
+    <head>
+        <title>Vertical Tabs</title>
+    </head>
+    <body>
+        <div id="panel">
+            <div class="tab1 active xTabs p_tabs">Tabs</div>
+            <div class="tab2 xBookmarks p_bookmarks">Bookmarks</div>
+            <!-- <div class="tab3 xTopSites p_topsites">Top sites</div> -->
+            <div class="tab3 xHistory p_history">History</div>
+        </div>
+        <div class="tabs">
+            <div class="tab1 active t_tabs">
+                <div id="tabs_wrap_tabs">
+                    <div class="search-block">
+                        <div class="wrap-search">
+                            <input class="search" id="search_tabs" maxlength="50" placeholder="&#128270;" required type="text"/>
+                            <div class="remove-text-search" id="remove-text-search_t">x</div>
+                            <div class="addTags" id="addTags_t">+</div>
+                        </div>
+                        <ul class="tags" id="tags_t"></ul>
+                    </div>
+                    <ul class="tabs-items" id="tabs-items"></ul>
+                    <div class="options" id="options">
+                        <div class="settings">
+                            <div class="settings-btn">Settings</div>
+                            <div class="settings-options">
+                                <div>
+                                    <label class="xShowUrl" for="showUrl">Show url</label>
+                                    <input id="showUrl" type="checkbox"></input>
+                                </div>
+                                <div>
+                                    <label class="xShowOnlyOneLine" for="showOneLine">Show only 1 line</label>
+                                    <input id="showOneLine" type="checkbox"></input>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="statistic">
+                            <div class="open-tabs">
+                                <div class="img-tabs"></div>
+                                <span id="openTabs">0</span>
+                            </div>
+                        </div>
+                        <div class="activity">
+                            <button id="deleteCopy">Remove Duplicates</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="tab2 t_bookmarks">
+                <div id="tabs_wrap_bookmarks">
+                    <div class="search-block">
+                        <div class="wrap-search">
+                            <input class="search" id="search_bookmarks" maxlength="50" placeholder="&#128270;" required type="text"/>
+                            <div class="remove-text-search" id="remove-text-search_b">x</div>
+                            <div class="cssload-container" id="loader-bookmarks">
+                                <div class="cssload-speeding-wheel"></div>
+                            </div>
+                            <div class="addTags" id="addTags_b">+</div>
+                        </div>
+                        <ul class="tags" id="tags_b"></ul>
+                    </div>
+                    <ul class="results" id="results_b"></ul>
+                    <div class="options" id="options">
+                        <div class="settings">
+                            <div class="settings-btn xSort">Sort:</div>
+                            <select id="selectSort_b">
+                                <option class="xDate" value="dateAdded">Date</option>
+                                <option class="xUrl" value="url">Url</option>
+                                <option class="xTitle" value="title">Title</option>
+                            </select>
+                        </div>
+                        <div class="openAll">
+                            <button id="openBookmarks">
+                                <span class="xOpenAll">Open All
+                                </span>
+                                (<span id="findBookmarks">0</span>)
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="tab3 t_history">
+                <div id="tabs_wrap_history">
+                    <div class="search-block">
+                        <div class="wrap-search">
+                            <input class="search" id="search_history" maxlength="50" placeholder="&#128270;" required type="text"/>
+                            <div class="remove-text-search" id="remove-text-search_h">x</div>
+                            <div class="cssload-container" id="loader-history">
+                                <div class="cssload-speeding-wheel"></div>
+                            </div>
+                            <div class="addTags" id="addTags_h">+</div>
+                        </div>
+                        <ul class="tags" id="tags_h"></ul>
+                    </div>
+                    <ul class="results history" id="results_h"></ul>
+                    <div class="options" id="options">
+                        <div>Start date:<input id="startHistory" type="date" value="1976-01-08"></div>
+                            <div>End date:<input id="endHistory" type="date" value="1978-01-08"></div>
+                                <div class="history-options">
+                                    <div class="input-show-total-count" id="all-show-hide">
+                                        <input id="show-total-count" type="number" value="100"></div>
+                                        <div class="btn-all-show-hide" id="all-show-hide">&#9660;</div>
+                                    </div>
+                                    <!-- <div class="settings">
+                                    						<div class="settings-btn xSort">Sort:</div>
+                                    						<select id="selectSort_h">
+                                    							<option value="dateAdded" class="xDate">Date</option>
+                                    							<option value="url"class="xUrl">Url</option>
+                                    							<option value="title"class="xTitle">Title</option>
+                                    						</select>
+                                    					</div> -->
+                                <!-- <div><input type="date" id="dateHistory" value="1976-01-08"></div> -->
+                                    <!-- <div class="openAll">
+                                    						<button id="openHistory">
+                                    							<span class="xOpenAll">Open All </span> 
+                                    							(<span id="findHistory">0</span>)
+                                    						</button>
+                                    					</div> -->
+                                </div>
+                            </div>
+                        </div>
+                        <!-- <div class="tab3 t_topsites">
+                        			<div id="tabs_wrap_topsites"></div>
+                        		</div> -->
+                    </div>
+                    <!-- <script async src="main.js"></script> -->
+                </body>
+            </html>
+        
