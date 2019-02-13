@@ -2,13 +2,14 @@
  * Created by vitalik on 06.11.2016.
  */
 import T from "./classes/Core";
+import storage from "./storage";
 import { app } from "./config";
 import Tags from "./classes/Tags";
 import DragDrop from "./classes/DragDrop";
 
 const searchTabs = T.id("search_tabs");
 const removeTextSearchTabs = T.id("remove-text-search_t");
-searchTabs.value = localStorage["lastSearchTabs"];
+searchTabs.value = storage.getOption("lastSearchTabs");
 
 searchTabs.addEventListener("input", listingList);
 removeTextSearchTabs.addEventListener("click", removeTextTabs);
@@ -20,16 +21,20 @@ function removeTextTabs() {
 }
 
 function togleLocalStorage(alias) {
-	if (localStorage[alias] == "on") {
-		localStorage[alias] = "off";
+	if (storage.getOption(alias) === "on") {
+		storage.setOption(alias, "off");
 	} else {
-		localStorage[alias] = "on";
+		storage.setOption(alias, "on");
 	}
-	listingList(localStorage["lastSearchTabs"]);
+	listingList(storage.getOption("lastSearchTabs"));
 }
 
-T.id("showUrl").checked = localStorage["showUrl"] == "on";
-T.id("showOneLine").checked = localStorage["showOneLine"] == "on";
+if (storage.getOption("showUrl") === "on") {
+	T.id("showUrl").checked = true;
+}
+if (storage.getOption("showOneLine") === "on") {
+	T.id("showOneLine").checked = true;
+}
 
 T.id("showUrl").addEventListener("click", () => togleLocalStorage("showUrl"));
 T.id("showOneLine").addEventListener("click", () =>
@@ -63,10 +68,10 @@ export var modules = {
 				if (type == "deleteCopy") {
 					chrome.tabs.remove(removeTabsId, function(e) {
 						T.id("deleteCopy").style.display = "none";
-						listingList(localStorage["lastSearchTabs"]);
+						listingList(storage.getOption("lastSearchTabs"));
 					});
 				} else {
-					listingList(localStorage["lastSearchTabs"]);
+					listingList(storage.getOption("lastSearchTabs"));
 				}
 			}
 		);
@@ -82,9 +87,11 @@ function listingList(word) {
 	var str;
 	var type = typeof word === "object";
 	if (type) {
-		str = localStorage["lastSearchTabs"] = word.target.value;
+		str = word.target.value;
+		storage.setOption("lastSearchTabs", word.target.value);
 	} else {
-		str = localStorage["lastSearchTabs"] = word;
+		str = word;
+		storage.setOption("lastSearchTabs", word);
 	}
 
 	var el = T.queryOne(".tabs-items"),
@@ -115,7 +122,7 @@ function listingList(word) {
 	T.id("openTabs").innerHTML = listing.length;
 	let short = "";
 
-	if (localStorage["showOneLine"] === "on") {
+	if (storage.getOption("showOneLine") === "on") {
 		short = app.short;
 	}
 
@@ -126,7 +133,7 @@ function listingList(word) {
 		let audible = "";
 		let favicon = app.faviconValidate(item.favIconUrl);
 		if (item.active) classActive = "active";
-		if (localStorage["showUrl"] === "on") url = item.url;
+		if (storage.getOption("showUrl") === "on") url = item.url;
 		if (item.audible) audible = '<div class="audio"></div>';
 
 		li += `

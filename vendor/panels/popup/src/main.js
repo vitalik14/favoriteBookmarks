@@ -20,7 +20,6 @@ T.query("#panel > div").forEach(el => {
 		);
 		list.add("active");
 		storage.setOption("tabs", item0.split("tab")[1]);
-		//localStorage["tabs"] = ;
 
 		switch (list.item(2)) {
 			case "p_tabs":

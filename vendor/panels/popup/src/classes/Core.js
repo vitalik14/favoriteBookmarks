@@ -30,14 +30,6 @@ export default class T {
 			})
 		);
 	}
-	static storage(alias, val) {
-		if (val) {
-			localStorage[alias] = val;
-			return localStorage[alias];
-		} else {
-			return localStorage[alias] || false;
-		}
-	}
 	static escapeHtml(text) {
 		return text.replace(/[\"&'\/<>]/g, function(a) {
 			return {

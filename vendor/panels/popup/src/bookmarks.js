@@ -3,6 +3,7 @@
  */
 import T from "./classes/Core";
 import Tags from "./classes/Tags";
+import storage from "./classes/Storage";
 
 var search_bookmarks = T.id("search_bookmarks");
 var removeTextSearchBookmarks = T.id("remove-text-search_b");
@@ -21,7 +22,7 @@ search_bookmarks.addEventListener("input", el => {
 });
 removeTextSearchBookmarks.addEventListener("click", removeTextBookmarks);
 btnOpenFindBookmarks.addEventListener("click", openFindBookmarks);
-search_bookmarks.value = localStorage["lastSearchBookmarks"];
+search_bookmarks.value = storage.getOption("lastSearchBookmarks");
 
 function openFindBookmarks(el) {
 	T.query("#results_b > li > a").forEach(function(e) {
@@ -39,15 +40,17 @@ function searchBookmarks(el, data) {
 	if (!data) {
 		// event in input
 		var data = {
-			sort: T.storage("sortBookmarks"),
+			sort: storage.getOption("sortBookmarks"),
 			interval: 0
 		};
 	}
 	let str;
 	if (typeof el == "object") {
-		str = localStorage["lastSearchBookmarks"] = el.target.value;
+		str = el.target.value;
+		storage.setOption("lastSearchBookmarks", el.target.value);
 	} else {
-		str = localStorage["lastSearchBookmarks"] = el;
+		str = el;
+		storage.setOption("lastSearchBookmarks", el);
 	}
 	findBookmarks.innerHTML = "0";
 	listBookmarks.innerHTML = "";
@@ -60,7 +63,7 @@ function searchBookmarks(el, data) {
 	T.id("loader-bookmarks").classList.add("active");
 	timeoutBookmarks = setTimeout(() => {
 		chrome.bookmarks.search(str, function(tree) {
-			data.sort = data.sort || localStorage["sortBookmarks"];
+			data.sort = data.sort || storage.getOption("sortBookmarks");
 			function compare(a, b) {
 				if (a[data.sort] > b[data.sort]) return -1;
 				if (a[data.sort] < b[data.sort]) return 1;
@@ -114,16 +117,16 @@ function searchBookmarks(el, data) {
 }
 
 export function initBookmarks() {
-	searchBookmarks(localStorage["lastSearchBookmarks"], {
-		sort: localStorage["sortBookmarks"],
+	searchBookmarks(storage.getOption("lastSearchBookmarks"), {
+		sort: storage.getOption("sortBookmarks"),
 		interval: 0
 	});
 }
 
-selectSort.value = localStorage["sortBookmarks"];
+selectSort.value = storage.getOption("sortBookmarks");
 selectSort.addEventListener("change", function(el) {
-	localStorage["sortBookmarks"] = this.value;
-	searchBookmarks(localStorage["lastSearchBookmarks"], {
+	storage.setOption("sortBookmarks", this.value);
+	searchBookmarks(storage.getOption("lastSearchBookmarks"), {
 		sort: this.value,
 		interval: 0
 	});
@@ -149,3 +152,7 @@ const tags_bookmarks = new Tags({
 	colorActive: "rgba(77, 192, 177, 0.4)",
 	funcSearch: searchBookmarks
 });
+
+class Bookmarks {
+	constructor() {}
+}

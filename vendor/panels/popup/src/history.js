@@ -3,6 +3,7 @@
  */
 import T from "./classes/Core";
 import Tags from "./classes/Tags";
+import storage from "./classes/Storage";
 
 var search_history = T.id("search_history");
 var removeTextSearchHistory = T.id("remove-text-search_h");
@@ -49,15 +50,17 @@ function removeTextHistory(el, sort, interval) {
 function searchHistory(el, data) {
 	// if (!data) { // event in input
 	// 	var data = {
-	// 		sort: T.storage('sortHistory'),
+	// 		sort: storage.getOption('sortHistory'),
 	// 		interval: 0
 	// 	};
 	// }
 	let str;
 	if (typeof el == "object") {
-		str = localStorage["lastSearchHystory"] = el.target.value;
+		str = el.target.value;
+		storage.setOption("lastSearchHystory", el.target.value);
 	} else {
-		str = localStorage["lastSearchHystory"] = el || "";
+		str = el || "";
+		storage.setOption("lastSearchHystory", str);
 	}
 	//findHistory.innerHTML = '0';
 	listHistory.innerHTML = "";
@@ -194,11 +197,11 @@ chrome.history.onVisitRemoved.addListener(function(el) {
 	debugger;
 });
 
-search_history.value = localStorage["lastSearchHystory"];
+search_history.value = storage.getOption("lastSearchHystory");
 
 export function initHistory() {
 	//searchHistory(localStorage['lastSearchHystory'], {sort: localStorage['sortHistory'], interval:0});
-	searchHistory(localStorage["lastSearchHystory"]);
+	searchHistory(storage.getOption("lastSearchHystory"));
 }
 
 //selectSort.value = localStorage['sortHistory'];

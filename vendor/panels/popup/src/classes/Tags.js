@@ -1,12 +1,10 @@
-import T from "../classes/Core";
-import DragDrop from "../classes/DragDrop";
-
+import T from "./Core";
+import DragDrop from "./DragDrop";
+import storage from "./Storage";
 export default class Tags {
 	constructor(obj) {
 		for (let p in obj) this[p] = obj[p];
-
-		localStorage[this.alias] = localStorage[this.alias] || "[]";
-
+		storage.setOption(this.alias, storage.getOption(this.alias, "[]"));
 		this.showAllTags();
 		this._addEvents();
 	}
@@ -17,7 +15,7 @@ export default class Tags {
 		};
 	}
 	getTags() {
-		return JSON.parse(localStorage[this.alias]);
+		return JSON.parse(storage.getOption(this.alias));
 	}
 	addTag(tag) {
 		let tags = this.getTags();
@@ -26,7 +24,7 @@ export default class Tags {
 		}
 		if (!tags.includes(tag)) {
 			tags.push(tag);
-			localStorage[this.alias] = JSON.stringify(tags);
+			storage.setOption(this.alias, JSON.stringify(tags));
 			return true;
 		}
 		return false;
@@ -36,7 +34,7 @@ export default class Tags {
 
 		if (!!~tags.indexOf(tag)) {
 			tags.splice(tags.indexOf(tag), 1);
-			localStorage[this.alias] = JSON.stringify(tags);
+			storage.setOption(this.alias, JSON.stringify(tags));
 			return true;
 		}
 		return tags;
