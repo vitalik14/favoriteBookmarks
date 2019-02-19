@@ -1,6 +1,7 @@
-import T from "./Core";
+import { Dom, Helpers } from "./Core";
 import DragDrop from "./DragDrop";
 import storage from "./Storage";
+
 export default class Tags {
 	constructor(obj) {
 		for (let p in obj) this[p] = obj[p];
@@ -41,7 +42,7 @@ export default class Tags {
 	}
 	showAllTags() {
 		let self = this;
-		let tagsElement = T.id(self.container);
+		let tagsElement = Dom.id(self.container);
 		let tags = self.getTags();
 		tagsElement.innerHTML = "";
 		for (let i = 0, length = tags.length; i < length; i++) {
@@ -49,36 +50,38 @@ export default class Tags {
 			let tag = tags[i];
 			div.setAttribute("class", "tag");
 			div.setAttribute("draggable", "true");
-			div.setAttribute("data-id", T.b64EncodeUnicode(tag));
+			div.setAttribute("data-id", Helpers.b64EncodeUnicode(tag));
 			div.setAttribute("data-index", i);
 			div.innerHTML = `<span class="tag-del">x</span><span class="tagName">${tag}</span>`;
 
 			tagsElement.appendChild(div);
 
 			let deleteTag = div.children[0];
-			deleteTag.addEventListener("click", function() {
+			deleteTag.addEventListener("click", function () {
 				self.delTag(this.parentNode.children[1].innerHTML);
 				self.showAllTags();
 				self.activaTag();
 			});
-			deleteTag.addEventListener("mouseover", function() {
+			deleteTag.addEventListener("mouseover", function () {
 				this.parentNode.style.background = self.colors.colorDeleteTag;
 				this.parentNode.style.borderColor = self.colors.colorDeleteTag;
 			});
-			deleteTag.addEventListener("mouseout", function() {
+			deleteTag.addEventListener("mouseout", function () {
 				this.parentNode.style.background = self.colors.colorDefault;
 				this.parentNode.style.borderColor = self.colors.colorDefault;
 			});
 
 			let searchTag = div.children[1];
-			searchTag.addEventListener("click", function() {
-				T.id(self.search).value = this.innerHTML;
+			searchTag.addEventListener("click", function () {
+				Dom.id(self.search).value = this.innerHTML;
 				self.activaTag();
-				self.funcSearch(this.innerHTML, { sort: null, interval: 0 });
+				self.funcSearch(this.innerHTML, {
+					sort: null,
+					interval: 0
+				});
 			});
 
-			searchTag.addEventListener(
-				"mouseover",
+			searchTag.addEventListener("mouseover",
 				el => (el.target.parentNode.style.background = self.colorActive)
 			);
 			searchTag.addEventListener(
@@ -88,14 +91,14 @@ export default class Tags {
 		}
 
 		new DragDrop({
-			elements: T.id(self.container).childNodes,
+			elements: Dom.id(self.container).childNodes,
 			type: "tags",
 			container: self.container
 		});
 	}
 	_addEvents() {
-		T.id(this.elAdd).addEventListener("click", el => {
-			let value = T.id(this.search).value;
+		Dom.id(this.elAdd).addEventListener("click", el => {
+			let value = Dom.id(this.search).value;
 			if (!!value) {
 				this.addTag(value);
 				this.showAllTags();
@@ -103,15 +106,15 @@ export default class Tags {
 			}
 		});
 
-		T.id(this.search).addEventListener("input", () => this.activaTag());
+		Dom.id(this.search).addEventListener("input", () => this.activaTag());
 		this.activaTag();
 	}
 	activaTag() {
-		T.query("#" + this.container + " .tag").forEach(el => {
+		Dom.query("#" + this.container + " .tag").forEach(el => {
 			el.style.borderColor =
-				el.children[1].innerHTML === T.id(this.search).value
-					? this.colorActive
-					: this.colors.colorDefault;
+				el.children[1].innerHTML === Dom.id(this.search).value ?
+					this.colorActive :
+					this.colors.colorDefault;
 		});
 	}
 }

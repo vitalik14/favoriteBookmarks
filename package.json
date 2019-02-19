@@ -34,6 +34,7 @@
 	},
 	"scripts": {
 		"dev": "webpack --mode development",
+		"prod": "webpack --mode production",
 		"test": "echo \"Error: no test specified\" && exit 1"
 	},
 	"author": "vitalik14",

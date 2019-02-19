@@ -1,8 +1,10 @@
 /**
  * Created by vitalik on 06.11.2016.
  */
-export default class T {
-	constructor(obj) {}
+import emptyImg from "../../img/empty.png";
+
+export class Dom {
+	constructor(obj) { }
 	static addClass(cl, el) {
 		el.classList.add(cl);
 		return el;
@@ -20,6 +22,9 @@ export default class T {
 	static id(id) {
 		return document.getElementById(id);
 	}
+}
+
+export class Helpers {
 	static b64EncodeUnicode(str) {
 		return btoa(
 			encodeURIComponent(str).replace(/%([0-9A-F]{2})/g, function toSolidBytes(
@@ -31,7 +36,7 @@ export default class T {
 		);
 	}
 	static escapeHtml(text) {
-		return text.replace(/[\"&'\/<>]/g, function(a) {
+		return text.replace(/[\"&'\/<>]/g, function (a) {
 			return {
 				'"': "&quot;",
 				"&": "&amp;",
@@ -41,5 +46,15 @@ export default class T {
 				">": "&gt;"
 			}[a];
 		});
+	}
+
+	static faviconValidate(str) {
+		return str || emptyImg;
+	}
+
+	static compare(a, b) {
+		if (a[this] > b[this]) return -1;
+		if (a[this] < b[this]) return 1;
+		return 0;
 	}
 }
