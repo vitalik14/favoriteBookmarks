@@ -40,5 +40,4 @@ class Storage {
 	}
 }
 
-//localStorage['sortHistory'] = localStorage['sortHistory'] || app.sortDefault;
 export default new Storage().init();

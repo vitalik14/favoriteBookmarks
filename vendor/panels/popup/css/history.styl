@@ -130,9 +130,11 @@
 	height: 27px;
     align-items: center;
     padding: 0 5px;
+	transition: all 0.5s;
 }
 .results.history > li .date-title:hover,  .results.history > li .date-title.active {
-	background: $color3_light_visited;
+	background: #fbe7db;
+	transition: all 0.1s;
 }
 .results.history > li .date-title.active {
 	position: sticky;
@@ -151,7 +153,7 @@
 
 .results.history > li .date-title .counter {
 	font-size: 12px;
-    background: #f1f1f1;
+    background: #fbe7db;
     padding: 2px 4px;
     border-radius: 3px;
     color: #333;
@@ -166,7 +168,7 @@
 
 .results.history > li .date-title.active + ul {
 	display: block;
-	border-left: 4px solid $color3_light_visited;
+	border-left: 4px solid #fbe7db;
 }
 .results.history > li > ul {
 	display: block;
@@ -175,7 +177,7 @@
 .results.history > li > ul > li {
 	position: relative;
 	display block;
-	padding: 12px 0;
+	padding: 10px 0;
 	background: #fcfcfc;
 	border-bottom: 1px solid #ddd;
 }
@@ -210,7 +212,7 @@
     font-size: 12px;
 	position: absolute;
     top: 0;
-    left: 281px;
+    left: 280px;
 	width: max-content;
 	background: #fff;
     padding: 0 2px;
@@ -318,7 +320,7 @@
 	position: absolute;
 	z-index : 9;
     top: 0;
-    left: 225px;
+    left: 347px;
 	cursor: pointer;
 	white-space: nowrap;
 }
@@ -349,7 +351,7 @@
     display: block !important;
 }
 
-.results.history > li  .show-url:hover:before {
+.results.history > li:last-child > ul > li:last-child  .show-url:hover:before {
     width: 31px;
     height: 22px;
     position: absolute;

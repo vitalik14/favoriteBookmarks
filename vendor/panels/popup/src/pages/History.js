@@ -96,7 +96,9 @@ class History {
 				chrome.tabs.create({ url: elem.children[0].innerHTML }, null);
 
 			} else if (_class.contains('btn-search')) {
+
 				let el = this.elSearchHistory.value = new URL(elem.parentElement.children[3].children[0].innerHTML).host;
+
 				this.searchHistory(el);
 			}
 
@@ -122,9 +124,9 @@ class History {
 			Dom.id("loader-history").classList.add("active");
 			let counter = 5;
 			if (elem.scrollHeight < (elem.scrollTop + elem.offsetHeight)) {
+				this.renderList(this.daysShowStart, this.daysShowEnd);
 				this.daysShowStart += counter;
 				this.daysShowEnd += counter;
-				this.renderList(this.daysShowStart, this.daysShowEnd);
 			}
 			Dom.id("loader-history").classList.remove("active");
 			this.loaderDownList = false;
@@ -170,12 +172,14 @@ class History {
 		this.tags.activaTag();
 	}
 	searchHistory(el) {
+		this.loaderDownList = true;
 		if (el && typeof el === 'string') {
 			storage.setOption("lastSearchHystory", el);
 		}
 		this.daysShowStart = 0;
 		this.daysShowEnd = 14;
 		this.elListHistory.innerHTML = "";
+		this.currentArrHistory = [];
 		clearInterval(this.timeoutHistory);
 		this.timeoutHistory = setTimeout(() => {
 			Dom.id("loader-history").classList.add("active");
@@ -207,7 +211,6 @@ class History {
 							continue;
 						}
 						let itemDate = new Date(item.lastVisitTime).getDate();
-
 						if (day !== itemDate || !day) {
 							if (last) {
 								arrHistory.push({
@@ -223,7 +226,6 @@ class History {
 
 						list.push(item);
 					}
-
 					if (!!list.length) {
 						arrHistory.push({
 							title: new Date(last.lastVisitTime).toLocaleDateString(undefined, { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }),
@@ -232,6 +234,7 @@ class History {
 					}
 					this.currentArrHistory = arrHistory;
 					this.renderList(this.daysShowStart, this.daysShowEnd = 20);
+					this.loaderDownList = false;
 				}
 			);
 		}, 250);
@@ -242,8 +245,6 @@ class History {
 	// }
 
 	renderList(start, end) {
-		//console.log(arrHistory);
-		//let expand = this.loadState('expand');
 		let arrHistory = this.currentArrHistory;
 		for (let i = start, len = arrHistory.length; i < len && i < end; i++) {
 			let li = document.createElement("li");
@@ -253,9 +254,7 @@ class History {
 			li.appendChild(ul);
 			titleDate.innerHTML = `<div class="title">${arrHistory[i].title}</div> <div class="counter">${arrHistory[i].list.length}</div>`;
 			titleDate.classList.add("date-title");
-			// if (expand) {
-			// 	titleDate.classList.add("active");
-			// }
+
 			this.elListHistory.appendChild(li);
 
 			for (let n = 0, len = arrHistory[i].list.length; n < len; n++) {
@@ -282,10 +281,7 @@ class History {
 				ul.appendChild(divItem);
 			}
 		}
-
-		//console.timeEnd('start');
 	}
-
 
 	activate() {
 		this.searchHistory(storage.getOption("lastSearchHystory"));

@@ -85,6 +85,7 @@ class Bookmarks {
 		this.searchBookmarks("", {
 			sort: this.elInputBookmarks.value,
 		});
+		storage.setOption("lastSearchBookmarks", "");
 		this.tags.activaTag();
 	}
 
