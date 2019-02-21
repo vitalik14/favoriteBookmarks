@@ -8,13 +8,14 @@ import DragDrop from "../components/DragDrop";
 
 class Tabs {
 	constructor() {
-		this.elSearchTabs = Dom.id("search_tabs");
-		this.elRemoveTextSearchTabs = Dom.id("remove-text-search_t");
+		this.elSearchTabs = Dom.id("tabs_search");
+		this.elRemoveTextSearchTabs = Dom.id("remove_text_tabs");
 		// this.elShowUrl = Dom.id("showUrl");
 		this.elShowOneLine = Dom.id("showOneLine");
 		this.elOpenTabs = Dom.id("openTabs");
 		this.elDeleteCopy = Dom.id("deleteCopy");
-
+		this.elTabsItems = Dom.id("tabs-items");
+		this.elNotFound = Dom.id("not_found");
 		this.elSearchTabs.value = storage.getOption("lastSearchTabs");
 		this.elSearchTabs.addEventListener("input", this.listingList.bind(this));
 		this.elRemoveTextSearchTabs.addEventListener(
@@ -107,7 +108,7 @@ class Tabs {
 			li = "",
 			listing;
 
-		el.innerHTML = "";
+		this.elTabsItems.innerHTML = "";
 		listing = this.data;
 		if (word && str) {
 			if (type) {
@@ -128,76 +129,84 @@ class Tabs {
 			listing = itog;
 		}
 
-		this.elOpenTabs.innerHTML = listing.length;
-		let short = "";
+		if (!listing.length) {
+			let li = document.createElement("li");
+			li.classList.add('not-found');
+			li.innerHTML = this.elNotFound.innerHTML;
+			this.elTabsItems.appendChild(li);
+		} else {
 
-		if (storage.getOption("showOneLine") === "on") {
-			short = "short";
-		}
+			this.elOpenTabs.innerHTML = listing.length;
+			let short = "";
 
-		for (let i = 0, length = listing.length; i < length; i++) {
-			let item = listing[i];
-			let url = "";
-			let classActive = "";
-			let audible = "";
-			let favicon = Helpers.faviconValidate(item.favIconUrl);
-			if (item.active) classActive = "active";
-			// if (storage.getOption("showUrl") === "on") url = item.url;
-			if (item.audible) audible = '<div class="audio"></div>';
+			if (storage.getOption("showOneLine") === "on") {
+				short = "short";
+			}
 
-			li += `
-			<li 
-				draggable="true" 
-				data-id="${item.id}" 
-				data-index="${item.index}" 
-				class="${classActive}"
-			>	
-				<div class="btn">
-					<div class="del">x</div>
-				</div>
-				<div class="show-url"></div>
-				<div class="tab ${short}" >
-					<img src="${favicon}" alt="" />
-					<span class="tabs-title">${Helpers.escapeHtml(item.title)}</span>
-					<span class="url">${item.url}</span>
-				</div>
-				<div class="info">
-					${audible}
-				</div>
-			</li>`;
-		}
+			for (let i = 0, length = listing.length; i < length; i++) {
+				let item = listing[i];
+				let url = "";
+				let classActive = "";
+				let audible = "";
+				let favicon = Helpers.faviconValidate(item.favIconUrl);
+				if (item.active) classActive = "active";
+				// if (storage.getOption("showUrl") === "on") url = item.url;
+				if (item.audible) audible = '<div class="audio"></div>';
 
-		el.insertAdjacentHTML("afterBegin", li);
-		var arrTabs = Dom.query(".tab"),
-			arrDels = Dom.query(".del"),
-			arrLi = Dom.query("#tabs-items li"),
-			arrTabsLength = arrTabs.length;
+				li += `
+				<li 
+					draggable="true" 
+					data-id="${item.id}" 
+					data-index="${item.index}" 
+					class="${classActive}"
+				>	
+					<div class="btn">
+						<div class="del">x</div>
+					</div>
+					<div class="show-url"></div>
+					<div class="tab ${short}" >
+						<img src="${favicon}" alt="" />
+						<span class="tabs-title">${Helpers.escapeHtml(item.title)}</span>
+						<span class="url">${item.url}</span>
+					</div>
+					<div class="info">
+						${audible}
+					</div>
+				</li>`;
+			}
 
-		for (let tab = 0; tab < arrTabsLength; tab++) {
-			arrTabs[tab].addEventListener("click", function (el) {
-				if (el.target.classList.contains('url')) {
-					return;
-				}
-				chrome.tabs.update(
-					+this.parentNode.getAttribute("data-id"),
-					{
-						active: true
-					},
-					null
-				);
+			this.elTabsItems.insertAdjacentHTML("afterBegin", li);
+			var arrTabs = Dom.query(".tab"),
+				arrDels = Dom.query(".del"),
+				arrLi = Dom.query("#tabs-items li"),
+				arrTabsLength = arrTabs.length;
+
+			for (let tab = 0; tab < arrTabsLength; tab++) {
+				arrTabs[tab].addEventListener("click", function (el) {
+					if (el.target.classList.contains('url')) {
+						return;
+					}
+					chrome.tabs.update(
+						+this.parentNode.getAttribute("data-id"),
+						{
+							active: true
+						},
+						null
+					);
+				});
+				arrDels[tab].addEventListener("click", function (el) {
+					let parent = this.parentNode.parentNode;
+					chrome.tabs.remove(+parent.getAttribute("data-id"), () =>
+						parent.remove()
+					);
+				});
+			}
+			new DragDrop({
+				elements: arrLi,
+				type: "tabs",
+				container: "tabs-items"
 			});
-			arrDels[tab].addEventListener("click", function (el) {
-				let parent = this.parentNode.parentNode;
-				chrome.tabs.remove(+parent.getAttribute("data-id"), () =>
-					parent.remove()
-				);
-			});
 		}
-		new DragDrop({
-			elements: arrLi,
-			type: "tabs",
-			container: "tabs-items"
-		});
 	}
 
 	activate() {
@@ -206,10 +215,10 @@ class Tabs {
 
 	getTags() {
 		return new Tags({
-			search: "search_tabs",
+			search: "tabs_search",
 			alias: "tabs_tags",
-			container: "tags_t",
-			elAdd: "addTags_t",
+			container: "tags_tab",
+			elAdd: "add_tag_tab",
 			colorActive: "rgba(160, 193, 248, 0.4)",
 			funcSearch: this.listingList.bind(this)
 		});

@@ -5,21 +5,21 @@
 	</head>
 	<body>
 		<div id="panel">
-			<div class="tab1 p_tabs xTabs active">Tabs</div>
-			<div class="tab2 p_bookmarks xBookmarks">Bookmarks</div>
-			<div class="tab3 p_history xHistory">History</div>
+			<div class="tab1 btn-tabs xTabs active">Tabs</div>
+			<div class="tab2 btn-bookmarks xBookmarks">Bookmarks</div>
+			<div class="tab3 btn-history xHistory">History</div>
 		</div>
 		<div class="tabs">
-			<div class="tab1 active t_tabs">
-				<div id="tabs_wrap_tabs">
+			<div class="tab1 active tabs-tabs">
+				<div class="wrap-tabs">
 					<div class="search-block">
 						<div class="wrap-search">
-							<input class="search" id="search_tabs" maxlength="50"
+							<input class="search" id="tabs_search" maxlength="50"
 								placeholder="&#128270;" required type="text" />
-							<div class="remove-text-search" id="remove-text-search_t">x</div>
-							<div class="addTags" id="addTags_t">+</div>
+							<div class="remove-text-search" id="remove_text_tabs">x</div>
+							<div class="add-tag" id="add_tag_tab">+</div>
 						</div>
-						<ul class="tags" id="tags_t"></ul>
+						<ul class="tags" id="tags_tab"></ul>
 					</div>
 					<ul class="tabs-items" id="tabs-items"></ul>
 					<div class="options-tabs" id="options">
@@ -44,19 +44,19 @@
 				</div>
 			</div>
 		</div>
-		<div class="tab2 t_bookmarks">
-			<div id="tabs_wrap_bookmarks">
+		<div class="tab2 tab-bookmarks">
+			<div class="wrap-bookmarks">
 				<div class="search-block">
 					<div class="wrap-search">
-						<input class="search" id="search_bookmarks" maxlength="50"
+						<input class="search" id="bookmarks_search" maxlength="50"
 							placeholder="&#128270;" required type="text" />
-						<div class="remove-text-search" id="remove-text-search_b">x</div>
-						<div class="cssload-container" id="loader-bookmarks">
+						<div class="remove-text-search" id="remove_text_bookmarks">x</div>
+						<div class="cssload-container" id="loader_bookmarks">
 							<div class="cssload-speeding-wheel"></div>
 						</div>
-						<div class="addTags" id="addTags_b">+</div>
+						<div class="add-tag" id="add_tag_bookmark">+</div>
 					</div>
-					<ul class="tags" id="tags_b"></ul>
+					<ul class="tags" id="tags_bookmarks"></ul>
 				</div>
 				<ul class="results-bookmarks" id="results_b"></ul>
 				<div class="options-bookmarks" id="options">
@@ -78,33 +78,33 @@
 				</div>
 			</div>
 		</div>
-		<div class="tab3 t_history">
-			<div id="tabs_wrap_history">
+		<div class="tab3 tab-history">
+			<div class="wrap-history">
 				<div class="search-block">
 					<div class="wrap-search">
-						<input class="search" id="search_history" maxlength="50"
+						<input class="search" id="history_search" maxlength="50"
 							placeholder="&#128270;" required type="text" />
-						<div class="remove-text-search" id="remove-text-search_h">x</div>
+						<div class="remove-text-search" id="remove_text_history">x</div>
 						<div class="cssload-container" id="loader-history">
 							<div class="cssload-speeding-wheel"></div>
 						</div>
-						<div class="addTags" id="addTags_h">+</div>
+						<div class="add-tag" id="add_tag_history">+</div>
 					</div>
-					<ul class="tags" id="tags_h"></ul>
+					<ul class="tags" id="tags_history"></ul>
 				</div>
 				<ul class="results history" id="results_h"></ul>
 				<div class="options-history" id="options">
 					<div class="date-period">
-						<input id="searchOn" type="checkbox" />
-
-						<input disabled id="startHistory" max="2018-12-31" type="date" value="">
+						<input id="search_on" type="checkbox" />
+						<input disabled id="start_history" max="2018-12-31" type="date" value="">
 						<div class="arrow"></div>
-						<input disabled id="endHistory" max="2018-12-31" type="date" value="">
-						<button class="xFilter" disabled id="searchPeriodHistory">Filtering</button>
+						<input disabled id="end_history" max="2018-12-31" type="date" value="">
+						<button class="xFilter" disabled id="search_period_history">Filtering</button>
 					</div>
 				</div>
 			</div>
 		</div>
+		<div class="xNotFound none" id="not_found"><div>not found</div></div>
 		<script src="/analitics.js"></script>
 	</body>
 </html>

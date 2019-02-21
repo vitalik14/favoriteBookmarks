@@ -40,5 +40,8 @@
 	},
 	"xFilter": {
 		"message": "Filtering"
+	},
+	"xNotFound": {
+		"message": "Not found"
 	}
 }

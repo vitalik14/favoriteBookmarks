@@ -2,7 +2,7 @@
 
 
 /* hovers */
-.t_tabs .tabs-items 
+.tabs-tabs .tabs-items 
 	li:hover
 		background-color rgba(72, 136, 243, 0.1)
 		transition all 0.1s
@@ -26,6 +26,17 @@
 		padding: 8px 0 8px 3px;
 		border-bottom 1px solid $color8
 		position: relative
+		&:last-child
+			.show-url
+				&:hover
+					&:before
+						width: 31px;
+						height: 22px;
+						position: absolute;
+						content: '';
+						left: -6px;
+						top: 12px;
+						z-index: 10;
 		.btn
 			width: 20px;
 			height: 20px;
@@ -93,6 +104,42 @@
 				height 20px
 				background-size contain
 				margin-top: 7px;
+		.show-url
+			background-image: url(../img/history_info.svg);
+			width:15px;
+			height 15px;
+			background-size: contain;
+			position: absolute;
+			z-index : 9;
+			top: 1px;
+			left: 380px;
+			cursor: pointer;
+			white-space: nowrap;
+			&:hover
+				cursor: help;
+				z-index: 11;
+				background-image: url(../img/history_info.svg);
+				+div
+					.url
+						display: block
+			+div
+				.url
+					display: none;
+					word-break: break-word;
+					z-index: 100;
+					background: #ffffff;
+					left: -5px;
+					width: calc(100% - 15px);
+					position: absolute;
+					top: 33px;
+					text-decoration: none;
+					padding: 7px 10px 9px 10px;
+					border-top: 2px solid $color1
+					border-bottom: 2px solid $color1
+					box-shadow: 0 23px 50px #666;
+					cursor: default
+					&:hover
+						display: block
 
 
 .options-tabs
@@ -212,7 +259,7 @@
 	float: left;
 }
 
-.t_tabs 
+.tabs-tabs
 	.statistic .open-tabs
 		min-width 50px
 	.options-tabs .settings:hover
@@ -238,58 +285,3 @@
 	border-top: 1px solid $color_white;
 }
 
-
-
-.tabs-items > li .show-url {
-	background-image: url(../img/history_info.svg);
-	width:15px;
-	height 15px;
-	background-size: contain;
-	position: absolute;
-	z-index : 9;
-    top: 1px;
-    left: 380px;
-	cursor: pointer;
-	white-space: nowrap;
-}
-
-
-.tabs-items > li  .show-url:hover {
-    cursor: help;
-	z-index: 11;
-	background-image: url(../img/history_info.svg);
-}
-
-
-.tabs-items > li  .show-url + div .url {
-    display: none !important;
-	word-break: break-word;    
-	z-index: 100;
-	background: #ffffff;
-   // background: url(../images/status-info.png) #f0f0f0 no-repeat 100% 5%;
-    left: -5px;
-    width: calc(100% - 15px);
-    position: absolute;
-    top: 33px;
-    text-decoration: none;
-	
-    padding: 7px 10px 9px 10px;
-	border-top: 2px solid $color1
-    border-bottom: 2px solid $color1
-	box-shadow: 0 23px 50px #666;
-	cursor: default
-
-}
-.tabs-items > li:last-child  .show-url:hover:before {
-    width: 31px;
-    height: 22px;
-    position: absolute;
-    content: '';
-   left: -6px;
-    top: 12px;
-    z-index: 10;
-}
-
-.tabs-items > li  .show-url:hover + div .url, .tabs-items > li  .show-url + div .url:hover {
-    display: block !important;
-}

@@ -40,5 +40,8 @@
 	},
 	"xFilter": {
 		"message": "滤波"
+	},
+	"xNotFound": {
+		"message": "找不到"
 	}
 }

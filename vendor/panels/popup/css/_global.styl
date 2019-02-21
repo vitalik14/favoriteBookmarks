@@ -52,22 +52,22 @@ html, body
 		color $color_white
 		font-weight bold
 
-	>div.active.p_tabs
+	>div.active.btn-tabs
 		background: -webkit-linear-gradient($color_white, $color1);
 
-	>div.active.p_bookmarks
+	>div.active.btn-bookmarks
 		background: -webkit-linear-gradient($color_white, $color2);
 
-	>div.active.p_history
+	>div.active.btn-history
 		background: -webkit-linear-gradient($color_white, $color3);
 
-	>.p_tabs:not(.active):hover
+	>.btn-tabs:not(.active):hover
 		background: -webkit-linear-gradient($color1, $color_white);
 
-	>.p_bookmarks:not(.active):hover
+	>.btn-bookmarks:not(.active):hover
 		background: -webkit-linear-gradient($color2, $color_white);
 
-	>.p_history:not(.active):hover
+	>.btn-history:not(.active):hover
 		background: -webkit-linear-gradient($color3, $color_white);
 
 	>div:first-child+div
@@ -75,15 +75,15 @@ html, body
 		border-right: 1px solid $color11;
 
 
-.p_tabs {
+.btn-tabs {
 	background: -webkit-linear-gradient($color1, $color_white);
 }
 
-.p_bookmarks {
+.btn-bookmarks {
 	background: -webkit-linear-gradient($color2, $color_white);
 }
 
-.p_history {
+.btn-history {
 	background: -webkit-linear-gradient($color3, $color_white);
 }
 
@@ -93,19 +93,19 @@ tabs(col)
 	box-shadow inset 0 0 7px col
 	border-radius 0 0 2px 2px
 
-.t_tabs
+.tabs-tabs
 	tabs($color1);
 
-.t_bookmarks
+.tab-bookmarks
 	tabs($color2);
 
-.t_history
+.tab-history
 	tabs($color3);
 
-.tabs > div.active, #search_tabs:valid + div, #search_bookmarks:valid + div, #search_history:valid + div
+.tabs > div.active, #tabs_search:valid + div, #bookmarks_search:valid + div, #history_search:valid + div
 	display block
 
-.tabs > div, #search_tabs:invalid + div, #search_bookmarks:invalid + div, #search_history:invalid + div
+.tabs > div, #tabs_search:invalid + div, #bookmarks_search:invalid + div, #history_search:invalid + div
 	display none
 
 .cssload-container {
@@ -132,13 +132,24 @@ tabs(col)
 	100%{ transform: rotate(360deg); transform: rotate(360deg); }
 }
 
-#loader-history, #loader-bookmarks {
+#loader-history, #loader_bookmarks
 	opacity: 0;
 	transition: all 0.5s;
 	z-index: 9;
+	&.active
+		opacity: 1;
+		transition: all 0.5s;
+		z-index: 11;
+
+.none {
+	display: none;
 }
-#loader-history.active, #loader-bookmarks.active {
-	opacity: 1;
-	transition: all 0.5s;
-	z-index: 11;
-}
+.not-found 
+	border-bottom: 1px solid #ddd;
+	position: relative;
+	padding: 10px 0 !important;
+	display: flex;
+	align-items: center;
+	width:100%;
+	text-align: center;
+	justify-content: center;

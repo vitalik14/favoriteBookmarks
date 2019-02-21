@@ -7,26 +7,29 @@ import storage from "../components/Storage";
 
 class History {
 	constructor() {
-		let maxDate = new Date().toLocaleDateString().split('.').reverse().join('-');
-		let minDate = '2010-01-01';
+		this.maxDate = new Date().toLocaleDateString().split('.').reverse().join('-');
+		this.minDate = '2010-01-01';
+
 		this.daysShowStart = 0;
 		this.daysShowEnd = 14;
+		this.counterStep = this.daysShowEnd - this.daysShowStart;
+
 		this.loaderDownList = false;
 		this.currentArrHistory = [];
-		this.elSearchHistory = Dom.id("search_history");
-		this.elRemoveTextSearchHistory = Dom.id("remove-text-search_h");
+		this.elSearchHistory = Dom.id("history_search");
+		this.elRemoveTextSearchHistory = Dom.id("remove_text_history");
+		this.elNotFound = Dom.id("not_found");
 		this.elListHistory = Dom.id("results_h");
-		this.elFindHistory = Dom.id("findHistory");
 		this.elDateHistory = Dom.id("dateHistory");
-		this.elSearchPeriodHistory = Dom.id("searchPeriodHistory");
-		this.elStartHistory = Dom.id("startHistory");
-		this.elEndHistory = Dom.id("endHistory");
+		this.elSearchPeriodHistory = Dom.id("search_period_history");
+		this.elStartHistory = Dom.id("start_history");
+		this.elEndHistory = Dom.id("end_history");
 		this.elBtnExpand = Dom.id("btnExpand");
-		this.elStartHistory.setAttribute('max', maxDate);
-		this.elEndHistory.setAttribute('max', maxDate);
-		this.elStartHistory.setAttribute('min', minDate);
-		this.elEndHistory.setAttribute('min', minDate);
-		this.elSearchOn = Dom.id("searchOn");
+		this.elStartHistory.setAttribute('max', this.maxDate);
+		this.elEndHistory.setAttribute('max', this.maxDate);
+		this.elStartHistory.setAttribute('min', this.minDate);
+		this.elEndHistory.setAttribute('min', this.minDate);
+		this.elSearchOn = Dom.id("search_on");
 		this.timeoutHistory = 0;
 		this.timeoutInputHistory = 0;
 		this.elSearchHistory.value = storage.getOption("lastSearchHystory");
@@ -38,7 +41,7 @@ class History {
 	initialListeners() {
 		this.elStartHistory.addEventListener("blur", el => {
 			if (new Date(el.target.value).getTime() > Date.now()) {
-				el.target.value = maxDate;
+				el.target.value = this.maxDate;
 			}
 			this.saveState("dateStart", el.target.value);
 		});
@@ -46,7 +49,7 @@ class History {
 		this.elEndHistory.addEventListener("blur", el => {
 			if (new Date(el.target.value).getTime() > Date.now()) {
 
-				el.target.value = maxDate;
+				el.target.value = this.maxDate;
 			}
 			this.saveState("dateEnd", el.target.value);
 		});
@@ -122,11 +125,8 @@ class History {
 			}
 			this.loaderDownList = true;
 			Dom.id("loader-history").classList.add("active");
-			let counter = 5;
 			if (elem.scrollHeight < (elem.scrollTop + elem.offsetHeight)) {
-				this.renderList(this.daysShowStart, this.daysShowEnd);
-				this.daysShowStart += counter;
-				this.daysShowEnd += counter;
+				this.renderList();
 			}
 			Dom.id("loader-history").classList.remove("active");
 			this.loaderDownList = false;
@@ -188,7 +188,7 @@ class History {
 			let store = this.loadState();
 			if (store.status) {
 				startTime = new Date(new Date(store.dateStart).toDateString()).getTime();
-				endTime = new Date(new Date(store.dateEnd).toDateString()).getTime();
+				endTime = new Date(new Date(store.dateEnd).toDateString()).getTime() + 86400000; // +1 day
 			}
 			chrome.history.search(
 				{
@@ -199,54 +199,62 @@ class History {
 				},
 				tree => {
 					Dom.id("loader-history").classList.remove("active");
-					tree.sort(Helpers.compare.bind("lastVisitTime"));
-					let arrHistory = [];
-					let day = false;
-					let last;
-					let list = [];
+					if (!tree.length) {
+						let li = document.createElement("li");
+						li.classList.add('not-found');
+						li.innerHTML = this.elNotFound.innerHTML;
+						this.elListHistory.appendChild(li);
+					} else {
+						tree.sort(Helpers.compare.bind("lastVisitTime"));
+						let arrHistory = [];
+						let day = false;
+						let lastDate = new Date(endTime).getDate();
+						let list = [];
+						for (let i = 0, length = tree.length; i < length; i++) {
+							let item = tree[i];
+							let _date = new Date(item.lastVisitTime);
 
-					for (let i = 0, length = tree.length; i < length; i++) {
-						let item = tree[i];
-						if ((new Date(endTime).getTime()) <= new Date(item.lastVisitTime).getTime()) {
-							continue;
-						}
-						let itemDate = new Date(item.lastVisitTime).getDate();
-						if (day !== itemDate || !day) {
-							if (last) {
-								arrHistory.push({
-									title: new Date(last.lastVisitTime).toLocaleDateString(undefined, { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }),
+							if (endTime < _date.getTime()) {
+								continue;
+							}
+							let itemDate = _date.getDate();
+							if (lastDate !== itemDate) {
+								if (!day) {
+									day = new Date(endTime);
+								}
+								list.length && arrHistory.push({
+									title: day.toLocaleDateString(undefined, { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }),
 									list: [...list]
 								});
 								list = [];
 							}
-							last = item;
-							day = itemDate
-						}
-						item.domain = new URL(item.url).origin;
+							item.domain = new URL(item.url).origin;
+							item.time = _date.toLocaleTimeString();
+							list.push(item);
 
-						list.push(item);
+							day = _date;
+							lastDate = _date.getDate();
+
+						}
+						if (!!list.length) {
+							arrHistory.push({
+								title: day.toLocaleDateString(undefined, { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }),
+								list: [...list]
+							});
+						}
+						this.currentArrHistory = arrHistory;
+						this.renderList();
+						this.loaderDownList = false;
+
 					}
-					if (!!list.length) {
-						arrHistory.push({
-							title: new Date(last.lastVisitTime).toLocaleDateString(undefined, { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }),
-							list: list
-						});
-					}
-					this.currentArrHistory = arrHistory;
-					this.renderList(this.daysShowStart, this.daysShowEnd = 20);
-					this.loaderDownList = false;
 				}
 			);
 		}, 250);
 	}
 
-	// preloaderList(visibleItems, step) {
-
-	// }
-
-	renderList(start, end) {
+	renderList() {
 		let arrHistory = this.currentArrHistory;
-		for (let i = start, len = arrHistory.length; i < len && i < end; i++) {
+		for (let i = this.daysShowStart, len = arrHistory.length; i < len && i < this.daysShowEnd; i++) {
 			let li = document.createElement("li");
 			let ul = document.createElement("ul");
 			let titleDate = document.createElement("div");
@@ -269,7 +277,7 @@ class History {
 				try {
 					divItem.innerHTML = `
 					<div class="btn-search"></div>
-					<div class="time">${new Date(item.lastVisitTime).toLocaleTimeString()}</div>
+					<div class="time">${item.time}</div>
 					<div class="show-url"></div>
 					<a class="h-l" style="background-image:url(chrome://favicon/${item.domain})">
 						<div class="url">${item.url}</div>
@@ -281,6 +289,8 @@ class History {
 				ul.appendChild(divItem);
 			}
 		}
+		this.daysShowStart += this.counterStep;
+		this.daysShowEnd += this.counterStep;
 	}
 
 	activate() {
@@ -288,10 +298,10 @@ class History {
 	}
 	getTags() {
 		return new Tags({
-			search: "search_history",
+			search: "history_search",
 			alias: "history_tags",
-			container: "tags_h",
-			elAdd: "addTags_h",
+			container: "tags_history",
+			elAdd: "add_tag_history",
 			colorActive: "rgba(243, 136, 72, 0.4)",
 			funcSearch: this.searchHistory.bind(this)
 		});

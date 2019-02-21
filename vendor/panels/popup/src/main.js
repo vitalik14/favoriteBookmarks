@@ -1,3 +1,4 @@
+import { translate } from "./translate"
 import { Dom } from "./components/Core";
 import { State } from "./configs";
 import storage from "./components/Storage";
@@ -6,7 +7,6 @@ import { bookmarks } from "./pages/Bookmarks";
 import { history } from "./pages/History";
 
 import "../css/_global.styl";
-import "../css/tops.styl";
 import "../css/tabs.styl";
 import "../css/bookmarks.styl";
 import "../css/history.styl";
@@ -23,21 +23,21 @@ Dom.query("#panel > div").forEach(el => {
 		storage.setOption("tabs", item0.split("tab")[1]);
 
 		switch (list.item(1)) {
-			case "p_tabs":
+			case "btn-tabs":
 				if (!State.current.tabs) {
 					State.current.tabs = true;
 					tabs.activate();
 					_gaq.push(['_trackEvent', 'tabs', 'clicked']);
 				}
 				break;
-			case "p_bookmarks":
+			case "btn-bookmarks":
 				if (!State.current.bookmarks) {
 					State.current.bookmarks = true;
 					bookmarks.activate();
 					_gaq.push(['_trackEvent', 'bookmarks', 'clicked']);
 				}
 				break;
-			case "p_history":
+			case "btn-history":
 				if (!State.current.history) {
 					State.current.history = true;
 					history.activate();

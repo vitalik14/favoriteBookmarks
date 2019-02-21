@@ -11,7 +11,6 @@ function translate() {
 	Dom.queryOne(".xTabs").innerText = chrome.i18n.getMessage("xTabs", null);
 	Dom.queryOne(".settings-btn").innerText = chrome.i18n.getMessage("settings", null);
 	Dom.queryOne(".xShowOnlyOneLine").innerText = chrome.i18n.getMessage("xShowOnlyOneLine", null);
-	// Dom.queryOne(".xShowUrl").innerText = chrome.i18n.getMessage("xShowUrl", null);
 	Dom.id("deleteCopy").innerText = chrome.i18n.getMessage("deleteCopy", null);
 
 	//bookmarks
@@ -25,4 +24,6 @@ function translate() {
 	//history
 	Dom.queryOne('.xHistory').innerText = chrome.i18n.getMessage("xHistory", null);
 	Dom.queryOne('.xFilter').innerText = chrome.i18n.getMessage("xFilter", null);
+
+	Dom.queryOne(".xNotFound").innerText = chrome.i18n.getMessage("xNotFound", null);
 }
