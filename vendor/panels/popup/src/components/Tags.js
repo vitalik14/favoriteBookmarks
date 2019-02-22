@@ -18,6 +18,9 @@ export default class Tags {
 	getTags() {
 		return JSON.parse(storage.getOption(this.alias));
 	}
+	saveTags(tags) {
+		storage.setOption(this, JSON.stringify(tags));
+	}
 	addTag(tag) {
 		let tags = this.getTags();
 		if (!tags.includes) {
@@ -93,7 +96,9 @@ export default class Tags {
 		new DragDrop({
 			elements: Dom.id(self.container).childNodes,
 			type: "tags",
-			container: self.container
+			container: self.container,
+			funcSaveSort: this.saveTags.bind(this.alias)
+
 		});
 	}
 	_addEvents() {

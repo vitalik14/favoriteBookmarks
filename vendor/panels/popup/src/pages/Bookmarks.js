@@ -124,7 +124,8 @@ class Bookmarks {
 		this.elLoaderBookmarks.classList.add("active");
 		this.timeoutBookmarks = setTimeout(() => {
 			chrome.bookmarks.search(str, tree => {
-				if (!tree.length) {
+				let length = tree.length;
+				if (!length) {
 					let li = document.createElement("li");
 					li.classList.add('not-found');
 					li.innerHTML = this.elNotFound.innerHTML;
@@ -132,9 +133,9 @@ class Bookmarks {
 				} else {
 					let arrBookmarks = [];
 					tree.sort(Helpers.compare.bind(storage.getOption("sortBookmarks")));
-					this.elFindBookmarks.innerHTML = tree.length;
+					this.elFindBookmarks.innerHTML = length;
 
-					for (let i = 0, length = tree.length; i < length; i++) {
+					for (let i = 0; i < length; i++) {
 						let item = tree[i];
 						if (item.url === undefined) continue;
 						arrBookmarks.push(
@@ -153,7 +154,6 @@ class Bookmarks {
 					this.loaderDownList = false;
 				}
 				this.elLoaderBookmarks.classList.remove("active");
-
 			});
 		}, 200);
 	}

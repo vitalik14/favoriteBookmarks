@@ -39,8 +39,34 @@ class Tabs {
 		);
 		this.tags = this.getTags();
 		this.data = [];
+		this.initialListeners();
 	}
+	initialListeners() {
+		this.elTabsItems.addEventListener("click", el => {
+			let elem = el.target;
+			let _class = elem.classList;
+			let childrens = false;
+			if (_class.contains('tab') || (_class.contains('tabs-title') || _class.contains('f-img')) && (childrens = true)) {
+				if (childrens) {
+					elem = elem.parentElement;
+				}
+				chrome.tabs.update(
+					+elem.parentNode.getAttribute("data-id"),
+					{
+						active: true
+					},
+					null
+				);
+			}
+			if (_class.contains('del')) {
+				let parent = elem.parentNode.parentNode;
+				chrome.tabs.remove(+parent.getAttribute("data-id"), () =>
+					parent.remove()
+				);
+			}
 
+		}, true);
+	}
 	removeTextTabs() {
 		this.elSearchTabs.value = "";
 		this.listingList("");
@@ -103,9 +129,7 @@ class Tabs {
 
 		storage.setOption("lastSearchTabs", str);
 
-		var el = Dom.queryOne(".tabs-items"),
-			li = "",
-			listing;
+		var li = "", listing;
 
 		this.elTabsItems.innerHTML = "";
 		listing = this.data;
@@ -134,7 +158,6 @@ class Tabs {
 			li.innerHTML = this.elNotFound.innerHTML;
 			this.elTabsItems.appendChild(li);
 		} else {
-
 			this.elOpenTabs.innerHTML = listing.length;
 			let short = "";
 
@@ -144,12 +167,10 @@ class Tabs {
 
 			for (let i = 0, length = listing.length; i < length; i++) {
 				let item = listing[i];
-				let url = "";
 				let classActive = "";
 				let audible = "";
 				let favicon = Helpers.faviconValidate(item.favIconUrl);
 				if (item.active) classActive = "active";
-				// if (storage.getOption("showUrl") === "on") url = item.url;
 				if (item.audible) audible = '<div class="audio"></div>';
 
 				li += `
@@ -164,7 +185,7 @@ class Tabs {
 					</div>
 					<div class="show-url"></div>
 					<div class="tab ${short}" >
-						<img src="${favicon}" alt="" />
+						<img class="f-img" src="${favicon}" alt="" />
 						<span class="tabs-title">${Helpers.escapeHtml(item.title)}</span>
 						<span class="url">${item.url}</span>
 					</div>
@@ -173,33 +194,9 @@ class Tabs {
 					</div>
 				</li>`;
 			}
-
 			this.elTabsItems.insertAdjacentHTML("afterBegin", li);
-			var arrTabs = Dom.query(".tab"),
-				arrDels = Dom.query(".del"),
-				arrLi = Dom.query("#tabs-items li"),
-				arrTabsLength = arrTabs.length;
+			let arrLi = Dom.query("#tabs-items li");
 
-			for (let tab = 0; tab < arrTabsLength; tab++) {
-				arrTabs[tab].addEventListener("click", function (el) {
-					if (el.target.classList.contains('url')) {
-						return;
-					}
-					chrome.tabs.update(
-						+this.parentNode.getAttribute("data-id"),
-						{
-							active: true
-						},
-						null
-					);
-				});
-				arrDels[tab].addEventListener("click", function (el) {
-					let parent = this.parentNode.parentNode;
-					chrome.tabs.remove(+parent.getAttribute("data-id"), () =>
-						parent.remove()
-					);
-				});
-			}
 			new DragDrop({
 				elements: arrLi,
 				type: "tabs",

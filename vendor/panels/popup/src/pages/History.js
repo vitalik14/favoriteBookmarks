@@ -200,8 +200,8 @@ class History {
 					endTime: endTime
 				},
 				tree => {
-					Dom.id("loader-history").classList.remove("active");
-					if (!tree.length) {
+					let length = tree.length;
+					if (!length) {
 						let li = document.createElement("li");
 						li.classList.add('not-found');
 						li.innerHTML = this.elNotFound.innerHTML;
@@ -212,7 +212,7 @@ class History {
 						let day = false;
 						let lastDate = new Date(endTime).getDate();
 						let list = [];
-						for (let i = 0, length = tree.length; i < length; i++) {
+						for (let i = 0; i < length; i++) {
 							let item = tree[i];
 							let _date = new Date(item.lastVisitTime);
 							if (item.url === undefined) continue;
@@ -250,6 +250,7 @@ class History {
 						this.loaderDownList = false;
 
 					}
+					Dom.id("loader-history").classList.remove("active");
 				}
 			);
 		}, 250);

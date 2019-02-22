@@ -17,13 +17,7 @@ export default class DragDrop {
 			}.bind(this));
 
 			elem.addEventListener("drop", function (e) {
-				let element = Dom.queryOne(
-					"#" +
-					self.container +
-					' [data-id="' +
-					e.dataTransfer.getData("text/html") +
-					'"]'
-				);
+				let element = Dom.queryOne(`#${self.container} [data-id="${e.dataTransfer.getData("text/html")}"]`);
 				let buf = self.getNodeItem(e);
 				if (!element) return false;
 				//console.log(element)
@@ -55,6 +49,12 @@ export default class DragDrop {
 
 					buf.setAttribute("data-index", String(elementIndex));
 					element.setAttribute("data-index", String(bufIndex));
+
+					let arr = []
+					Dom.query(`#${self.container} .tagName`).forEach(el => {
+						arr.push(el.innerText);
+					});
+					self.funcSaveSort(arr);
 				}
 				return false;
 			});
