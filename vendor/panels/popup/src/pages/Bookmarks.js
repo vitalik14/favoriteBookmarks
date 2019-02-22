@@ -2,11 +2,18 @@
  * Created by vitalik on 06.11.2016.
  */
 import { Dom, Helpers } from "../components/Core";
+import { Configs } from "../configs";
 import Tags from "../components/Tags";
 import storage from "../components/Storage";
 
 class Bookmarks {
 	constructor() {
+		this.daysShowStart = 0;
+		this.daysShowEnd = Configs.visibleItemsInBookmarks;
+		this.counterStep = this.daysShowEnd - this.daysShowStart;
+		this.currentArrBookmarks = [];
+		this.loaderDownList = false;
+
 		this.elInputBookmarks = Dom.id("bookmarks_search");
 		this.elRemoveTextSearchBookmarks = Dom.id("remove_text_bookmarks");
 		this.elListBookmarks = Dom.id("results_b");
@@ -39,15 +46,12 @@ class Bookmarks {
 
 		this.elSelectSort.addEventListener("change", el => {
 			storage.setOption("sortBookmarks", el.target.value);
-			this.searchBookmarks(storage.getOption("lastSearchBookmarks"), {
-				sort: el.target.value
-			});
+			this.searchBookmarks(storage.getOption("lastSearchBookmarks"));
 		});
 		this.elListBookmarks.addEventListener("click", el => {
 			let elem = el.target;
 			let _class = elem.classList;
 			let childrens = false;
-
 			if (_class.contains('h-l') || (_class.contains('h-t') && (childrens = true))) {
 				if (childrens) {
 					elem = elem.parentElement;
@@ -57,7 +61,7 @@ class Bookmarks {
 			} else if (_class.contains('btn-search')) {
 				let el = this.elInputBookmarks.value = new URL(elem.parentElement.children[4].children[0].innerHTML).host;
 				this.searchBookmarks(el);
-			} else if (_class.contains('.delete')) {
+			} else if (_class.contains('delete')) {
 				try {
 					elem.addEventListener("click", function () {
 						chrome.bookmarks.remove(this.parentNode.getAttribute("data-id"), function () {
@@ -70,10 +74,19 @@ class Bookmarks {
 
 		}, true);
 
-
-
-
-		//deleteBookmarks
+		this.elListBookmarks.addEventListener("scroll", (el) => {
+			let elem = el.target;
+			if (this.loaderDownList) {
+				return false;
+			}
+			this.loaderDownList = true;
+			Dom.id("loader_bookmarks").classList.add("active");
+			if (elem.scrollHeight < (elem.scrollTop + elem.offsetHeight)) {
+				this.renderList();
+			}
+			Dom.id("loader_bookmarks").classList.remove("active");
+			this.loaderDownList = false;
+		});
 	}
 
 	openFindBookmarks() {
@@ -84,32 +97,26 @@ class Bookmarks {
 
 	removeTextBookmarks(el, sort) {
 		this.elInputBookmarks.value = "";
-		this.searchBookmarks("", {
-			sort: this.elInputBookmarks.value,
-		});
 		storage.setOption("lastSearchBookmarks", "");
+		this.searchBookmarks("");
 		this.tags.activaTag();
 	}
 
-	searchBookmarks(el, data) {
-		//	debugger;
-		if (!data) {
-			// event in input
-			var data = {
-				sort: storage.getOption("sortBookmarks")
-			};
-		}
+	searchBookmarks(el) {
+		console.time('load');
 		let str;
 		if (typeof el == "object") {
 			str = el.target.value;
-			storage.setOption("lastSearchBookmarks", el.target.value);
 		} else {
 			str = el;
-			storage.setOption("lastSearchBookmarks", el);
 		}
+		storage.setOption("lastSearchBookmarks", str);
+
+		this.loaderDownList = true;
+		this.daysShowStart = 0;
+		this.daysShowEnd = Configs.visibleItemsInBookmarks;
 		this.elFindBookmarks.innerHTML = "0";
 		this.elListBookmarks.innerHTML = "";
-
 		this.showHideBtnOpenBookmarks(true);
 
 		if (str.length < 2) return false;
@@ -124,39 +131,27 @@ class Bookmarks {
 					li.innerHTML = this.elNotFound.innerHTML;
 					this.elListBookmarks.appendChild(li);
 				} else {
-					data.sort = data.sort || storage.getOption("sortBookmarks");
-					tree.sort(Helpers.compare.bind(data.sort));
+					let arrBookmarks = [];
+					tree.sort(Helpers.compare.bind(storage.getOption("sortBookmarks")));
 					this.elFindBookmarks.innerHTML = tree.length;
+
 					for (let i = 0, length = tree.length; i < length; i++) {
 						let item = tree[i];
 						if (item.url === undefined) continue;
-
-						let url = new URL(item.url);
-						let title = (item.title && Helpers.escapeHtml(item.title)) || url.host
-
-						item.domain = url.origin;
-
-						let div = document.createElement("li");
-						div.setAttribute("data-id", item.id);
-						let dateAdded = new Date(item.dateAdded).toLocaleString();
-						try {
-							div.innerHTML = `
-							<div class="delete">x</div>
-							<div class="btn-search"></div>
-							<div class="time">${dateAdded}</div>
-							<div class="show-url"></div>
-							<a style="background-image:url(chrome://favicon/${item.domain})">
-								<div class="url">${item.url}</div>
-								<div class="h-t">${title}</div>
-							</a>`
-
-						} catch (e) {
-							console.log(e + "error !!");
-						}
-
-						this.elListBookmarks.appendChild(div);
+						arrBookmarks.push(
+							{
+								id: item.id,
+								title: item.title,
+								added: item.dateAdded,
+								url: item.url
+							}
+						);
 					}
+
+					this.currentArrBookmarks = arrBookmarks;
+					this.renderList();
 					this.showHideBtnOpenBookmarks();
+					this.loaderDownList = false;
 				}
 				this.elLoaderBookmarks.classList.remove("active");
 
@@ -164,16 +159,44 @@ class Bookmarks {
 		}, 200);
 	}
 
+	renderList() {
+		let arrBookmarks = this.currentArrBookmarks;
+		for (let i = this.daysShowStart, len = arrBookmarks.length; i < len && i < this.daysShowEnd; i++) {
+			let item = arrBookmarks[i];
+			let li = document.createElement("li");
+			li.setAttribute("data-id", item.id);
+
+			let url = new URL(item.url);
+			let title = (item.title && Helpers.escapeHtml(item.title)) || url.host;
+			let added = new Date(item.added).toLocaleString();
+			try {
+				li.innerHTML = `
+					<div class="delete">x</div>
+					<div class="btn-search"></div>
+					<div class="time">${added}</div>
+					<div class="show-url"></div>
+					<a style="background-image:url(chrome://favicon/${url.origin})">
+						<div class="url">${item.url}</div>
+						<div class="h-t">${title}</div>
+					</a>`
+			} catch (e) {
+				console.log(e + "error !!");
+			}
+			this.elListBookmarks.appendChild(li);
+		}
+		this.daysShowStart += this.counterStep;
+		this.daysShowEnd += this.counterStep;
+		console.timeEnd('load');
+	}
+
 	activate() {
-		this.searchBookmarks(storage.getOption("lastSearchBookmarks"), {
-			sort: storage.getOption("sortBookmarks"),
-		});
+		this.searchBookmarks(storage.getOption("lastSearchBookmarks"));
 	}
 
 	showHideBtnOpenBookmarks(hide) {
 		if (hide) {
 			this.elBtnOpenFindBookmarks.style.display = "none";
-		} else if (!!Dom.queryOne(".tab-bookmarks .results-bookmarks li") && Dom.query(".tab-bookmarks .results-bookmarks li").length < 50) {
+		} else if (!!Dom.queryOne(".tab-bookmarks .results-bookmarks li") && this.currentArrBookmarks.length < 50) {
 			this.elBtnOpenFindBookmarks.style.display = "block";
 		} else {
 			this.elBtnOpenFindBookmarks.style.display = "none";

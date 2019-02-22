@@ -16,7 +16,6 @@ class Storage {
 		this.setOption("bookmark_tags", this.getOptionFix(["bookmark_tags", "vt_tags"], "[]"));
 		this.setOption("history_tags", this.getOptionFix(["history_tags", "vt_tags_h"], "[]"));
 		this.setOption("sortBookmarks", this.getOption("sortBookmarks", Configs.sortDefault));
-
 		this.setOption("historyDates", this.getOption("historyDates", '{}'));
 
 		return this;

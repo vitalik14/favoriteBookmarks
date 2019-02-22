@@ -2,6 +2,7 @@
  * Created by vitalik on 21.03.2018.
  */
 import { Dom, Helpers } from "../components/Core";
+import { Configs } from "../configs";
 import Tags from "../components/Tags";
 import storage from "../components/Storage";
 
@@ -11,7 +12,7 @@ class History {
 		this.minDate = '2010-01-01';
 
 		this.daysShowStart = 0;
-		this.daysShowEnd = 14;
+		this.daysShowEnd = Configs.visibleItemsInHistory;
 		this.counterStep = this.daysShowEnd - this.daysShowStart;
 
 		this.loaderDownList = false;
@@ -169,7 +170,7 @@ class History {
 	removeTextHistory() {
 		this.elSearchHistory.value = "";
 		storage.setOption('lastSearchHystory', "");
-		this.searchHistory("", { sort: this.elSearchHistory.value, interval: 0 });
+		this.searchHistory("");
 		this.tags.activaTag();
 	}
 	searchHistory(el) {
@@ -178,7 +179,7 @@ class History {
 			storage.setOption("lastSearchHystory", el);
 		}
 		this.daysShowStart = 0;
-		this.daysShowEnd = 14;
+		this.daysShowEnd = Configs.visibleItemsInHistory;
 		this.elListHistory.innerHTML = "";
 		this.currentArrHistory = [];
 		clearInterval(this.timeoutHistory);
@@ -214,6 +215,7 @@ class History {
 						for (let i = 0, length = tree.length; i < length; i++) {
 							let item = tree[i];
 							let _date = new Date(item.lastVisitTime);
+							if (item.url === undefined) continue;
 
 							if (endTime < _date.getTime()) {
 								continue;
@@ -268,8 +270,6 @@ class History {
 
 			for (let n = 0, len = arrHistory[i].list.length; n < len; n++) {
 				let item = arrHistory[i].list[n];
-				if (item.url === undefined) continue;
-
 				let title =
 					(item.title && Helpers.escapeHtml(item.title)) ||
 					new URL(item.url).host;

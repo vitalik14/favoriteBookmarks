@@ -2,7 +2,9 @@ import emptyImg from "../img/empty.png";
 
 export const Configs = {
 	emptyImg: emptyImg,
-	sortDefault: "dateAdded"
+	sortDefault: "dateAdded",
+	visibleItemsInHistory: 14,
+	visibleItemsInBookmarks: 14,
 };
 
 export const State = {

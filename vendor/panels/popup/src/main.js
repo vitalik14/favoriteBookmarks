@@ -47,4 +47,3 @@ Dom.query("#panel > div").forEach(el => {
 });
 
 Dom.queryOne(`#panel > div:nth-child(${storage.getOption("tabs")})`).click();
-
