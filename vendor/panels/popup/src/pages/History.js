@@ -24,11 +24,12 @@ class History {
 		this.elSearchPeriodHistory = Dom.id("search_period_history");
 		this.elStartHistory = Dom.id("start_history");
 		this.elEndHistory = Dom.id("end_history");
-		this.elBtnExpand = Dom.id("btnExpand");
+
 		this.elStartHistory.setAttribute('max', this.maxDate);
 		this.elEndHistory.setAttribute('max', this.maxDate);
 		this.elStartHistory.setAttribute('min', this.minDate);
 		this.elEndHistory.setAttribute('min', this.minDate);
+
 		this.elSearchOn = Dom.id("search_on");
 		this.timeoutHistory = 0;
 		this.timeoutInputHistory = 0;
@@ -322,5 +323,6 @@ class History {
 	}
 }
 
-export const history = new History();
-history.activate();
+export function history() {
+	new History().activate();
+}

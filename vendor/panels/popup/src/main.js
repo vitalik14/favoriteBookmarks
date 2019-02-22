@@ -26,22 +26,19 @@ Dom.query("#panel > div").forEach(el => {
 			case "btn-tabs":
 				if (!State.current.tabs) {
 					State.current.tabs = true;
-					tabs.activate();
-					_gaq.push(['_trackEvent', 'tabs', 'clicked']);
+					tabs();
 				}
 				break;
 			case "btn-bookmarks":
 				if (!State.current.bookmarks) {
 					State.current.bookmarks = true;
-					bookmarks.activate();
-					_gaq.push(['_trackEvent', 'bookmarks', 'clicked']);
+					bookmarks();
 				}
 				break;
 			case "btn-history":
 				if (!State.current.history) {
 					State.current.history = true;
-					history.activate();
-					_gaq.push(['_trackEvent', 'history', 'clicked']);
+					history();
 				}
 				break;
 		}

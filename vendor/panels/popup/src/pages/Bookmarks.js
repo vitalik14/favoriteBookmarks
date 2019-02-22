@@ -131,7 +131,6 @@ class Bookmarks {
 						let item = tree[i];
 						if (item.url === undefined) continue;
 
-
 						let url = new URL(item.url);
 						let title = (item.title && Helpers.escapeHtml(item.title)) || url.host
 
@@ -193,5 +192,6 @@ class Bookmarks {
 	}
 }
 
-export const bookmarks = new Bookmarks();
-bookmarks.activate();
+export function bookmarks() {
+	new Bookmarks().activate();
+}

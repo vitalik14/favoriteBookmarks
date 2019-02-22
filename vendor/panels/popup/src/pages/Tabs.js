@@ -225,5 +225,6 @@ class Tabs {
 	}
 }
 
-export const tabs = new Tabs();
-tabs.activate();
+export function tabs() {
+	new Tabs().activate();
+}
