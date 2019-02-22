@@ -103,7 +103,6 @@ class Bookmarks {
 	}
 
 	searchBookmarks(el) {
-		console.time('load');
 		let str;
 		if (typeof el == "object") {
 			str = el.target.value;
@@ -186,7 +185,6 @@ class Bookmarks {
 		}
 		this.daysShowStart += this.counterStep;
 		this.daysShowEnd += this.counterStep;
-		console.timeEnd('load');
 	}
 
 	activate() {
