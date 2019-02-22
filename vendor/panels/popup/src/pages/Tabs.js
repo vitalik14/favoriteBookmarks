@@ -57,7 +57,6 @@ class Tabs {
 	}
 
 	saveFrames(type) {
-
 		chrome.windows.getAll(
 			{
 				populate: true
@@ -226,5 +225,7 @@ class Tabs {
 }
 
 export function tabs() {
-	new Tabs().activate();
+	const tabs = new Tabs();
+	tabs.activate();
+	return tabs;
 }

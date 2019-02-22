@@ -39,7 +39,9 @@ export default class DragDrop {
 						{
 							index: +buf.getAttribute("data-index")
 						},
-						() => tabs.saveFrames()
+						() => {
+							tabs().saveFrames();
+						}
 					);
 					e.target.style.background = "#FFF";
 				} else if (self.type === "tags") {
