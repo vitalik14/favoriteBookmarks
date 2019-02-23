@@ -25,7 +25,6 @@ export default class DragDrop {
 					} catch (e) {
 						debugger;
 					}
-					//funcSaveSort: this.saveTags.bind(this.alias)
 					chrome.tabs.move(
 						+element.getAttribute("data-id"),
 						{
@@ -64,6 +63,7 @@ export default class DragDrop {
 			});
 
 			elem.addEventListener("dragleave", function (e) {
+				console.log(e);
 				if (DragDrop.current !== e.currentTarget.parentNode.id) {
 					return false;
 				}

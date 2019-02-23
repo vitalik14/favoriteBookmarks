@@ -90,8 +90,16 @@ class History {
 				elem.classList.add("visited");
 				if (elem.classList.contains("active")) {
 					elem.classList.remove("active");
+					elem.parentElement.children[1].remove();
+
 				} else {
+					document.querySelectorAll('#results_h .date-title').forEach(item => {
+						item.classList.remove('active');
+						item.parentElement.children[1] && item.parentElement.children[1].remove();
+					})
 					elem.classList.add("active");
+					this.renderDayItems(elem.parentElement, elem.dataset.id);
+					el.currentTarget.scrollTop = Math.abs(elem.parentElement.offsetTop - 106);
 				}
 
 			} else if (_class.contains('h-l') || (_class.contains('h-t') && (childrens = true))) {
@@ -233,6 +241,7 @@ class History {
 							}
 							item.domain = new URL(item.url).origin;
 							item.time = _date.toLocaleTimeString();
+							item.active = false;
 							list.push(item);
 
 							day = _date;
@@ -259,40 +268,73 @@ class History {
 	renderList() {
 		let arrHistory = this.currentArrHistory;
 		for (let i = this.daysShowStart, len = arrHistory.length; i < len && i < this.daysShowEnd; i++) {
-			let li = document.createElement("li");
-			let ul = document.createElement("ul");
 			let titleDate = document.createElement("div");
-			li.appendChild(titleDate);
-			li.appendChild(ul);
-			titleDate.innerHTML = `<div class="title">${arrHistory[i].title}</div> <div class="counter">${arrHistory[i].list.length}</div>`;
+			let li = document.createElement("li");
 			titleDate.classList.add("date-title");
+			titleDate.dataset.id = i;
+			titleDate.innerHTML = `<div class="title">${arrHistory[i].title}</div> <div class="counter">${arrHistory[i].list.length}</div>`;
+			li.appendChild(titleDate);
 
+			if (arrHistory[i].active) {
+				let ul = document.createElement("ul");
+				li.appendChild(ul);
+
+				for (let n = 0, len = arrHistory[i].list.length; n < len; n++) {
+					let item = arrHistory[i].list[n];
+					let title =
+						(item.title && Helpers.escapeHtml(item.title)) ||
+						new URL(item.url).host;
+
+					let divItem = document.createElement("li");
+					try {
+						divItem.innerHTML = `
+						<div class="btn-search"></div>
+						<div class="time">${item.time}</div>
+						<div class="show-url"></div>
+						<a class="h-l" style="background-image:url(chrome://favicon/${item.domain})">
+							<div class="url">${item.url}</div>
+							<div class="h-t">${title}</div>
+						</a>`;
+					} catch (e) {
+						console.log(e + "error !!");
+					}
+					ul.appendChild(divItem);
+				}
+			}
 			this.elListHistory.appendChild(li);
 
-			for (let n = 0, len = arrHistory[i].list.length; n < len; n++) {
-				let item = arrHistory[i].list[n];
-				let title =
-					(item.title && Helpers.escapeHtml(item.title)) ||
-					new URL(item.url).host;
-
-				let divItem = document.createElement("li");
-				try {
-					divItem.innerHTML = `
-					<div class="btn-search"></div>
-					<div class="time">${item.time}</div>
-					<div class="show-url"></div>
-					<a class="h-l" style="background-image:url(chrome://favicon/${item.domain})">
-						<div class="url">${item.url}</div>
-						<div class="h-t">${title}</div>
-					</a>`;
-				} catch (e) {
-					console.log(e + "error !!");
-				}
-				ul.appendChild(divItem);
-			}
 		}
 		this.daysShowStart += this.counterStep;
 		this.daysShowEnd += this.counterStep;
+	}
+
+	renderDayItems(elem, index) {
+
+		let ul = document.createElement("ul");
+
+		let day = this.currentArrHistory[index];
+		for (let n = 0, len = day.list.length; n < len; n++) {
+			let item = day.list[n];
+			let title =
+				(item.title && Helpers.escapeHtml(item.title)) ||
+				new URL(item.url).host;
+
+			let divItem = document.createElement("li");
+			try {
+				divItem.innerHTML = `
+						<div class="btn-search"></div>
+						<div class="time">${item.time}</div>
+						<div class="show-url"></div>
+						<a class="h-l" style="background-image:url(chrome://favicon/${item.domain})">
+							<div class="url">${item.url}</div>
+							<div class="h-t">${title}</div>
+						</a>`;
+			} catch (e) {
+				console.log(e + "error !!");
+			}
+			ul.appendChild(divItem);
+			elem.appendChild(ul);
+		}
 	}
 
 	activate() {
