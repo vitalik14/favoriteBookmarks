@@ -241,7 +241,6 @@ class Tabs {
 }
 
 export function tabs() {
-	console.log('TABS');
 	const tabs = new Tabs();
 	tabs.activate();
 	return tabs;

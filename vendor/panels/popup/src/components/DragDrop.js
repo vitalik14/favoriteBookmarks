@@ -63,7 +63,6 @@ export default class DragDrop {
 			});
 
 			elem.addEventListener("dragleave", function (e) {
-				console.log(e);
 				if (DragDrop.current !== e.currentTarget.parentNode.id) {
 					return false;
 				}
