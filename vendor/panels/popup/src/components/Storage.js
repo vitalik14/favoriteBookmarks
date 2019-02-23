@@ -6,7 +6,6 @@ class Storage {
 	}
 
 	init() {
-		//this.setOption("showUrl", this.getOption("showUrl", "on"));
 		this.setOption("showOneLine", this.getOption("showOneLine", "on"));
 		this.setOption("tabs", this.getOption("tabs", "1"));
 		this.setOption("lastSearchTabs", this.getOption("lastSearchTabs"));

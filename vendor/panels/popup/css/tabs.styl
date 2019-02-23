@@ -1,14 +1,5 @@
 @import "vars.styl"
 
-
-/* hovers */
-.tabs-tabs .tabs-items 
-	li:hover
-		background-color rgba(72, 136, 243, 0.1)
-		transition all 0.1s
-	li.active
-		background-color rgba(72, 136, 243, 0.3)
-
 .tabs-items
 	float left
 	max-height 387px
@@ -26,6 +17,12 @@
 		padding: 8px 0 8px 3px;
 		border-bottom 1px solid $color8
 		position: relative
+		transition all 0.3s
+		&:hover
+			background-color rgba(72, 136, 243, 0.1)
+			transition all 0.1s
+		&.active
+			background-color rgba(72, 136, 243, 0.3)	
 		&:last-child
 			.show-url
 				&:hover
@@ -272,16 +269,3 @@
 			color $color_white
 			border-radius 0 0 5px 5px
 			box-shadow 2px 2px 3px rgba(150, 150, 150, 0.5)
-
-#help {
-	clear: both;
-	padding: 3px 8px 3px 8px;
-	display: flex;
-	justify-content: flex-start;
-	align-content: center;
-	align-items: center;
-	width: calc(100% - 16px);
-	background: $color7;
-	border-top: 1px solid $color_white;
-}
-

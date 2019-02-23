@@ -10,7 +10,6 @@ class Tabs {
 	constructor() {
 		this.elSearchTabs = Dom.id("tabs_search");
 		this.elRemoveTextSearchTabs = Dom.id("remove_text_tabs");
-		// this.elShowUrl = Dom.id("showUrl");
 		this.elShowOneLine = Dom.id("showOneLine");
 		this.elOpenTabs = Dom.id("openTabs");
 		this.elDeleteCopy = Dom.id("deleteCopy");
@@ -18,30 +17,30 @@ class Tabs {
 		this.elNotFound = Dom.id("not_found");
 		this.elSearchTabs.value = storage.getOption("lastSearchTabs");
 		this.elSearchTabs.addEventListener("input", this.listingList.bind(this));
-		this.elRemoveTextSearchTabs.addEventListener(
-			"click",
-			this.removeTextTabs.bind(this)
+		this.elRemoveTextSearchTabs.addEventListener("click", this.removeTextTabs.bind(this));
+
+		if (storage.getOption("showOneLine") === "on") {
+			this.elShowOneLine.checked = true;
+		}
+
+		this.tags = this.getTags();
+		this.data = [];
+		this.block = false;
+		this.initialListeners();
+	}
+	initialListeners() {
+		chrome.tabs.onRemoved.addListener(() => {
+			this.saveFrames();
+			this.block = false;
+		});
+
+		this.elShowOneLine.addEventListener("click", () =>
+			this.togleLocalStorage("showOneLine")
 		);
 		this.elDeleteCopy.addEventListener("click", () =>
 			this.saveFrames("deleteCopy")
 		);
-		// if (storage.getOption("showUrl") === "on") {
-		// 	this.elShowUrl.checked = true;
-		// }
-		if (storage.getOption("showOneLine") === "on") {
-			this.elShowOneLine.checked = true;
-		}
-		// this.elShowUrl.addEventListener("click", () =>
-		// 	this.togleLocalStorage("showUrl")
-		// );
-		this.elShowOneLine.addEventListener("click", () =>
-			this.togleLocalStorage("showOneLine")
-		);
-		this.tags = this.getTags();
-		this.data = [];
-		this.initialListeners();
-	}
-	initialListeners() {
+
 		this.elTabsItems.addEventListener("click", el => {
 			let elem = el.target;
 			let _class = elem.classList;
@@ -60,12 +59,32 @@ class Tabs {
 			}
 			if (_class.contains('del')) {
 				let parent = elem.parentNode.parentNode;
-				chrome.tabs.remove(+parent.getAttribute("data-id"), () =>
-					parent.remove()
+				if (this.block) {
+					return;
+				}
+				this.block = true;
+				chrome.tabs.remove(+parent.getAttribute("data-id"), (el) => { }
 				);
 			}
 
 		}, true);
+
+		this.elTabsItems.addEventListener("mouseover", el => {
+			let elem = el.target;
+			let _class = elem.classList;
+			let childrens = false;
+			if (_class.contains('tab') || (_class.contains('tabs-title') || _class.contains('f-img')) && (childrens = true)) {
+				if (childrens) {
+					elem = elem.parentElement;
+				}
+				chrome.tabs.getSelected((w) => {
+					let tabIndex = +elem.parentNode.getAttribute("data-index");
+					chrome.tabs.highlight({ tabs: [w.index, tabIndex] }, (e) => { })
+				});
+			}
+		}, true);
+
+
 	}
 	removeTextTabs() {
 		this.elSearchTabs.value = "";
@@ -89,9 +108,8 @@ class Tabs {
 			},
 			event => {
 				this.data = [];
-				let list = event;
-				for (let i = 0; i < list.length; i++) {
-					this.data = this.data.concat(list[i].tabs);
+				for (let i = 0; i < event.length; i++) {
+					this.data = this.data.concat(event[i].tabs);
 				}
 				var removeTabsId = [];
 
@@ -200,7 +218,8 @@ class Tabs {
 			new DragDrop({
 				elements: arrLi,
 				type: "tabs",
-				container: "tabs-items"
+				container: "tabs-items",
+				funcSaveSort: this.saveFrames.bind(this)
 			});
 		}
 	}
@@ -222,6 +241,7 @@ class Tabs {
 }
 
 export function tabs() {
+	console.log('TABS');
 	const tabs = new Tabs();
 	tabs.activate();
 	return tabs;

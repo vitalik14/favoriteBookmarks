@@ -1,5 +1,4 @@
 import { Dom } from "./Core";
-import { tabs } from "../pages/Tabs";
 
 let current = 10;
 export default class DragDrop {
@@ -20,21 +19,20 @@ export default class DragDrop {
 				let element = Dom.queryOne(`#${self.container} [data-id="${e.dataTransfer.getData("text/html")}"]`);
 				let buf = self.getNodeItem(e);
 				if (!element) return false;
-				//console.log(element)
 				if (self.type === "tabs") {
 					try {
 						Dom.id(self.container).insertBefore(element, buf.previousSibling);
 					} catch (e) {
 						debugger;
 					}
-
+					//funcSaveSort: this.saveTags.bind(this.alias)
 					chrome.tabs.move(
 						+element.getAttribute("data-id"),
 						{
 							index: +buf.getAttribute("data-index")
 						},
 						() => {
-							tabs().saveFrames();
+							self.funcSaveSort();
 						}
 					);
 					e.target.style.background = "#FFF";
@@ -50,7 +48,7 @@ export default class DragDrop {
 					buf.setAttribute("data-index", String(elementIndex));
 					element.setAttribute("data-index", String(bufIndex));
 
-					let arr = []
+					let arr = [];
 					Dom.query(`#${self.container} .tagName`).forEach(el => {
 						arr.push(el.innerText);
 					});
