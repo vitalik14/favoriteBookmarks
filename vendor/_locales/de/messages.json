@@ -8,13 +8,13 @@
 	"xTabs": {
 		"message": "Tabs"
 	},
-	"settings": {
+	"xSettings": {
 		"message": "Optionen"
 	},
 	"xShowOnlyOneLine": {
 		"message": "Zeigen nur eine Zeile."
 	},
-	"deleteCopy": {
+	"xDeleteCopy": {
 		"message": "Duplikate Entfernen"
 	},
 	"xBookmarks": {

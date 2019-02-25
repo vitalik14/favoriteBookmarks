@@ -3,10 +3,10 @@ import { Dom } from "./Core";
 let current = 10;
 export default class DragDrop {
 	constructor(obj) {
-		let self = this;
+		const self = this;
 		let type;
 		this.elDrag = null;
-		for (let p in obj) this[p] = obj[p];
+		for (const p in obj) this[p] = obj[p];
 
 		this.elements.forEach(elem => {
 
@@ -36,8 +36,8 @@ export default class DragDrop {
 					);
 					e.target.style.background = "#FFF";
 				} else if (self.type === "tags") {
-					let bufIndex = buf.getAttribute("data-index");
-					let elementIndex = element.getAttribute("data-index");
+					const bufIndex = buf.getAttribute("data-index");
+					const elementIndex = element.getAttribute("data-index");
 
 					Dom.id(self.container).insertBefore(
 						element,
@@ -53,6 +53,7 @@ export default class DragDrop {
 					});
 					self.funcSaveSort(arr);
 				}
+
 				return false;
 			});
 
@@ -87,10 +88,12 @@ export default class DragDrop {
 				e.dataTransfer.effectAllowed = "move";
 				e.dataTransfer.setData("text/html", e.target.getAttribute("data-id"));
 				e.dataTransfer.setDragImage(e.target, 0, 0);
+
 				return true;
 			});
 		});
 	}
+
 	getNodeItem(e) {
 		let [tag, target] = ["LI", e.target];
 		if (target.nodeName !== tag)
@@ -98,9 +101,11 @@ export default class DragDrop {
 
 		return target;
 	}
+
 	static get current() {
 		return current;
 	}
+
 	static set current(id) {
 		current = id;
 	}

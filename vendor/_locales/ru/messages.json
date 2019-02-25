@@ -8,13 +8,13 @@
 	"xTabs": {
 		"message": "Вкладки"
 	},
-	"settings": {
+	"xSettings": {
 		"message": "Настройки"
 	},
 	"xShowOnlyOneLine": {
 		"message": "Показать только одну линию."
 	},
-	"deleteCopy": {
+	"xDeleteCopy": {
 		"message": "Удалить дубликаты"
 	},
 	"xBookmarks": {

@@ -16,9 +16,6 @@ class Tabs {
 		this.elTabsItems = Dom.id("tabs-items");
 		this.elNotFound = Dom.id("not_found");
 		this.elSearchTabs.value = storage.getOption("lastSearchTabs");
-		this.elSearchTabs.addEventListener("input", this.listingList.bind(this));
-		this.elRemoveTextSearchTabs.addEventListener("click", this.removeTextTabs.bind(this));
-
 		if (storage.getOption("showOneLine") === "on") {
 			this.elShowOneLine.checked = true;
 		}
@@ -28,24 +25,28 @@ class Tabs {
 		this.block = false;
 		this.initialListeners();
 	}
+
 	initialListeners() {
 		chrome.tabs.onRemoved.addListener(() => {
-			this.saveFrames();
+			this.search();
 			this.block = false;
 		});
 
+		this.elSearchTabs.addEventListener("input", this.listingList.bind(this));
+		this.elRemoveTextSearchTabs.addEventListener("click", this.removeTextTabs.bind(this));
 		this.elShowOneLine.addEventListener("click", () =>
 			this.togleLocalStorage("showOneLine")
 		);
 		this.elDeleteCopy.addEventListener("click", () =>
-			this.saveFrames("deleteCopy")
+			this.search("deleteCopy")
 		);
 
 		this.elTabsItems.addEventListener("click", el => {
 			let elem = el.target;
-			let _class = elem.classList;
+			const classList = elem.classList;
 			let childrens = false;
-			if (_class.contains('tab') || (_class.contains('tabs-title') || _class.contains('f-img')) && (childrens = true)) {
+
+			if (classList.contains('tab') || (classList.contains('tabs-title') || classList.contains('f-img')) && (childrens = true)) {
 				if (childrens) {
 					elem = elem.parentElement;
 				}
@@ -57,35 +58,36 @@ class Tabs {
 					null
 				);
 			}
-			if (_class.contains('del')) {
-				let parent = elem.parentNode.parentNode;
+			if (classList.contains('del')) {
+				const parent = elem.parentNode.parentNode;
+
 				if (this.block) {
 					return;
 				}
 				this.block = true;
-				chrome.tabs.remove(+parent.getAttribute("data-id"), (el) => { }
-				);
+				chrome.tabs.remove(+parent.getAttribute("data-id"), () => { });
 			}
 
 		}, true);
 
 		this.elTabsItems.addEventListener("mouseover", el => {
 			let elem = el.target;
-			let _class = elem.classList;
+			const classList = elem.classList;
 			let childrens = false;
-			if (_class.contains('tab') || (_class.contains('tabs-title') || _class.contains('f-img')) && (childrens = true)) {
+
+			if (classList.contains('tab') || (classList.contains('tabs-title') || classList.contains('f-img')) && (childrens = true)) {
 				if (childrens) {
 					elem = elem.parentElement;
 				}
-				chrome.tabs.getSelected((w) => {
-					let tabIndex = +elem.parentNode.getAttribute("data-index");
-					chrome.tabs.highlight({ tabs: [w.index, tabIndex] }, (e) => { })
+
+				chrome.tabs.getSelected(w => {
+					const tabIndex = +elem.parentNode.getAttribute("data-index");
+					chrome.tabs.highlight({ tabs: [w.index, tabIndex] }, () => { });
 				});
 			}
 		}, true);
-
-
 	}
+
 	removeTextTabs() {
 		this.elSearchTabs.value = "";
 		this.listingList("");
@@ -98,20 +100,22 @@ class Tabs {
 		} else {
 			storage.setOption(alias, "on");
 		}
+
 		this.listingList(storage.getOption("lastSearchTabs"));
 	}
 
-	saveFrames(type) {
+	search(type) {
 		chrome.windows.getAll(
 			{
 				populate: true
 			},
 			event => {
+				const removeTabsId = [];
 				this.data = [];
+
 				for (let i = 0; i < event.length; i++) {
 					this.data = this.data.concat(event[i].tabs);
 				}
-				var removeTabsId = [];
 
 				for (let i = 0, length = this.data.length; i < length; i++) {
 					for (let n = this.data.length - 1; n > i; n--) {
@@ -124,7 +128,7 @@ class Tabs {
 						}
 					}
 				}
-				if (type == "deleteCopy") {
+				if (type === "deleteCopy") {
 					chrome.tabs.remove(removeTabsId, () => {
 						this.elDeleteCopy.style.display = "none";
 						this.listingList(storage.getOption("lastSearchTabs"));
@@ -139,6 +143,7 @@ class Tabs {
 	listingList(word) {
 		let str;
 		const type = typeof word === "object";
+
 		if (type) {
 			str = word.target.value;
 		} else {
@@ -147,19 +152,24 @@ class Tabs {
 
 		storage.setOption("lastSearchTabs", str);
 
-		var li = "", listing;
+		let listing;
 
 		this.elTabsItems.innerHTML = "";
 		listing = this.data;
+
 		if (word && str) {
+			const itog = [];
+			let item;
+
 			if (type) {
 				word = str;
 			}
-			let itog = [],
-				item;
+
 			for (let n = 0, length = listing.length; n < length; n++) {
+				const cacheWord = word.toLocaleLowerCase();
+
 				item = listing[n];
-				let cacheWord = word.toLocaleLowerCase();
+
 				if (
 					!!~item.title.toLocaleLowerCase().indexOf(cacheWord) ||
 					!!~item.url.toLocaleLowerCase().indexOf(cacheWord)
@@ -170,24 +180,30 @@ class Tabs {
 			listing = itog;
 		}
 
+
 		if (!listing.length) {
-			let li = document.createElement("li");
+			const li = document.createElement("li");
+
 			li.classList.add('not-found');
 			li.innerHTML = this.elNotFound.innerHTML;
 			this.elTabsItems.appendChild(li);
+
 		} else {
-			this.elOpenTabs.innerHTML = listing.length;
+			let li = '';
 			let short = "";
+
+			this.elOpenTabs.innerHTML = listing.length;
 
 			if (storage.getOption("showOneLine") === "on") {
 				short = "short";
 			}
 
 			for (let i = 0, length = listing.length; i < length; i++) {
-				let item = listing[i];
+				const item = listing[i];
+				const favicon = Helpers.faviconValidate(item.favIconUrl);
 				let classActive = "";
 				let audible = "";
-				let favicon = Helpers.faviconValidate(item.favIconUrl);
+
 				if (item.active) classActive = "active";
 				if (item.audible) audible = '<div class="audio"></div>';
 
@@ -213,19 +229,19 @@ class Tabs {
 				</li>`;
 			}
 			this.elTabsItems.insertAdjacentHTML("afterBegin", li);
-			let arrLi = Dom.query("#tabs-items li");
+			const arrLi = Dom.query("#tabs-items li");
 
 			new DragDrop({
 				elements: arrLi,
 				type: "tabs",
 				container: "tabs-items",
-				funcSaveSort: this.saveFrames.bind(this)
+				funcSaveSort: this.search.bind(this)
 			});
 		}
 	}
 
 	activate() {
-		this.saveFrames();
+		this.search();
 	}
 
 	getTags() {
@@ -242,6 +258,8 @@ class Tabs {
 
 export function tabs() {
 	const tabs = new Tabs();
+
 	tabs.activate();
+
 	return tabs;
 }

@@ -1,4 +1,4 @@
-import { translate } from "./translate"
+import "./translate";
 import { Dom } from "./components/Core";
 import { State } from "./configs";
 import storage from "./components/Storage";
@@ -12,16 +12,15 @@ import "../css/bookmarks.styl";
 import "../css/history.styl";
 
 Dom.query("#panel > div").forEach(el => {
-	el.addEventListener("click", function () {
-		let list = this.classList;
-		let item0 = list.item(0);
+	el.addEventListener("click", (e) => {
+		const list = e.currentTarget.classList;
+		const item0 = list.item(0);
 
 		Dom.query("#panel > div, .tabs > div").forEach(e =>
 			e.classList.remove("active")
 		);
-		list.add("active");
-		storage.setOption("tabs", item0.split("tab")[1]);
 
+		list.add("active");
 		switch (list.item(1)) {
 			case "btn-tabs":
 				if (!State.current.tabs) {
@@ -42,6 +41,7 @@ Dom.query("#panel > div").forEach(el => {
 				}
 				break;
 		}
+		storage.setOption("tabs", item0.split("tab")[1]);
 		Dom.queryOne(`.tabs .${item0}`).classList.add("active");
 	});
 });

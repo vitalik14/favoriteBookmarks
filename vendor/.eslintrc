@@ -1,6 +1,12 @@
 {
+	"globals": {
+		"chrome": true
+	},
 	"rules": {
-		"indent": ["error", "tab"],
+		"indent": [
+			"error",
+			"tab"
+		],
 		"no-tabs": "off",
 		"quotes": "off",
 		"dot-notation": [
@@ -9,6 +15,11 @@
 				"allowPattern": "^[a-z]+(_[a-z]+)+$"
 			}
 		],
-		"max-len": [1, 80, 4]
+		"max-len": [
+			1,
+			120,
+			4
+		],
+		"allowForLoopAfterthoughts": true
 	}
 }

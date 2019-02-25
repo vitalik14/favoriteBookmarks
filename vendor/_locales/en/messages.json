@@ -8,13 +8,13 @@
 	"xTabs": {
 		"message": "Tabs"
 	},
-	"settings": {
+	"xSettings": {
 		"message": "Settings"
 	},
 	"xShowOnlyOneLine": {
 		"message": "Show only one line."
 	},
-	"deleteCopy": {
+	"xDeleteCopy": {
 		"message": "Remove Duplicates"
 	},
 	"xBookmarks": {

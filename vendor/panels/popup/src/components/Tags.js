@@ -4,25 +4,30 @@ import storage from "./Storage";
 
 export default class Tags {
 	constructor(obj) {
-		for (let p in obj) this[p] = obj[p];
+		for (const p in obj) this[p] = obj[p];
 		storage.setOption(this.alias, storage.getOption(this.alias, "[]"));
 		this.showAllTags();
-		this._addEvents();
+		this.addEvents();
 	}
+
 	get colors() {
 		return {
 			colorDefault: "#EEEEEE",
 			colorDeleteTag: "#f0c4c4"
 		};
 	}
+
 	getTags() {
 		return JSON.parse(storage.getOption(this.alias));
 	}
+
 	saveTags(tags) {
 		storage.setOption(this, JSON.stringify(tags));
 	}
+
 	addTag(tag) {
-		let tags = this.getTags();
+		const tags = this.getTags();
+
 		if (!tags.includes) {
 			tags = [];
 		}
@@ -33,8 +38,9 @@ export default class Tags {
 		}
 		return false;
 	}
+
 	delTag(tag) {
-		let tags = this.getTags();
+		const tags = this.getTags();
 
 		if (!!~tags.indexOf(tag)) {
 			tags.splice(tags.indexOf(tag), 1);
@@ -43,14 +49,17 @@ export default class Tags {
 		}
 		return tags;
 	}
+
 	showAllTags() {
-		let self = this;
-		let tagsElement = Dom.id(self.container);
-		let tags = self.getTags();
+		const self = this;
+		const tagsElement = Dom.id(self.container);
+		const tags = self.getTags();
+
 		tagsElement.innerHTML = "";
 		for (let i = 0, length = tags.length; i < length; i++) {
-			let div = document.createElement("li");
-			let tag = tags[i];
+			const div = document.createElement("li");
+			const tag = tags[i];
+
 			div.setAttribute("class", "tag");
 			div.setAttribute("draggable", "true");
 			div.setAttribute("data-id", Helpers.b64EncodeUnicode(tag));
@@ -59,34 +68,34 @@ export default class Tags {
 
 			tagsElement.appendChild(div);
 
-			let deleteTag = div.children[0];
+			const deleteTag = div.children[0];
+
 			deleteTag.addEventListener("click", function () {
 				self.delTag(this.parentNode.children[1].innerHTML);
 				self.showAllTags();
 				self.activaTag();
 			});
+
 			deleteTag.addEventListener("mouseover", function () {
 				this.parentNode.style.background = self.colors.colorDeleteTag;
-				this.parentNode.style.borderColor = self.colors.colorDeleteTag;
-			});
-			deleteTag.addEventListener("mouseout", function () {
-				this.parentNode.style.background = self.colors.colorDefault;
-				this.parentNode.style.borderColor = self.colors.colorDefault;
 			});
 
-			let searchTag = div.children[1];
+			deleteTag.addEventListener("mouseout", function () {
+				this.parentNode.style.background = self.colors.colorDefault;
+			});
+
+			const searchTag = div.children[1];
+
 			searchTag.addEventListener("click", function () {
 				Dom.id(self.search).value = this.innerHTML;
 				self.activaTag();
-				self.funcSearch(this.innerHTML, {
-					sort: null,
-					interval: 0
-				});
+				self.funcSearch(this.innerHTML);
 			});
 
 			searchTag.addEventListener("mouseover",
 				el => (el.target.parentNode.style.background = self.colorActive)
 			);
+
 			searchTag.addEventListener(
 				"mouseout",
 				el => (el.target.parentNode.style.background = self.colors.colorDefault)
@@ -98,12 +107,13 @@ export default class Tags {
 			type: "tags",
 			container: self.container,
 			funcSaveSort: this.saveTags.bind(this.alias)
-
 		});
 	}
-	_addEvents() {
-		Dom.id(this.elAdd).addEventListener("click", el => {
-			let value = Dom.id(this.search).value;
+
+	addEvents() {
+		Dom.id(this.elAdd).addEventListener("click", () => {
+			const value = Dom.id(this.search).value;
+
 			if (!!value) {
 				this.addTag(value);
 				this.showAllTags();
@@ -114,8 +124,9 @@ export default class Tags {
 		Dom.id(this.search).addEventListener("input", () => this.activaTag());
 		this.activaTag();
 	}
+
 	activaTag() {
-		Dom.query("#" + this.container + " .tag").forEach(el => {
+		Dom.query(`#${this.container} .tag`).forEach(el => {
 			el.style.borderColor =
 				el.children[1].innerHTML === Dom.id(this.search).value ?
 					this.colorActive :

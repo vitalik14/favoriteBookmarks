@@ -8,13 +8,13 @@
 	"xTabs": {
 		"message": "Onglets"
 	},
-	"settings": {
+	"xSettings": {
 		"message": "Paramètres"
 	},
 	"xShowOnlyOneLine": {
 		"message": "Afficher une seule ligne."
 	},
-	"deleteCopy": {
+	"xDeleteCopy": {
 		"message": "Supprimer Les Doublons"
 	},
 	"xBookmarks": {

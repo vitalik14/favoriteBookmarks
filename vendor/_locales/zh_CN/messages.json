@@ -8,13 +8,13 @@
 	"xTabs": {
 		"message": "标签"
 	},
-	"settings": {
+	"xSettings": {
 		"message": "设置"
 	},
 	"xShowOnlyOneLine": {
 		"message": "只显示一行."
 	},
-	"deleteCopy": {
+	"xDeleteCopy": {
 		"message": "删除重复的"
 	},
 	"xBookmarks": {
