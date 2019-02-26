@@ -106,10 +106,10 @@ tabs(col)
 .tab-history
 	tabs($color3);
 
-.tabs > div.active, #tabs_search:valid + div, #bookmarks_search:valid + div, #history_search:valid + div
+.tabs > div.active, #tabsSearch:valid + div, #bookmarksSearch:valid + div, #historySearch:valid + div
 	display block
 
-.tabs > div, #tabs_search:invalid + div, #bookmarks_search:invalid + div, #history_search:invalid + div
+.tabs > div, #tabsSearch:invalid + div, #bookmarksSearch:invalid + div, #historySearch:invalid + div
 	display none
 
 .cssload-container {
@@ -136,7 +136,7 @@ tabs(col)
 	100%{ transform: rotate(360deg); transform: rotate(360deg); }
 }
 
-#loader-history, #loader_bookmarks
+#loader-history, #loaderBookmarks
 	opacity: 0;
 	transition: all 0.5s;
 	z-index: 9;

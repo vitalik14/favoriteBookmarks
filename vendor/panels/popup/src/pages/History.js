@@ -18,21 +18,21 @@ class History {
 		this.loaderDownList = false;
 		this.currentArrHistory = [];
 
-		this.elSearchHistory = Dom.id("history_search");
-		this.elRemoveTextSearchHistory = Dom.id("remove_text_history");
-		this.elNotFound = Dom.id("not_found");
-		this.elListHistory = Dom.id("results_h");
+		this.elSearchHistory = Dom.id("historySearch");
+		this.elRemoveTextSearchHistory = Dom.id("removeTextHistory");
+		this.elNotFound = Dom.id("notFound");
+		this.elListHistory = Dom.id("resultsHistory");
 		this.elDateHistory = Dom.id("dateHistory");
-		this.elSearchPeriodHistory = Dom.id("search_period_history");
-		this.elStartHistory = Dom.id("start_history");
-		this.elEndHistory = Dom.id("end_history");
+		this.elSearchPeriodHistory = Dom.id("searchPeriodHistory");
+		this.elStartHistory = Dom.id("startHistory");
+		this.elEndHistory = Dom.id("endHistory");
 
 		this.elStartHistory.setAttribute('max', this.maxDate);
 		this.elEndHistory.setAttribute('max', this.maxDate);
 		this.elStartHistory.setAttribute('min', this.minDate);
 		this.elEndHistory.setAttribute('min', this.minDate);
 
-		this.elSearchOn = Dom.id("search_on");
+		this.elSearchOn = Dom.id("searchOn");
 		this.timeoutHistory = 0;
 		this.timeoutInputHistory = 0;
 		this.elSearchHistory.value = storage.getOption("lastSearchHystory");
@@ -77,7 +77,7 @@ class History {
 					elem.parentElement.children[1].remove();
 
 				} else {
-					document.querySelectorAll('#results_h .date-title').forEach(item => {
+					document.querySelectorAll('#resultsHistory .date-title').forEach(item => {
 						item.classList.remove('active');
 						item.parentElement.children[1] && item.parentElement.children[1].remove();
 					});
@@ -96,6 +96,7 @@ class History {
 				const textSearch = this.elSearchHistory.value = new URL(elem.parentElement.children[3].children[0].innerHTML).host;
 
 				this.search(textSearch);
+				this.tags.activeTag();
 			}
 
 		}, true);
@@ -166,7 +167,7 @@ class History {
 		this.elSearchHistory.value = "";
 		storage.setOption('lastSearchHystory', "");
 		this.search("");
-		this.tags.activaTag();
+		this.tags.activeTag();
 		this.elSearchHistory.focus();
 	}
 
@@ -339,10 +340,10 @@ class History {
 
 	getTags() {
 		return new Tags({
-			search: "history_search",
+			search: "historySearch",
 			alias: "history_tags",
-			container: "tags_history",
-			elAdd: "add_tag_history",
+			container: "tagsHistory",
+			elAdd: "addTagHistory",
 			colorActive: "rgba(243, 136, 72, 0.4)",
 			funcSearch: this.search.bind(this)
 		});

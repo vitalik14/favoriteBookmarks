@@ -8,13 +8,13 @@ import DragDrop from "../components/DragDrop";
 
 class Tabs {
 	constructor() {
-		this.elSearchTabs = Dom.id("tabs_search");
-		this.elRemoveTextSearchTabs = Dom.id("remove_text_tabs");
+		this.elSearchTabs = Dom.id("tabsSearch");
+		this.elRemoveTextSearchTabs = Dom.id("removeTextTabs");
 		this.elShowOneLine = Dom.id("showOneLine");
 		this.elOpenTabs = Dom.id("openTabs");
 		this.elDeleteCopy = Dom.id("deleteCopy");
-		this.elTabsItems = Dom.id("tabs-items");
-		this.elNotFound = Dom.id("not_found");
+		this.elTabsItems = Dom.id("tabsItems");
+		this.elNotFound = Dom.id("notFound");
 		this.elSearchTabs.value = storage.getOption("lastSearchTabs");
 		if (storage.getOption("showOneLine") === "on") {
 			this.elShowOneLine.checked = true;
@@ -91,7 +91,7 @@ class Tabs {
 	removeTextTabs() {
 		this.elSearchTabs.value = "";
 		this.listingList("");
-		this.tags.activaTag();
+		this.tags.activeTag();
 		this.elSearchTabs.focus();
 
 	}
@@ -231,12 +231,12 @@ class Tabs {
 				</li>`;
 			}
 			this.elTabsItems.insertAdjacentHTML("afterBegin", li);
-			const arrLi = Dom.query("#tabs-items li");
+			const arrLi = Dom.query("#tabsItems li");
 
 			new DragDrop({
 				elements: arrLi,
 				type: "tabs",
-				container: "tabs-items",
+				container: "tabsItems",
 				funcSaveSort: this.search.bind(this)
 			});
 		}
@@ -248,10 +248,10 @@ class Tabs {
 
 	getTags() {
 		return new Tags({
-			search: "tabs_search",
+			search: "tabsSearch",
 			alias: "tabs_tags",
-			container: "tags_tab",
-			elAdd: "add_tag_tab",
+			container: "tagsTab",
+			elAdd: "addTagTab",
 			colorActive: "rgba(160, 193, 248, 0.4)",
 			funcSearch: this.listingList.bind(this)
 		});

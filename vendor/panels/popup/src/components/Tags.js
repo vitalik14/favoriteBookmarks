@@ -10,7 +10,7 @@ export default class Tags {
 		this.initialListeners();
 		this.showAllTags();
 		this.addEvents();
-		this.activaTag();
+		this.activeTag();
 	}
 
 	initialListeners() {
@@ -26,7 +26,7 @@ export default class Tags {
 				this.funcSearch(elem.innerHTML);
 			}
 
-			this.activaTag();
+			this.activeTag();
 		});
 	}
 
@@ -103,15 +103,15 @@ export default class Tags {
 			if (!!div.innerText) {
 				this.addTag(div.innerText);
 				this.showAllTags();
-				this.activaTag();
+				this.activeTag();
 			}
 		});
 
-		Dom.id(this.search).addEventListener("input", () => this.activaTag());
-		this.activaTag();
+		Dom.id(this.search).addEventListener("input", () => this.activeTag());
+		this.activeTag();
 	}
 
-	activaTag() {
+	activeTag() {
 		const btnAdd = Dom.id(this.elAdd);
 		const text = Dom.id(this.search).value;
 

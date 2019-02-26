@@ -14,15 +14,15 @@ class Bookmarks {
 		this.currentArrBookmarks = [];
 		this.loaderDownList = false;
 
-		this.elInputBookmarks = Dom.id("bookmarks_search");
-		this.elRemoveTextSearchBookmarks = Dom.id("remove_text_bookmarks");
-		this.elListBookmarks = Dom.id("results_b");
+		this.elInputBookmarks = Dom.id("bookmarksSearch");
+		this.elRemoveTextSearchBookmarks = Dom.id("removeTextBookmarks");
+		this.elListBookmarks = Dom.id("resultsBookmarks");
 		this.elFindBookmarks = Dom.id("findBookmarks");
-		this.elNotFound = Dom.id("not_found");
+		this.elNotFound = Dom.id("notFound");
 
-		this.elSelectSort = Dom.id("selectSort_b");
+		this.elSelectSort = Dom.id("selectSortBookmarks");
 		this.elBtnOpenFindBookmarks = Dom.id("openBookmarks");
-		this.elLoaderBookmarks = Dom.id("loader_bookmarks");
+		this.elLoaderBookmarks = Dom.id("loaderBookmarks");
 		this.timeoutBookmarks = null;
 		this.timeoutInputBookmarks = 0;
 		this.elInputBookmarks.value = storage.getOption("lastSearchBookmarks");
@@ -63,6 +63,7 @@ class Bookmarks {
 				const textSearch = this.elInputBookmarks.value = new URL(elem.parentElement.children[4].children[0].innerHTML).host;
 
 				this.search(textSearch);
+				this.tags.activeTag();
 
 			} else if (classList.contains('delete')) {
 				elem.addEventListener("click", function () {
@@ -84,18 +85,18 @@ class Bookmarks {
 			}
 			this.loaderDownList = true;
 
-			Dom.id("loader_bookmarks").classList.add("active");
+			Dom.id("loaderBookmarks").classList.add("active");
 			if (elem.scrollHeight < (elem.scrollTop + elem.offsetHeight)) {
 				this.renderList();
 			}
 
-			Dom.id("loader_bookmarks").classList.remove("active");
+			Dom.id("loaderBookmarks").classList.remove("active");
 			this.loaderDownList = false;
 		});
 	}
 
 	openFindBookmarks() {
-		Dom.query("#results_b > li > a .url").forEach(e => {
+		Dom.query("#resultsBookmarks > li > a .url").forEach(e => {
 			chrome.tabs.create({ url: e.innerText }, () => { });
 		});
 	}
@@ -104,7 +105,7 @@ class Bookmarks {
 		this.elInputBookmarks.value = "";
 		storage.setOption("lastSearchBookmarks", "");
 		this.search("");
-		this.tags.activaTag();
+		this.tags.activeTag();
 		this.elInputBookmarks.focus();
 	}
 
@@ -218,10 +219,10 @@ class Bookmarks {
 
 	getTags() {
 		return new Tags({
-			search: "bookmarks_search",
+			search: "bookmarksSearch",
 			alias: "bookmark_tags",
-			container: "tags_bookmarks",
-			elAdd: "add_tag_bookmark",
+			container: "tagsBookmarks",
+			elAdd: "addTagBookmark",
 			colorActive: "rgba(77, 192, 177, 0.4)",
 			funcSearch: this.search.bind(this)
 		});
