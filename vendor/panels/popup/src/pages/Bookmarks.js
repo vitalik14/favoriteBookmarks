@@ -105,6 +105,7 @@ class Bookmarks {
 		storage.setOption("lastSearchBookmarks", "");
 		this.search("");
 		this.tags.activaTag();
+		this.elInputBookmarks.focus();
 	}
 
 	search(el) {
@@ -183,7 +184,7 @@ class Bookmarks {
 
 			try {
 				li.innerHTML = `
-					<div class="delete">x</div>
+					<div class="delete"></div>
 					<div class="btn-search"></div>
 					<div class="time">${added}</div>
 					<div class="show-url"></div>

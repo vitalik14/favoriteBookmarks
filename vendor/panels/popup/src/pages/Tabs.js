@@ -92,6 +92,8 @@ class Tabs {
 		this.elSearchTabs.value = "";
 		this.listingList("");
 		this.tags.activaTag();
+		this.elSearchTabs.focus();
+
 	}
 
 	togleLocalStorage(alias) {
@@ -215,7 +217,7 @@ class Tabs {
 					class="${classActive}"
 				>	
 					<div class="btn">
-						<div class="del">x</div>
+						<div class="del"></div>
 					</div>
 					<div class="show-url"></div>
 					<div class="tab ${short}" >

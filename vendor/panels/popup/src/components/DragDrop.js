@@ -48,7 +48,7 @@ export default class DragDrop {
 					element.setAttribute("data-index", String(bufIndex));
 
 					let arr = [];
-					Dom.query(`#${self.container} .tagName`).forEach(el => {
+					Dom.query(`#${self.container} .tag-name`).forEach(el => {
 						arr.push(el.innerText);
 					});
 					self.funcSaveSort(arr);
@@ -69,7 +69,8 @@ export default class DragDrop {
 				}
 
 				if (self.type !== "tags") {
-					self.getNodeItem(e).style.boxShadow = "2px 1px 3px #D3D3D3";
+					self.getNodeItem(e).style.boxShadow = "inset 2px 1px 3px #D3D3D3";
+					self.getNodeItem(e).style.background = "#ffffff";
 				}
 			});
 
@@ -80,6 +81,7 @@ export default class DragDrop {
 
 				if (self.type !== "tags") {
 					self.getNodeItem(e).style.boxShadow = "inset 0 1px 3px #0086F8";
+					self.getNodeItem(e).style.background = "#d4e3fc";
 				}
 				e.preventDefault();
 			});

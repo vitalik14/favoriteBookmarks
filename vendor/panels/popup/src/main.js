@@ -7,6 +7,7 @@ import { bookmarks } from "./pages/Bookmarks";
 import { history } from "./pages/History";
 
 import "../css/_global.styl";
+import "../css/tags.styl";
 import "../css/tabs.styl";
 import "../css/bookmarks.styl";
 import "../css/history.styl";

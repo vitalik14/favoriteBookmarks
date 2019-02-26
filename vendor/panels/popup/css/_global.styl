@@ -47,19 +47,23 @@ html, body
 		font-size 14px
 		user-select none
 		position relative
+		color:#fff
+		text-shadow: 0 0 2px #807c7c;
+		font-weight: bold;
 	>div.active
 		cursor default
 		color $color_white
 		font-weight bold
+		color #FFF
 
 	>div.active.btn-tabs
-		background: -webkit-linear-gradient($color_white, $color1);
+		background: $color1;
 
 	>div.active.btn-bookmarks
-		background: -webkit-linear-gradient($color_white, $color2);
+		background: $color2;
 
 	>div.active.btn-history
-		background: -webkit-linear-gradient($color_white, $color3);
+		background: $color3;
 
 	>.btn-tabs:not(.active):hover
 		background: -webkit-linear-gradient($color1, $color_white);
@@ -153,3 +157,20 @@ tabs(col)
 	width:100%;
 	text-align: center;
 	justify-content: center;
+
+.remove-text-search {
+	position: absolute;
+	color: $red;
+	font-size: 16px;
+	top: 6px;
+	right: 40px;
+	z-index: 10;
+	cursor: pointer;
+	font-family: cursive;
+	font-size: 16px;
+	width: 25px;
+	height 25px;
+	text-align: center;
+	user-select: none;
+	background: url(../img/delete_active.svg) no-repeat 5px 7px;
+}

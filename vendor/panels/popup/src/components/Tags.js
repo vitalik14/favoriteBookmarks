@@ -6,13 +6,32 @@ export default class Tags {
 	constructor(obj) {
 		for (const p in obj) this[p] = obj[p];
 		storage.setOption(this.alias, storage.getOption(this.alias, "[]"));
+		this.tagsElement = Dom.id(this.container);
+		this.initialListeners();
 		this.showAllTags();
 		this.addEvents();
 	}
 
+	initialListeners() {
+		this.tagsElement.addEventListener("click", el => {
+			let elem = el.target;
+
+			if (elem.classList.contains('tag-del')) {
+				this.delTag(elem.parentNode.children[1].innerHTML);
+				this.showAllTags();
+
+			} else if ((elem.classList.contains('tag') && (elem = elem.children[1])) || elem.classList.contains('tag-name')) {
+				Dom.id(this.search).value = elem.innerHTML;
+				this.funcSearch(elem.innerHTML);
+			}
+
+			this.activaTag();
+		});
+	}
+
 	get colors() {
 		return {
-			colorDefault: "#EEEEEE",
+			colorBackgroundDefault: "#EEEEEE",
 			colorDeleteTag: "#f0c4c4"
 		};
 	}
@@ -52,54 +71,19 @@ export default class Tags {
 
 	showAllTags() {
 		const self = this;
-		const tagsElement = Dom.id(self.container);
 		const tags = self.getTags();
 
-		tagsElement.innerHTML = "";
+		this.tagsElement.innerHTML = "";
 		for (let i = 0, length = tags.length; i < length; i++) {
-			const div = document.createElement("li");
+			const li = document.createElement("li");
 			const tag = tags[i];
 
-			div.setAttribute("class", "tag");
-			div.setAttribute("draggable", "true");
-			div.setAttribute("data-id", Helpers.b64EncodeUnicode(tag));
-			div.setAttribute("data-index", i);
-			div.innerHTML = `<span class="tag-del">x</span><span class="tagName">${tag}</span>`;
-
-			tagsElement.appendChild(div);
-
-			const deleteTag = div.children[0];
-
-			deleteTag.addEventListener("click", function () {
-				self.delTag(this.parentNode.children[1].innerHTML);
-				self.showAllTags();
-				self.activaTag();
-			});
-
-			deleteTag.addEventListener("mouseover", function () {
-				this.parentNode.style.background = self.colors.colorDeleteTag;
-			});
-
-			deleteTag.addEventListener("mouseout", function () {
-				this.parentNode.style.background = self.colors.colorDefault;
-			});
-
-			const searchTag = div.children[1];
-
-			searchTag.addEventListener("click", function () {
-				Dom.id(self.search).value = this.innerHTML;
-				self.activaTag();
-				self.funcSearch(this.innerHTML);
-			});
-
-			searchTag.addEventListener("mouseover",
-				el => (el.target.parentNode.style.background = self.colorActive)
-			);
-
-			searchTag.addEventListener(
-				"mouseout",
-				el => (el.target.parentNode.style.background = self.colors.colorDefault)
-			);
+			li.setAttribute("class", "tag");
+			li.setAttribute("draggable", "true");
+			li.setAttribute("data-id", Helpers.b64EncodeUnicode(tag));
+			li.setAttribute("data-index", i);
+			li.innerHTML = `<span class="tag-del"></span><span class="tag-name">${tag}</span>`;
+			this.tagsElement.appendChild(li);
 		}
 
 		new DragDrop({
@@ -112,10 +96,11 @@ export default class Tags {
 
 	addEvents() {
 		Dom.id(this.elAdd).addEventListener("click", () => {
-			const value = Dom.id(this.search).value;
+			const div = document.createElement('div');
 
-			if (!!value) {
-				this.addTag(value);
+			div.innerHTML = Dom.id(this.search).value;
+			if (!!div.innerText) {
+				this.addTag(div.innerText);
 				this.showAllTags();
 				this.activaTag();
 			}
@@ -126,11 +111,22 @@ export default class Tags {
 	}
 
 	activaTag() {
+		const btnAdd = Dom.id(this.elAdd);
+		btnAdd.style.display = "block";
+		btnAdd.parentNode.children[1].style.right = "40px";
 		Dom.query(`#${this.container} .tag`).forEach(el => {
-			el.style.borderColor =
-				el.children[1].innerHTML === Dom.id(this.search).value ?
-					this.colorActive :
-					this.colors.colorDefault;
+			el.classList.contains('active') && el.classList.remove('active');
+
+			if (el.children[1].innerHTML === Dom.id(this.search).value) {
+				btnAdd.parentNode.children[1].style.right = "8px";
+				btnAdd.style.display = "none";
+				el.classList.add('active');
+			}
+
+			// el.style.borderColor =
+			// 	el.children[1].innerHTML === Dom.id(this.search).value ?
+			// 		this.colorActive :
+			// 		this.colors.colorBackgroundDefault;
 		});
 	}
 }

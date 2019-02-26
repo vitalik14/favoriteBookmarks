@@ -62,69 +62,6 @@
 	position: relative;
 }
 
-.remove-text-search {
-	position: absolute;
-	color: $red;
-	font-size: 16px;
-	top: 6px;
-	right: 40px;
-	z-index: 10;
-	cursor: pointer;
-	font-family: cursive;
-	font-size: 16px;
-	width: 25px;
-	text-align: center;
-	user-select: none;
-}
-
-.tags
-	margin: 5px 0;
-	width: 400px;
-	display: flex;
-	justify-content: flex-start;
-	flex-direction: row;
-	flex-wrap: wrap;
-	overflow: hidden;
-	max-height: 87px;
-	overflow-x: hidden;
-	overflow-y: auto;
-	width: 100%;
-	padding: 0 4px;
-	.tag
-		display inline-block
-		background $color7
-		border-radius 4px
-		margin 3px 2px
-		box-shadow 1px 1px 2px $color11
-		border-width 2px
-		border-style solid
-		color #000
-		user-select none
-		&:active
-			opacity 0.7
-		.tag-del
-			color $red
-			width 14px
-			padding 0 0px 2px 0px
-			display inline-block
-			text-align center
-			vertical-align top
-			cursor pointer
-
-		.tagName
-			padding 2px 7px 6px 0px
-			line-height 0.8
-			display inline-block
-			vertical-align middle
-			max-width 150px
-			overflow hidden
-			text-overflow ellipsis
-			white-space nowrap
-			cursor pointer
-
-
-
-
 .openAll
 	width 100%
 
@@ -176,7 +113,7 @@
 	>li
 		border-bottom: 1px solid #DDD;
 		position: relative;
-		padding: 10px 0;
+		padding: 10px 0 10px 1px;
 		display: flex;
 		align-items: center;
 		transition: all 0.3s;
@@ -223,13 +160,15 @@
 			cursor pointer
 			transition all 0.1s
 			font-family Arial
-			margin-top 6px
+			margin-top 7px
 			margin-left 2px
 			align-self: flex-start;
+			background: url(../img/delete.svg) no-repeat 0px 0px
 			&:hover
-				box-shadow 0 0 5px $red
+				background: url(../img/delete_active.svg) no-repeat 0px 0px
 				~a
-					color $red	
+					color $red
+
 		.btn-search
 			background-image: url(../img/history_filter.svg);
 			width:15px;

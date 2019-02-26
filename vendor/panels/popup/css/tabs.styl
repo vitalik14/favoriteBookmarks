@@ -14,7 +14,7 @@
 		display flex
 		align-items: center
 		border-radius 4px
-		padding: 8px 0 8px 3px;
+		padding: 8px 0 8px 4px;
 		border-bottom 1px solid $color8
 		position: relative
 		transition all 0.3s
@@ -43,8 +43,8 @@
 			vertical-align: middle;
 			align-self: flex-start;
 			.del
-				width: 16px;
-				height: 15px;
+				width: 14px;
+				height: 14px;
 				line-height: 1;
 				text-align: center;
 				color: $color10;
@@ -57,10 +57,11 @@
 				cursor: pointer;
 				transition: all 0.1s;
 				font-family: Arial
+				background: url(../img/delete.svg) no-repeat 0px 0px
 				&:hover
-					box-shadow: 0 0 5px $red
+					background: url(../img/delete_active.svg) no-repeat 0px 0px
 
-			&:hover+.tab span
+			&:hover ~ .tab .tabs-title
 				color $red
 				transition all 0.2s
 

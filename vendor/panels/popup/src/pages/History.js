@@ -167,6 +167,7 @@ class History {
 		storage.setOption('lastSearchHystory', "");
 		this.search("");
 		this.tags.activaTag();
+		this.elSearchHistory.focus();
 	}
 
 	search(el) {

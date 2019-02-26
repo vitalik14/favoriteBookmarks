@@ -1,0 +1,93 @@
+@import "vars.styl"
+
+.tags
+	margin: 5px 0;
+	display: flex;
+	justify-content: flex-start;
+	flex-direction: row;
+	flex-wrap: wrap;
+	overflow: hidden;
+	max-height: 90px;
+	overflow-x: hidden;
+	overflow-y: auto;
+	width: calc(100% - 6px);
+	padding: 2px 2px 2px 4px;
+	.tag
+		display inline-block
+		background $color7
+		border-radius 4px
+		margin 3px 2px
+		box-shadow 1px 1px 2px $color11
+		border-width 2px
+		border-style solid
+		color #000
+		user-select none
+		height: 18px;
+		display: flex;
+		align-items: flex-start;
+		padding: 1px 6px 1px 1px;
+		.tag-del
+			color $red
+			width 14px
+			display inline-block
+			text-align center
+			vertical-align top
+			cursor pointer
+			height: 100%;
+			background: url(../img/tags_delete.svg) no-repeat 2px 4px;
+			background-position: 2px 4px;
+			&:hover
+				background-image: url(../img/tags_delete_active.svg)
+				+span
+					color red
+
+
+		.tag-name
+			display: inline-block;
+			max-width: 150px;
+			overflow: hidden;
+			text-overflow: ellipsis;
+			white-space: nowrap;
+			cursor: pointer;
+			height: 100%;
+			padding 0 2px 0 2px
+
+
+.tabs-tabs
+	.tags
+		.tag
+			border-color #d4e3fc
+			background -webkit-linear-gradient(top, #fff 28%, #a6c5f9 125%);
+			transition: all 0.3s;
+			&.active
+				border-color #84aff6
+				background #FFF
+			&:hover
+				border-color #84aff6
+				transition: all 0.1s;
+
+.tab-bookmarks
+	.tags
+		.tag
+			border-color #bde8e2
+			background -webkit-linear-gradient(top, #fff 28%, #9adcd3 125%)
+			transition: all 0.3s;
+			&.active
+				border-color #78d0c4
+				background #FFF
+			&:hover
+				border-color #78d0c4
+				transition: all 0.1s;
+				
+.tab-history
+	.tags
+		.tag
+			border-color #fce3d4
+			background -webkit-linear-gradient(top, #fff 28%, #f8bd9a 125%)
+			transition: all 0.3s;
+			&.active
+				border-color #f7b68f
+				background #FFF
+			&:hover
+				border-color #f7b68f
+				transition: all 0.1s;
