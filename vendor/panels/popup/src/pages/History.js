@@ -83,7 +83,7 @@ class History {
 					});
 					elem.classList.add("active");
 					this.renderDayItems(elem.parentElement, elem.dataset.id);
-					el.currentTarget.scrollTop = Math.abs(elem.parentElement.offsetTop - 106);
+					el.currentTarget.scrollTop = Math.abs(elem.parentElement.offsetTop - el.currentTarget.parentElement.children[0].scrollHeight - 34); // 34 height munu height
 				}
 
 			} else if (classList.contains('h-l') || (classList.contains('h-t') && (childrens = true))) {

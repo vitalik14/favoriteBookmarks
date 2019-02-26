@@ -3,12 +3,10 @@
  */
 import { Dom } from "./components/Core";
 
-
-
 function translate() {
 	const words = [
 		//	tabs
-		"xTabs", "xSettings", "xShowOnlyOneLine", "xDeleteCopy",
+		"xTabs", "xShowOnlyOneLine", "xDeleteCopy",
 		//	bookmarks
 		"xBookmarks", "xSort", "xDate", "xUrl", "xTitle", "xOpenAll",
 		//	history

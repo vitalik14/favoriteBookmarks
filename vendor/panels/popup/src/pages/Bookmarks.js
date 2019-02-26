@@ -188,7 +188,7 @@ class Bookmarks {
 					<div class="btn-search"></div>
 					<div class="time">${added}</div>
 					<div class="show-url"></div>
-					<a style="background-image:url(chrome://favicon/${url.origin})">
+					<a class="h-l" style="background-image:url(chrome://favicon/${url.origin})">
 						<div class="url">${item.url}</div>
 						<div class="h-t">${title}</div>
 					</a>`;

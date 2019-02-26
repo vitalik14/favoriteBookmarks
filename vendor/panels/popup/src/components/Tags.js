@@ -10,6 +10,7 @@ export default class Tags {
 		this.initialListeners();
 		this.showAllTags();
 		this.addEvents();
+		this.activaTag();
 	}
 
 	initialListeners() {
@@ -112,21 +113,26 @@ export default class Tags {
 
 	activaTag() {
 		const btnAdd = Dom.id(this.elAdd);
+		const text = Dom.id(this.search).value;
+
 		btnAdd.style.display = "block";
 		btnAdd.parentNode.children[1].style.right = "40px";
-		Dom.query(`#${this.container} .tag`).forEach(el => {
-			el.classList.contains('active') && el.classList.remove('active');
 
-			if (el.children[1].innerHTML === Dom.id(this.search).value) {
+		if (!text) {
+			btnAdd.style.display = "none";
+		}
+
+		Dom.query(`#${this.container} .tag`).forEach(el => {
+
+
+			el.classList.contains('active') && el.classList.remove('active');
+			if (!text) {
+				btnAdd.style.display = "none";
+			} else if (el.children[1].innerHTML === text) {
 				btnAdd.parentNode.children[1].style.right = "8px";
 				btnAdd.style.display = "none";
 				el.classList.add('active');
 			}
-
-			// el.style.borderColor =
-			// 	el.children[1].innerHTML === Dom.id(this.search).value ?
-			// 		this.colorActive :
-			// 		this.colors.colorBackgroundDefault;
 		});
 	}
 }
