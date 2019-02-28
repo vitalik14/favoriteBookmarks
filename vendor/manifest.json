@@ -7,11 +7,6 @@
 	"icons": {
 		"128": "img/vt.png"
 	},
-	"background": {
-		"scripts": [
-			"background/index.js"
-		]
-	},
 	"permissions": [
 		"tabs",
 		"http://*/*",

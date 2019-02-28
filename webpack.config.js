@@ -1,11 +1,7 @@
-var path = require("path");
+let path = require("path");
 const NODE_ENV = process.env.NODE_ENV || "development";
-const ASSET_PATH = process.env.ASSET_PATH || "/";
-
 const CleanWebpackPlugin = require("clean-webpack-plugin");
-// const UglifyJsPlugin = require("uglifyjs-webpack-plugin");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
-//const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const CopyWebpackPlugin = require("copy-webpack-plugin");
 
 module.exports = {
@@ -13,7 +9,6 @@ module.exports = {
 	entry: "./vendor/panels/popup/src/main.js",
 	output: {
 		path: path.resolve(__dirname, "public"),
-		publicPath: ASSET_PATH,
 		filename: "[name].js"
 	},
 	watch: NODE_ENV === "development",
@@ -34,7 +29,15 @@ module.exports = {
 		]),
 		new HtmlWebpackPlugin({
 			filename: "popup.html",
-			template: "vendor/panels/popup/popup.html"
+			template: "vendor/panels/popup/popup.html",
+			minify: {
+				collapseWhitespace: true,
+				removeComments: true,
+				removeRedundantAttributes: true,
+				removeScriptTypeAttributes: true,
+				removeStyleLinkTypeAttributes: true,
+				useShortDoctype: true
+			}
 		})
 	],
 	module: {

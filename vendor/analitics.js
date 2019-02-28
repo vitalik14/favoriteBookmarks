@@ -11,5 +11,3 @@ _gaq.push(['_trackPageview']);
 document.getElementById('panel').addEventListener('click', el => {
 	_gaq.push(['_trackEvent', el.target.textContent, 'clicked']);
 });
-
-_gaq.push(['_trackEvent', chrome.i18n.getUILanguage(), 'UILanguage']);

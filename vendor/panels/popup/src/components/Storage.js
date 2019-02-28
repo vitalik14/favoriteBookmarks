@@ -11,9 +11,9 @@ class Storage {
 		this.setOption("lastSearchTabs", this.getOption("lastSearchTabs"));
 		this.setOption("lastSearchBookmarks", this.getOption("lastSearchBookmarks"));
 		this.setOption("lastSearchHystory", this.getOption("lastSearchHystory"));
-		this.setOption("tabs_tags", this.getOption("tabs_tags", "[]"));
-		this.setOption("bookmark_tags", this.getOptionFix(["bookmark_tags", "vt_tags"], "[]"));
-		this.setOption("history_tags", this.getOptionFix(["history_tags", "vt_tags_h"], "[]"));
+		this.setOption("tabs_tags", this.getOption("tabs_tags", '["google", "chrome"]'));
+		this.setOption("bookmark_tags", this.getOptionFix(["bookmark_tags", "vt_tags"], '["google", "news"]'));
+		this.setOption("history_tags", this.getOptionFix(["history_tags", "vt_tags_h"], '["google", "news"]'));
 		this.setOption("sortBookmarks", this.getOption("sortBookmarks", Configs.sortDefault));
 		this.setOption("historyDates", this.getOption("historyDates", '{}'));
 
