@@ -1,0 +1,44 @@
+{
+	"extName": {
+		"message": "علامات التبويب الرأسي والإشارات المرجعية"
+	},
+	"extDescription": {
+		"message": "التجميع الرأسي لعلامات التبويب والبحث السريع في المفضلة وفي تاريخ مشاهدات الصفحة"
+	},
+	"xTabs": {
+		"message": "علامات التبويب"
+	},
+	"xShowOnlyOneLine": {
+		"message": "إظهار خط واحد فقط"
+	},
+	"xDeleteCopy": {
+		"message": "إزالة التكرارات"
+	},
+	"xBookmarks": {
+		"message": "منتخب"
+	},
+	"xSort": {
+		"message": "فرز:"
+	},
+	"xDate": {
+		"message": "تاريخ"
+	},
+	"xUrl": {
+		"message": "حلقة الوصل"
+	},
+	"xTitle": {
+		"message": "عنوان"
+	},
+	"xOpenAll": {
+		"message": "افتح الكل "
+	},
+	"xHistory": {
+		"message": "التاريخ"
+	},
+	"xFilter": {
+		"message": "الفلتر"
+	},
+	"xNotFound": {
+		"message": "غير معثور عليه"
+	}
+}

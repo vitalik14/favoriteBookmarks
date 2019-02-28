@@ -1,0 +1,44 @@
+{
+	"extName": {
+		"message": "Tabs verticales & favoritos"
+	},
+	"extDescription": {
+		"message": "Agrupación vertical de pestañas, búsqueda rápida en favoritos y en el historial de páginas vistas"
+	},
+	"xTabs": {
+		"message": "Pestañas"
+	},
+	"xShowOnlyOneLine": {
+		"message": "Mostrar solo una linea"
+	},
+	"xDeleteCopy": {
+		"message": "Eliminar duplicados"
+	},
+	"xBookmarks": {
+		"message": "Favoritos"
+	},
+	"xSort": {
+		"message": "Ordenar:"
+	},
+	"xDate": {
+		"message": "fecha"
+	},
+	"xUrl": {
+		"message": "url"
+	},
+	"xTitle": {
+		"message": "título"
+	},
+	"xOpenAll": {
+		"message": "Abrir todo "
+	},
+	"xHistory": {
+		"message": "Historia"
+	},
+	"xFilter": {
+		"message": "Filtración"
+	},
+	"xNotFound": {
+		"message": "No encontrado"
+	}
+}

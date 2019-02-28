@@ -30,13 +30,6 @@ export default class Tags {
 		});
 	}
 
-	get colors() {
-		return {
-			colorBackgroundDefault: "#EEEEEE",
-			colorDeleteTag: "#f0c4c4"
-		};
-	}
-
 	getTags() {
 		return JSON.parse(storage.getOption(this.alias));
 	}

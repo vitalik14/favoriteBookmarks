@@ -8,6 +8,8 @@ _gaq.push(['_trackPageview']);
 	var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
 })();
 
-document.getElementById('panel').addEventListener('click', (el) => {
-	_gaq.push(['_trackEvent', el.target.innerHTML, 'clicked']);
+document.getElementById('panel').addEventListener('click', el => {
+	_gaq.push(['_trackEvent', el.target.textContent, 'clicked']);
 });
+
+_gaq.push(['_trackEvent', chrome.i18n.getUILanguage(), 'UILanguage']);
