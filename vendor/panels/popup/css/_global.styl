@@ -75,8 +75,8 @@ html, body
 		background: -webkit-linear-gradient($color3, $color_white);
 
 	>div:first-child+div
-		border-left: 1px solid $color11;
-		border-right: 1px solid $color11;
+		border-left: 1px solid $color_white
+		border-right: 1px solid $color_white
 
 
 .btn-tabs {
@@ -97,7 +97,7 @@ tabs(col)
 	box-shadow inset 0 0 7px col
 	border-radius 0 0 2px 2px
 
-.tabs-tabs
+.tab-tabs
 	tabs($color1);
 
 .tab-bookmarks
@@ -112,25 +112,68 @@ tabs(col)
 .tabs > div, #tabsSearch:invalid + div, #bookmarksSearch:invalid + div, #historySearch:invalid + div
 	display none
 
-.cssload-container {
-	width: 17px;
-	height: 17px;
-	text-align: center;
-	top:8px;
-	right:47px;
-	position: absolute;
-	z-index: 11;
-}
 
-.cssload-speeding-wheel {
-	width: 17px;
-	height: 17px;
-	margin: 0  0;
-	border-style: solid;
-	border-width: 3px;
-	border-radius: 50%;
-	animation: cssload-spin 575ms infinite linear;
-}
+.wrap-tabs, .wrap-bookmarks, .wrap-history
+	width 100%
+	display flex
+	justify-content flex-start
+	flex-direction row
+	flex-wrap wrap
+
+.search-block
+	width: 100%;
+	position: relative;
+	.wrap-search
+		position relative
+		height 30px
+		.search
+			margin 5px 5px 0
+			border 1px solid #aaa
+			padding 5px 58px 5px 5px
+			width calc(100% - 75px)
+			position absolute
+			z-index 1
+			top 0
+			border-radius 3px
+			overflow hidden
+			font-size 14px
+		.add-tag
+			position absolute
+			z-index 2
+			width 30px
+			height 27px
+			text-align center
+			right 5px
+			top 5px
+			line-height 1.4
+			background-color transparent
+			font-size 18px
+			font-weight bold
+			color $color_white
+			cursor pointer
+			user-select none
+			border-radius 0 3px 3px 0
+			&:active
+				opacity 0.7
+
+		.cssload-container
+			width 17px
+			height 17px
+			text-align center
+			top 8px
+			right 47px
+			position absolute
+			z-index 11
+			.cssload-speeding-wheel
+				width 17px
+				height 17px
+				margin 0  0
+				border-style solid
+				border-width 3px
+				border-radius 50%
+				animation cssload-spin 575ms infinite linear
+				border-left-color transparent
+				border-right-color transparent
 
 @keyframes cssload-spin {
 	100%{ transform: rotate(360deg); transform: rotate(360deg); }

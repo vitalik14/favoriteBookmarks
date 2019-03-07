@@ -3,7 +3,7 @@ const NODE_ENV = process.env.NODE_ENV || "development";
 const CleanWebpackPlugin = require("clean-webpack-plugin");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const CopyWebpackPlugin = require("copy-webpack-plugin");
-
+//const webpack = require("webpack");
 module.exports = {
 	mode: "development", //production
 	entry: "./vendor/panels/popup/src/main.js",
@@ -12,7 +12,7 @@ module.exports = {
 		filename: "[name].js"
 	},
 	watch: NODE_ENV === "development",
-	devtool: NODE_ENV === "development" ? "source-map" : "",
+	devtool: "inline-source-map",
 	plugins: [
 		new CleanWebpackPlugin(["public"]),
 		new CopyWebpackPlugin([
@@ -47,6 +47,11 @@ module.exports = {
 			// 	exclude: /node_modules/,
 			// 	use: ["babel-loader", "eslint-loader"]
 			// },
+			{
+				test: /\.js$/,
+				use: ["source-map-loader"],
+				enforce: "pre"
+			},
 			{
 				test: /\.styl$/,
 				loader: ["style-loader", "css-loader", "stylus-loader"]

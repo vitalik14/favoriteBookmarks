@@ -1,35 +1,31 @@
 @import "vars.styl"
 
-.wrap-tabs
-	width: 100%;
-	display: flex;
-	justify-content: flex-start;
-	flex-direction: row;
-	flex-wrap: wrap;
+.tab-tabs
+	.search-block
+		.search
+			border: 1px solid $color1
+		.add-tag
+			background-color $color1
+		.cssload-speeding-wheel
+			border-color $color1
 
-.tabs-items
-	float left
-	max-height 344px
-	overflow-x hidden
-	overflow-y scroll
-	width 100%
-	box-shadow 0px -1px 4px $color1
-	border-bottom 1px solid $color8
-	margin-top 2px
+.results-tabs
+	max-height: 346px;
+	overflow-x: hidden;
+	overflow-y: auto;
+	width: calc(100% - 2px);
+	border-bottom: 1px solid $color8;
+	box-shadow: 0px -1px 4px $color1;
+	padding-left: 2px;
+	margin-top: 2px;
 	>li
+		border-bottom: 1px solid #DDD;
+		position: relative;
+		padding: 10px 0 10px 2px;
+		display: flex;
+		align-items: center;
+		transition: all 0.3s;
 		box-shadow 2px 1px 3px #D3D3D3
-		display flex
-		align-items: center
-		border-radius 4px
-		padding: 8px 0 8px 4px;
-		border-bottom 1px solid $color8
-		position: relative
-		transition all 0.3s
-		&:hover
-			background-color rgba(72, 136, 243, 0.1)
-			transition all 0.1s
-		&.active
-			background-color rgba(72, 136, 243, 0.3)	
 		&:last-child
 			.show-url
 				&:hover
@@ -40,75 +36,92 @@
 						content: '';
 						left: -6px;
 						top: 12px;
-						z-index: 10;
-		.btn
-			width: 20px;
-			height: 20px;
-			padding-top: 4px;
-			text-align: center;
-			display: inline-block;
-			vertical-align: middle;
-			align-self: flex-start;
-			.del
-				width: 14px;
-				height: 14px;
-				line-height: 1;
-				text-align: center;
-				color: $color10;
-				border-radius: 50%;
-				box-shadow: 0 0 0px #F33;
-				display: inline-block;
-				vertical-align: middle
-				font-size: 13px;
-				font-weight: bold;
-				cursor: pointer;
-				transition: all 0.1s;
-				font-family: Arial
-				background: url(../img/delete.svg) no-repeat 0px 0px
-				&:hover
-					background: url(../img/delete_active.svg) no-repeat 0px 0px
-
-			&:hover ~ .tab .tabs-title
-				color $red
-				transition all 0.2s
-
+						z-index: 10
+		&:hover
+			background-color: rgba(75, 192, 177, 0.1) !important;
+			transition: all 0.1s;
 		.tab
-			display flex
-			align-items: center
-			justify-content: flex-start
-			padding: 3px 5px 3px 7px
-			width 100%
-			cursor pointer
-			&.short
-				.tabs-title
-					overflow hidden
-					text-overflow ellipsis
-					white-space nowrap
-			.tabs-title
+			display: inline-block;
+			color: $color10;
+			font-size: 13px;
+			text-decoration: none;
+			padding: 4px 0 4px 30px;
+			background-size: 16px;
+			background-repeat: no-repeat;
+			background-position: 5px 6px;
+			width: calc(100% - 49px);
+			cursor: pointer;
+			text-rendering: optimizeSpeed;
+			.t-t
 				font-size 13px
 				border-radius 5px
 				line-height 1.6
 				color $color10
 				transition all 0.2s
 				word-break break-word
-				max-width: 320px;
-			img
-				display inline-block
-				transition all 0.2s
-				margin-right 7px
-				margin-top: 3px;
-				width 16px
-				align-self: flex-start;
+			.short
+				overflow hidden
+				text-overflow ellipsis
+				white-space nowrap
 		.info
 			width 20px
 			height 20px
-			margin-right: 5px;
+			position: absolute;
+			top: 0;
+			left: 315px;
 			.audio
 				background url(../img/tab_use_sound.svg) no-repeat
 				width 20px
 				height 20px
 				background-size contain
-				margin-top: 7px;
+		.delete
+			width 15px
+			height 15px
+			line-height 1
+			text-align center
+			color $color10
+			border-radius 50%
+			box-shadow 0 0 0px #F33
+			display inline-block
+			vertical-align top
+			font-size 13px
+			font-weight bold
+			cursor pointer
+			transition all 0.1s
+			font-family Arial
+			margin-top 7px
+			margin-left 2px
+			align-self: flex-start;
+			background: url(../img/delete.svg) no-repeat 0px 0px
+			&:hover
+				background: url(../img/delete_active.svg) no-repeat 0px 0px
+				~.tab
+					color $red
+
+		.btn-search
+			background-image: url(../img/history_filter.svg);
+			width:15px;
+			height 15px;
+			background-size: contain;
+			position: absolute;
+			z-index : 9;
+			top: 2px;
+			left: 375px;
+			cursor: pointer;
+			white-space: nowrap;
+			&:hover
+				background-image: url(../img/tabs_filter_active.svg);
+		.time
+			display: inline-block;
+			font-size: 12px;
+			position: absolute;
+			top: 2px;
+			left: 205px;
+			width: max-content;
+			background: #fff;
+			padding: 0 2px;
+			user-select none
+			opacity: 0.6;
 		.show-url
 			background-image: url(../img/history_info.svg);
 			width:15px;
@@ -116,18 +129,18 @@
 			background-size: contain;
 			position: absolute;
 			z-index : 9;
-			top: 1px;
-			left: 380px;
+			top: 2px;
+			left: 347px;
 			cursor: pointer;
 			white-space: nowrap;
 			&:hover
 				cursor: help;
 				z-index: 11;
 				background-image: url(../img/history_info.svg);
-				+div
+				+.tab
 					.url
-						display: block
-			+div
+						display: block;
+			+.tab
 				.url
 					display: none;
 					word-break: break-word;
@@ -139,13 +152,11 @@
 					top: 33px;
 					text-decoration: none;
 					padding: 7px 10px 9px 10px;
-					border-top: 2px solid $color1
-					border-bottom: 2px solid $color1
+					border-top: 2px solid #4bc0b1;
+					border-bottom: 2px solid #4bc0b1;
 					box-shadow: 0 23px 50px #666;
-					cursor: default
 					&:hover
-						display: block
-
+						display: block;
 
 .options-tabs
 	clear both

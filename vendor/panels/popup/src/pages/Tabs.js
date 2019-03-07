@@ -46,7 +46,7 @@ class Tabs {
 			const classList = elem.classList;
 			let childrens = false;
 
-			if (classList.contains('tab') || (classList.contains('tabs-title') || classList.contains('f-img')) && (childrens = true)) {
+			if (classList.contains('tab') || classList.contains('t-t') && (childrens = true)) {
 				if (childrens) {
 					elem = elem.parentElement;
 				}
@@ -57,9 +57,14 @@ class Tabs {
 					},
 					null
 				);
-			}
-			if (classList.contains('del')) {
-				const parent = elem.parentNode.parentNode;
+			} else if (classList.contains('btn-search')) {
+				const textSearch = this.elSearchTabs.value = new URL(elem.parentElement.children[3].children[0].innerHTML).host;
+
+				this.listingList(textSearch);
+				this.tags.activeTag();
+
+			} else if (classList.contains('delete')) {
+				const parent = elem.parentElement;
 
 				if (this.block) {
 					return;
@@ -75,7 +80,7 @@ class Tabs {
 			const classList = elem.classList;
 			let childrens = false;
 
-			if (classList.contains('tab') || (classList.contains('tabs-title') || classList.contains('f-img')) && (childrens = true)) {
+			if (classList.contains('tab') || classList.contains('t-t') && (childrens = true)) {
 				if (childrens) {
 					elem = elem.parentElement;
 				}
@@ -114,13 +119,12 @@ class Tabs {
 			event => {
 				const removeTabsId = [];
 				this.data = [];
-
-				for (let i = 0; i < event.length; i++) {
+				for (let i = 0, length = event.length; i < length; i++) {
 					this.data = this.data.concat(event[i].tabs);
 				}
 
 				for (let i = 0, length = this.data.length; i < length; i++) {
-					for (let n = this.data.length - 1; n > i; n--) {
+					for (let n = length - 1; n > i; n--) {
 						if (this.data[i].url === this.data[n].url) {
 							this.elDeleteCopy.style.display = "block";
 							if (type === "deleteCopy") {
@@ -138,6 +142,7 @@ class Tabs {
 				} else {
 					this.listingList(storage.getOption("lastSearchTabs"));
 				}
+
 			}
 		);
 	}
@@ -166,10 +171,9 @@ class Tabs {
 			if (type) {
 				word = str;
 			}
+			const cacheWord = word.toLocaleLowerCase();
 
 			for (let n = 0, length = listing.length; n < length; n++) {
-				const cacheWord = word.toLocaleLowerCase();
-
 				item = listing[n];
 
 				if (
@@ -179,6 +183,7 @@ class Tabs {
 					itog.push(item);
 				}
 			}
+
 			listing = itog;
 		}
 
@@ -191,9 +196,7 @@ class Tabs {
 			this.elTabsItems.appendChild(li);
 
 		} else {
-			let li = '';
 			let short = "";
-
 			this.elOpenTabs.innerHTML = listing.length;
 
 			if (storage.getOption("showOneLine") === "on") {
@@ -202,35 +205,32 @@ class Tabs {
 
 			for (let i = 0, length = listing.length; i < length; i++) {
 				const item = listing[i];
-				const favicon = Helpers.faviconValidate(item.favIconUrl);
-				let classActive = "";
+				//const favicon = Helpers.faviconValidate(item.favIconUrl);
 				let audible = "";
 
-				if (item.active) classActive = "active";
 				if (item.audible) audible = '<div class="audio"></div>';
 
-				li += `
-				<li 
-					draggable="true" 
-					data-id="${item.id}" 
-					data-index="${item.index}" 
-					class="${classActive}"
-				>	
-					<div class="btn">
-						<div class="del"></div>
-					</div>
+				let li = document.createElement("li");
+
+				li.dataset.id = item.id;
+				li.dataset.index = item.index;
+				li.setAttribute("draggable", "true");
+
+				if (item.active) li.classList.add("active");
+				const url = new URL(item.url);
+
+				li.innerHTML = `
+					<div class="delete"></div>
+					<div class="btn-search"></div>
 					<div class="show-url"></div>
-					<div class="tab ${short}" >
-						<img class="f-img" src="${favicon}" alt="" />
-						<span class="tabs-title">${Helpers.escapeHtml(item.title)}</span>
-						<span class="url">${item.url}</span>
-					</div>
-					<div class="info">
-						${audible}
-					</div>
-				</li>`;
+					<a class="tab" style="background-image:url(chrome://favicon/${url.origin})">
+						<div class="url">${item.url}</div>
+						<div class="t-t ${short}">${Helpers.escapeHtml(item.title)}</div>
+					</a>
+					<div class="info">${audible}</div>`;
+
+				this.elTabsItems.appendChild(li);
 			}
-			this.elTabsItems.insertAdjacentHTML("afterBegin", li);
 			const arrLi = Dom.query("#tabsItems li");
 
 			new DragDrop({
@@ -239,6 +239,7 @@ class Tabs {
 				container: "tabsItems",
 				funcSaveSort: this.search.bind(this)
 			});
+
 		}
 	}
 

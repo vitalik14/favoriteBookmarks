@@ -1,39 +1,15 @@
 @import "vars.styl"
 
 .tab-history
-	.wrap-history
-		width: 100%;
-		display: flex;
-		justify-content: flex-start;
-		flex-direction: row;
-		flex-wrap: wrap;
+	.search-block
 		.search
 			border: 1px solid $color3;
 		.add-tag
-			position absolute
-			z-index 2
-			width 30px
-			height 27px
-			text-align center
-			right 5px
-			top 5px
-			line-height 1.4
-			background $color3
-			font-size 18px
-			font-weight bold
-			color $color_white
-			cursor pointer
-			user-select none
-			border-radius 0 3px 3px 0
-			&:active
-				opacity 0.7
+			background-color $color3
 		.cssload-speeding-wheel
 			border-color: $color3;
-			border-left-color: transparent;
-			border-right-color: transparent;
 
-
-.results.history
+.results-history
 	max-height: 341px;
 	overflow-x: hidden;
 	overflow-y: auto;
@@ -142,7 +118,7 @@
 					display: inline-block;
 					font-size: 12px;
 					position: absolute;
-					top: 0;
+					top: 1px;
 					left: 270px;
 					width: max-content;
 					background: #fff;
@@ -156,7 +132,7 @@
 					background-size: contain;
 					position: absolute;
 					z-index : 9;
-					top: 0;
+					top: 2px;
 					left: 371px;
 					cursor: pointer;
 					white-space: nowrap;
@@ -169,7 +145,7 @@
 					background-size: contain;
 					position: absolute;
 					z-index : 9;
-					top: 0;
+					top: 2px;
 					left: 343px;
 					cursor: pointer;
 					white-space: nowrap;
