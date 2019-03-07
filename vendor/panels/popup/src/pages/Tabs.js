@@ -124,7 +124,7 @@ class Tabs {
 				}
 
 				for (let i = 0, length = this.data.length; i < length; i++) {
-					for (let n = length - 1; n > i; n--) {
+					for (let n = this.data.length - 1; n > i; n--) {
 						if (this.data[i].url === this.data[n].url) {
 							this.elDeleteCopy.style.display = "block";
 							if (type === "deleteCopy") {
