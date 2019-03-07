@@ -3,6 +3,9 @@ import { Dom } from "./components/Core";
 import { State } from "./configs";
 import storage from "./components/Storage";
 
+import { tabs } from "./pages/Tabs";
+import { bookmarks } from "./pages/Bookmarks";
+import { history } from "./pages/History";
 import "../css/_global.styl";
 import "../css/tags.styl";
 import "../css/tabs.styl";
@@ -23,27 +26,19 @@ Dom.query("#panel > div").forEach(el => {
 			case "btn-tabs":
 				if (!State.current.tabs) {
 					State.current.tabs = true;
-					require.ensure([], (require) => {
-						setTimeout(require("./pages/Tabs").tabs(), 5);
-
-					});
+					tabs();
 				}
 				break;
 			case "btn-bookmarks":
 				if (!State.current.bookmarks) {
 					State.current.bookmarks = true;
-					require.ensure([], (require) => {
-						require("./pages/Bookmarks").bookmarks();
-					});
-
+					bookmarks();
 				}
 				break;
 			case "btn-history":
 				if (!State.current.history) {
 					State.current.history = true;
-					require.ensure([], (require) => {
-						require("./pages/History").history();
-					});
+					history();
 				}
 				break;
 		}

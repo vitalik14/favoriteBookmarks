@@ -12,7 +12,7 @@ module.exports = {
 		filename: "[name].js"
 	},
 	watch: NODE_ENV === "development",
-	devtool: "inline-source-map",
+	devtool: false, //"inline-source-map",
 	plugins: [
 		new CleanWebpackPlugin(["public"]),
 		new CopyWebpackPlugin([
