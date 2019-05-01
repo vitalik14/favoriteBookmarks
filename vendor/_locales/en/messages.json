@@ -21,13 +21,13 @@
 		"message": "Sorting:"
 	},
 	"xDate": {
-		"message": "date"
+		"message": "by date"
 	},
 	"xUrl": {
-		"message": "url"
+		"message": "by url"
 	},
 	"xTitle": {
-		"message": "title"
+		"message": "by title"
 	},
 	"xOpenAll": {
 		"message": "Open all "

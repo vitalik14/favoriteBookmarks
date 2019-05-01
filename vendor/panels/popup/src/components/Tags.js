@@ -109,7 +109,6 @@ export default class Tags {
 		const text = Dom.id(this.search).value;
 
 		btnAdd.style.display = "block";
-		btnAdd.parentNode.children[1].style.right = "40px";
 
 		if (!text) {
 			btnAdd.style.display = "none";
@@ -122,7 +121,6 @@ export default class Tags {
 			if (!text) {
 				btnAdd.style.display = "none";
 			} else if (el.children[1].innerHTML === text) {
-				btnAdd.parentNode.children[1].style.right = "8px";
 				btnAdd.style.display = "none";
 				el.classList.add('active');
 			}

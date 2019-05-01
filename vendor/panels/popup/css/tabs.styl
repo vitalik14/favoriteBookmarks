@@ -1,9 +1,12 @@
 @import "vars.styl"
 
 .tab-tabs
+	.wrap-tabs
+		background: #f6f9fe;
 	.search-block
 		.search
 			border: 1px solid $color1
+			box-shadow 0px 1px 8px $color1
 		.add-tag
 			background-color $color1
 		.cssload-speeding-wheel
@@ -15,9 +18,10 @@
 	overflow-y: auto;
 	width: calc(100% - 2px);
 	border-bottom: 1px solid $color8;
-	box-shadow: 0px -1px 4px $color1;
+	box-shadow: 0px 0px 7px $color1;
 	padding-left: 2px;
 	margin-top: 2px;
+	background: $color_white
 	>li
 		border-bottom: 1px solid #DDD;
 		position: relative;
@@ -158,18 +162,8 @@
 					&:hover
 						display: block;
 
-.options-tabs
-	clear both
-	padding 3px 8px 3px 8px
-	display flex
-	justify-content flex-start
-	align-content center
-	align-items center
-	width calc(100% - 16px)
-	background $color7
-	border-top 1px solid $color_white
-	position relative
-	height: 30px;
+
+.options-bottom
 	.statistic
 		padding: 0 0 0 37px;
 		.open-tabs
@@ -178,13 +172,20 @@
 				width: 20px;
 				height: 20px;
 				margin-top: 1px;
-				background: url(../img/tabs.png) no-repeat;
+				background: url(../img/items_length.svg) no-repeat;
 				background-size: contain;
 				float: left;
+			span
+				font-weight bold
+				font-size 12px
+				color $color1
+				padding 10px 5px 5px 5px
+				vertical-align middle
+				user-select: none
 	.activity
 		display inline-block
 		width 100%
-		#deleteCopy
+		button
 			display none
 			background $color1
 			border 2px solid $color_white
@@ -197,16 +198,6 @@
 			&:hover
 				box-shadow inset 0 0 4px $color_white
 				border-color $color1
-		button
-			cursor pointer
-
-	#openTabs
-		font-weight bold
-		font-size 12px
-		color $color1
-		padding 10px 5px 5px 5px
-		vertical-align middle
-		user-select: none
 	.settings
 		display: flex;
 		position: absolute;
@@ -218,7 +209,7 @@
 		.settings-btn
 			line-height 1.4
 			font-size 14px
-			padding 2px 5px
+			padding 1px 5px
 			border-width 2px
 			border-right-width: 0
 			position: absolute;
@@ -226,7 +217,7 @@
 			color $color1
 			border-radius: 8px 0 0 8px;
 			margin-left 1px
-			background: url(../img/settings.svg) no-repeat 4px 3px;
+			background: url(../img/settings.svg) no-repeat 4px 0px;
 			height: 22px
 			width: 24px
 			top: 0;
@@ -239,7 +230,7 @@
 			position: relative;
 			width: 100%;
 			min-width: 100%;
-			height: 24px;
+			// height: 24px;
 			padding: 1px 5px 1px 5px;
 			border-radius: 0 8px 8px 0;
 			z-index: 2;
@@ -296,7 +287,7 @@
 				display block
 			.settings-btn
 				background-image: url(../img/settings_white.svg);
-				background-position: 3px 1px;
+				background-position: 4px 0px;
 				background-color: #4888f3;
 				color $color_white
 				border: 2px solid #fff;

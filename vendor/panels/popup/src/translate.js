@@ -8,7 +8,7 @@ function translate() {
 		//	tabs
 		"xTabs", "xShowOnlyOneLine", "xDeleteCopy",
 		//	bookmarks
-		"xBookmarks", "xSort", "xDate", "xUrl", "xTitle", "xOpenAll",
+		"xBookmarks", "xDate", "xUrl", "xTitle", "xOpenAll",
 		//	history
 		'xHistory', 'xFilter', "xNotFound"
 	];

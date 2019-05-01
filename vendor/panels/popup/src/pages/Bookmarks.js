@@ -18,6 +18,8 @@ class Bookmarks {
 		this.elRemoveTextSearchBookmarks = Dom.id("removeTextBookmarks");
 		this.elListBookmarks = Dom.id("resultsBookmarks");
 		this.elFindBookmarks = Dom.id("findBookmarks");
+		this.elFindBookmarksSearch = Dom.id("openBookmarksSearch");
+		debugger;
 		this.elNotFound = Dom.id("notFound");
 
 		this.elSelectSort = Dom.id("selectSortBookmarks");
@@ -123,49 +125,77 @@ class Bookmarks {
 		this.daysShowStart = 0;
 		this.daysShowEnd = Configs.visibleItemsInBookmarks;
 		this.elFindBookmarks.innerHTML = "0";
+		this.elFindBookmarksSearch.innerHTML = " "
 		this.elListBookmarks.innerHTML = "";
 		this.showHideBtnOpenBookmarks(true);
 
-		if (str.length < 2) return false;
+		//if (str.length < 2) return false;
 
 		clearInterval(this.timeoutBookmarks);
 		this.elLoaderBookmarks.classList.add("active");
 
 		this.timeoutBookmarks = setTimeout(() => {
+
 			chrome.bookmarks.search(str, tree => {
-				const length = tree.length;
+				tree = tree.filter(el => {
+					return !!el.url;
+				});
 
-				if (!length) {
-					const li = document.createElement("li");
+				var arr = [];
+				console.log(tree);
+				if (!tree.length) {
+					chrome.bookmarks.getTree((items) => {
+						getItems(items[0]);
+					});
 
-					li.classList.add('not-found');
-					li.innerHTML = this.elNotFound.innerHTML;
-					this.elListBookmarks.appendChild(li);
-				} else {
-					const arrBookmarks = [];
-
-					tree.sort(Helpers.compare.bind(storage.getOption("sortBookmarks")));
-					this.elFindBookmarks.innerHTML = length;
-
-					for (let i = 0; i < length; i++) {
-						const item = tree[i];
-
-						if (item.url === undefined) continue;
-						arrBookmarks.push(
-							{
-								id: item.id,
-								title: item.title,
-								added: item.dateAdded,
-								url: item.url
+					function getItems(item) {
+						if (item.children) {
+							for (let i = 0; i < item.children.length; i++) {
+								if (item.children[i].children) {
+									getItems(item.children[i].children);
+								} else {
+									arr.push(item.children[i]);
+								}
 							}
-						);
+						} else if (item.length) {
+							for (let i = 0; i < item.length; i++) {
+								getItems(item[i]);
+							}
+						} else {
+							arr.push(item);
+						}
 					}
-
-					this.currentArrBookmarks = arrBookmarks;
-					this.renderList();
-					this.showHideBtnOpenBookmarks();
-					this.loaderDownList = false;
+					// const li = document.createElement("li");
+					// li.classList.add('not-found');
+					// li.innerHTML = this.elNotFound.innerHTML;
+					// this.elListBookmarks.appendChild(li);
+					tree = arr;
 				}
+				console.log(tree);
+				const length = tree.length;
+				this.elFindBookmarksSearch.innerHTML = `( ${length} )`;
+				const arrBookmarks = [];
+				tree.sort(Helpers.compare.bind(storage.getOption("sortBookmarks")));
+				this.elFindBookmarks.innerHTML = length;
+
+				for (let i = 0; i < length; i++) {
+					const item = tree[i];
+					if (!item.url) continue;
+					arrBookmarks.push(
+						{
+							id: item.id,
+							title: item.title,
+							added: item.dateAdded,
+							url: item.url
+						}
+					);
+				}
+
+				this.currentArrBookmarks = arrBookmarks;
+				this.renderList();
+				this.showHideBtnOpenBookmarks();
+				this.loaderDownList = false;
+
 				this.elLoaderBookmarks.classList.remove("active");
 			});
 		}, 200);

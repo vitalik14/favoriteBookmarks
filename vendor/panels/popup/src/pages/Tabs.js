@@ -186,7 +186,7 @@ class Tabs {
 
 			listing = itog;
 		}
-
+		this.elOpenTabs.textContent = `( ${listing.length} )`;
 
 		if (!listing.length) {
 			const li = document.createElement("li");
@@ -197,7 +197,7 @@ class Tabs {
 
 		} else {
 			let short = "";
-			this.elOpenTabs.innerHTML = listing.length;
+
 
 			if (storage.getOption("showOneLine") === "on") {
 				short = "short";

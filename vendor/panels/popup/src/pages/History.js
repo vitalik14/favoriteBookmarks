@@ -22,6 +22,7 @@ class History {
 		this.elRemoveTextSearchHistory = Dom.id("removeTextHistory");
 		this.elNotFound = Dom.id("notFound");
 		this.elListHistory = Dom.id("resultsHistory");
+		this.elFindHistorySearch = Dom.id("openHistorySearch");
 		this.elDateHistory = Dom.id("dateHistory");
 		this.elSearchPeriodHistory = Dom.id("searchPeriodHistory");
 		this.elStartHistory = Dom.id("startHistory");
@@ -175,10 +176,12 @@ class History {
 		if (el && typeof el === 'string') {
 			storage.setOption("lastSearchHystory", el);
 		}
+
 		this.loaderDownList = true;
 		this.daysShowStart = 0;
 		this.daysShowEnd = Configs.visibleItemsInHistory;
 		this.elListHistory.innerHTML = "";
+		this.elFindHistorySearch.innerHTML = " "
 		this.currentArrHistory = [];
 		clearInterval(this.timeoutHistory);
 
@@ -209,6 +212,7 @@ class History {
 						this.elListHistory.appendChild(li);
 
 					} else {
+						this.elFindHistorySearch.innerHTML = `( ${length} )`;
 						const arrHistory = [];
 						let day = false;
 						let lastDate = new Date(endTime).getDate();

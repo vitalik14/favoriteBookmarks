@@ -1,13 +1,19 @@
 @import "vars.styl"
 
 .tab-history
+	.wrap-history
+		background #fef9f6
 	.search-block
 		.search
-			border: 1px solid $color3;
-		.add-tag
-			background-color $color3
-		.cssload-speeding-wheel
-			border-color: $color3;
+			border 1px solid $color3
+			box-shadow 0px 1px 8px $color3
+		.inner-search
+			.add-tag
+				background-color $color3
+			.cssload-speeding-wheel
+				border-color: $color3
+			.open-tabs span
+				color $color3
 
 .results-history
 	max-height: 341px;
@@ -15,9 +21,10 @@
 	overflow-y: auto;
 	width: calc(100% - 2px);
 	border-bottom: 1px solid $color8;
-	box-shadow: 0px -1px 4px $color3;
+	box-shadow: 0px 0px 7px $color3;
 	padding-left: 2px;
 	margin-top: 2px;
+	background: $color_white
 	>li
 		border-bottom: 1px solid #DDD;
 		position: relative;
@@ -174,12 +181,8 @@
 							&:hover
 								display: block
 
-.options-history
-	display: flex;
-	align-items: center;
-	width: 100%;
-	padding: 10px 2px 10px 10px;
-	background: $color7;
+
+.options-bottom
 	.date-period
 		display: flex;
 		width: 100%;

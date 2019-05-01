@@ -1,50 +1,19 @@
 @import "vars.styl"
 
-
 .tab-bookmarks
+	.wrap-bookmarks
+		background #f6fcfb
 	.search-block
 		.search
-			border: 1px solid $color9;
-		.add-tag
-			background-color $color2
-		.cssload-speeding-wheel
-			border-color $color2
-
-.options-bookmarks
-	display: flex;
-	align-items: center;
-	width: 100%;
-	padding: 5px;
-	background: $color7;
-	.open-all-bookmarks
-		width 100%
-		button
-			display block
-			background $color9
-			border 2px solid $color_white
-			border-radius 8px
-			color $color_white
-			padding 5px 10px
-			cursor pointer
-			float right
-			user-select none
-			&:hover
-				box-shadow: inset 0 0 4px $color_white
-				border-color $color9
-			span
-				color $color_white
-	.settings
-		display: flex;
-		align-items: center;
-		justify-content: space-around;
-		.settings-btn
-			cursor: default;
-			color: $color4;
-			border: none;
-			margin-right: 5px;
-			font-size: 14px;
-		select
-			height: 26px;
+			border 1px solid $color9
+			box-shadow 0px 1px 8px $color2
+		.inner-search
+			.add-tag
+				background-color $color2
+			.cssload-speeding-wheel
+				border-color $color2
+			.open-tabs span
+				color $color2
 
 .results-bookmarks
 	max-height: 346px;
@@ -52,7 +21,7 @@
 	overflow-y: auto;
 	width: calc(100% - 2px);
 	border-bottom: 1px solid $color8;
-	box-shadow: 0px -1px 4px $color9;
+	box-shadow: 0px 0px 7px $color9;
 	padding-left: 2px;
 	margin-top: 2px;
 	>li
@@ -173,4 +142,46 @@
 					box-shadow: 0 23px 50px #666;
 					&:hover
 						display: block;
-				
+
+
+
+
+
+
+
+
+
+
+
+
+.options-bottom
+	.open-all-bookmarks
+		width 100%
+		button
+			display block
+			background $color9
+			border 2px solid $color_white
+			border-radius 8px
+			color $color_white
+			padding 5px 10px
+			cursor pointer
+			float right
+			user-select none
+			&:hover
+				box-shadow: inset 0 0 4px $color_white
+				border-color $color9
+			span
+				color $color_white
+
+	.options
+		display: flex;
+		align-items: center;
+		justify-content: space-around;
+		select
+			height: 26px;
+			outline: none
+			border-color: $color2	
+			appearance none
+			-webkit-appearance none
+			background url(../img/sort.svg) no-repeat 0 0
+			padding 0 15px 0 30px

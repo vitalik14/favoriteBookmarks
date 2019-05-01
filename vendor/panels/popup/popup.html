@@ -18,6 +18,9 @@
 							<input class="search" id="tabsSearch" maxlength="50"
 								placeholder="&#128270;" required type="text" />
 							<div class="remove-text-search" id="removeTextTabs"></div>
+							<div class="open-tabs">
+								<span id="openTabs">0</span>
+							</div>
 							<div class="add-tag" id="addTagTab">
 								<span>+</span>
 							</div>
@@ -25,24 +28,20 @@
 						<ul class="tags" id="tagsTab"></ul>
 					</div>
 					<ul class="results-tabs" id="tabsItems"></ul>
-					<div class="options-tabs">
-						<div class="settings">
-							<div class="settings-btn"></div>
-							<div class="settings-options">
-								<div>
-									<input id="showOneLine" type="checkbox" />
-									<label class="xShowOnlyOneLine" for="showOneLine">Show only 1 line</label>
+					<div class="options-bottom">
+						<div class="wrap-options">
+							<div class="settings">
+								<div class="settings-btn"></div>
+								<div class="settings-options">
+									<div>
+										<input id="showOneLine" type="checkbox" />
+										<label class="xShowOnlyOneLine" for="showOneLine">Show only 1 line</label>
+									</div>
 								</div>
 							</div>
-						</div>
-						<div class="statistic">
-							<div class="open-tabs">
-								<div class="img-tabs"></div>
-								<span id="openTabs">0</span>
+							<div class="activity">
+								<button class="xDeleteCopy" id="deleteCopy">Remove Duplicates</button>
 							</div>
-						</div>
-						<div class="activity">
-							<button class="xDeleteCopy" id="deleteCopy">Remove Duplicates</button>
 						</div>
 					</div>
 				</div>
@@ -53,29 +52,36 @@
 						<div class="wrap-search">
 							<input class="search" id="bookmarksSearch" maxlength="50"
 								placeholder="&#128270;" required type="text" />
-							<div class="remove-text-search" id="removeTextBookmarks"></div>
-							<div class="cssload-container" id="loaderBookmarks">
-								<div class="cssload-speeding-wheel"></div>
+							<div class="inner-search">
+								<div class="open-tabs">
+									<span id="openBookmarksSearch">0</span>
+									<div class="cssload-container" id="loaderBookmarks">
+										<div class="cssload-speeding-wheel"></div>
+									</div>
+								</div>
+								<div class="remove-text-search" id="removeTextBookmarks"></div>
+								<div class="add-tag" id="addTagBookmark">+</div>
 							</div>
-							<div class="add-tag" id="addTagBookmark">+</div>
 						</div>
 						<ul class="tags" id="tagsBookmarks"></ul>
 					</div>
 					<ul class="results-bookmarks" id="resultsBookmarks"></ul>
-					<div class="options-bookmarks">
-						<div class="settings">
-							<label class="settings-btn xSort" for="selectSortBookmarks">Sort:</label>
-							<select id="selectSortBookmarks">
-								<option class="xDate" value="dateAdded">Date</option>
-								<option class="xUrl" value="url">Url</option>
-								<option class="xTitle" value="title">Title</option>
-							</select>
-						</div>
-						<div class="open-all-bookmarks">
-							<button id="openBookmarks">
-								<span class="xOpenAll">Open All</span>
-								(<span id="findBookmarks">0</span>)
-							</button>
+					<div class="options-bottom">
+						<div class="wrap-options">
+							<div class="settings"></div>
+							<div class="options">
+								<select placeholder="Сортировка" id="selectSortBookmarks">
+									<option class="xDate" value="dateAdded">Date</option>
+									<option class="xUrl" value="url">Url</option>
+									<option class="xTitle" value="title">Title</option>
+								</select>
+							</div>
+							<div class="open-all-bookmarks">
+								<button id="openBookmarks">
+									<span class="xOpenAll">Open All</span>
+									(<span id="findBookmarks">0</span>)
+								</button>
+							</div>
 						</div>
 					</div>
 				</div>
@@ -86,23 +92,37 @@
 						<div class="wrap-search">
 							<input class="search" id="historySearch" maxlength="50"
 								placeholder="&#128270;" required type="text" />
-							<div class="remove-text-search" id="removeTextHistory"></div>
+							<div class="inner-search">
+								<div class="open-tabs">
+									<span id="openHistorySearch">0</span>
+									<div class="cssload-container" id="loader-history">
+										<div class="cssload-speeding-wheel"></div>
+									</div>
+								</div>
+								<div class="remove-text-search" id="removeTextHistory"></div>
+								<div class="add-tag" id="addTagHistory">+</div>
+							</div>
+
+
+							<!-- <div class="remove-text-search" id="removeTextHistory"></div>
 							<div class="cssload-container" id="loader-history">
 								<div class="cssload-speeding-wheel"></div>
 							</div>
-							<div class="add-tag" id="addTagHistory">+</div>
+							<div class="add-tag" id="addTagHistory">+</div> -->
 						</div>
 						<ul class="tags" id="tagsHistory"></ul>
 					</div>
 					<ul class="results-history" id="resultsHistory"></ul>
-					<div class="options-history">
-						<div class="date-period">
-							<input id="searchOn" type="checkbox" />
-							<input disabled id="startHistory" max="2018-12-31" type="date" value=""
-								/>
-							<div class="arrow"></div>
-							<input disabled id="endHistory" max="2018-12-31" type="date" value="" />
-							<button class="xFilter" disabled id="searchPeriodHistory">Filtering</button>
+					<div class="options-bottom">
+						<div class="wrap-options">
+							<div class="date-period">
+								<input id="searchOn" type="checkbox" />
+								<input disabled id="startHistory" max="2018-12-31" type="date" value=""
+									/>
+								<div class="arrow"></div>
+								<input disabled id="endHistory" max="2018-12-31" type="date" value="" />
+								<button class="xFilter" disabled id="searchPeriodHistory">Filtering</button>
+							</div>
 						</div>
 					</div>
 				</div>
