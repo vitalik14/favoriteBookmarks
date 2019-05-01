@@ -125,7 +125,7 @@ class Bookmarks {
 		this.daysShowStart = 0;
 		this.daysShowEnd = Configs.visibleItemsInBookmarks;
 		this.elFindBookmarks.innerHTML = "0";
-		this.elFindBookmarksSearch.innerHTML = " "
+		this.elFindBookmarksSearch.innerHTML = " ";
 		this.elListBookmarks.innerHTML = "";
 		this.showHideBtnOpenBookmarks(true);
 
@@ -141,20 +141,15 @@ class Bookmarks {
 					return !!el.url;
 				});
 
-				var arr = [];
 				console.log(tree);
 				if (!tree.length) {
-					chrome.bookmarks.getTree((items) => {
-						getItems(items[0]);
-					});
-
 					function getItems(item) {
 						if (item.children) {
 							for (let i = 0; i < item.children.length; i++) {
 								if (item.children[i].children) {
 									getItems(item.children[i].children);
 								} else {
-									arr.push(item.children[i]);
+									this.push(item.children[i]);
 								}
 							}
 						} else if (item.length) {
@@ -162,43 +157,49 @@ class Bookmarks {
 								getItems(item[i]);
 							}
 						} else {
-							arr.push(item);
+							this.push(item);
 						}
 					}
-					// const li = document.createElement("li");
-					// li.classList.add('not-found');
-					// li.innerHTML = this.elNotFound.innerHTML;
-					// this.elListBookmarks.appendChild(li);
-					tree = arr;
+					getItems = getItems.bind(tree);
+
+					chrome.bookmarks.getTree(function (items) {
+						getItems(items[0]);
+						this.self.preRenderList(this.tree);
+					}.bind({ self: this, tree }));
+
+				} else {
+					this.preRenderList(tree);
 				}
-				console.log(tree);
-				const length = tree.length;
-				this.elFindBookmarksSearch.innerHTML = `( ${length} )`;
-				const arrBookmarks = [];
-				tree.sort(Helpers.compare.bind(storage.getOption("sortBookmarks")));
-				this.elFindBookmarks.innerHTML = length;
-
-				for (let i = 0; i < length; i++) {
-					const item = tree[i];
-					if (!item.url) continue;
-					arrBookmarks.push(
-						{
-							id: item.id,
-							title: item.title,
-							added: item.dateAdded,
-							url: item.url
-						}
-					);
-				}
-
-				this.currentArrBookmarks = arrBookmarks;
-				this.renderList();
-				this.showHideBtnOpenBookmarks();
-				this.loaderDownList = false;
-
-				this.elLoaderBookmarks.classList.remove("active");
 			});
 		}, 200);
+	}
+
+	preRenderList(tree) {
+		const length = tree.length;
+		this.elFindBookmarksSearch.innerHTML = `( ${length} )`;
+		const arrBookmarks = [];
+		tree.sort(Helpers.compare.bind(storage.getOption("sortBookmarks")));
+		this.elFindBookmarks.innerHTML = length;
+
+		for (let i = 0; i < length; i++) {
+			const item = tree[i];
+			if (!item.url) continue;
+			arrBookmarks.push(
+				{
+					id: item.id,
+					title: item.title,
+					added: item.dateAdded,
+					url: item.url
+				}
+			);
+		}
+
+		this.currentArrBookmarks = arrBookmarks;
+		this.renderList();
+		this.showHideBtnOpenBookmarks();
+		this.loaderDownList = false;
+
+		this.elLoaderBookmarks.classList.remove("active");
 	}
 
 	renderList() {
