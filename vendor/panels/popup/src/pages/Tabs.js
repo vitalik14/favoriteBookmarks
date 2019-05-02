@@ -111,7 +111,7 @@ class Tabs {
 		this.listingList(storage.getOption("lastSearchTabs"));
 	}
 
-	search(type) {
+	async search(type) {
 		chrome.windows.getAll(
 			{
 				populate: true
@@ -142,7 +142,6 @@ class Tabs {
 				} else {
 					this.listingList(storage.getOption("lastSearchTabs"));
 				}
-
 			}
 		);
 	}
@@ -198,7 +197,6 @@ class Tabs {
 		} else {
 			let short = "";
 
-
 			if (storage.getOption("showOneLine") === "on") {
 				short = "short";
 			}
@@ -239,7 +237,6 @@ class Tabs {
 				container: "tabsItems",
 				funcSaveSort: this.search.bind(this)
 			});
-
 		}
 	}
 

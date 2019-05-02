@@ -19,7 +19,6 @@ class Bookmarks {
 		this.elListBookmarks = Dom.id("resultsBookmarks");
 		this.elFindBookmarks = Dom.id("findBookmarks");
 		this.elFindBookmarksSearch = Dom.id("openBookmarksSearch");
-		debugger;
 		this.elNotFound = Dom.id("notFound");
 
 		this.elSelectSort = Dom.id("selectSortBookmarks");
@@ -141,7 +140,6 @@ class Bookmarks {
 					return !!el.url;
 				});
 
-				console.log(tree);
 				if (!tree.length) {
 					function getItems(item) {
 						if (item.children) {
