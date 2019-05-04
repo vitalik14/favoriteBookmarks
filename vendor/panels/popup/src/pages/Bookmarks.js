@@ -140,7 +140,7 @@ class Bookmarks {
 					return !!el.url;
 				});
 
-				if (!tree.length) {
+				if (!tree.length && !str.length) {
 					function getItems(item) {
 						if (item.children) {
 							for (let i = 0; i < item.children.length; i++) {
@@ -165,6 +165,9 @@ class Bookmarks {
 						this.self.preRenderList(this.tree);
 					}.bind({ self: this, tree }));
 
+				} else if (!tree.length && str.length) {
+					this.elListBookmarks.innerHTML = `<li class="not-found">${this.elNotFound.innerHTML} </li>`;
+					this.elLoaderBookmarks.classList.remove("active");
 				} else {
 					this.preRenderList(tree);
 				}
